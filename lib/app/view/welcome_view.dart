@@ -3,7 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'dart:ui' as ui;
 import 'package:sizer/sizer.dart';
+
+import 'dashboard_view.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({Key? key}) : super(key: key);
@@ -16,15 +20,15 @@ class WelcomeView extends StatelessWidget {
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light.copyWith(
-          systemNavigationBarColor: const Color(0xFF9F1382),
-          systemNavigationBarIconBrightness: Brightness.light,
-          statusBarColor: const Color(0xFF9F1382),
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: const Color(0xFFE8E9E6),
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarColor: const Color(0xFFE8E9E6),
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
         ),
         child: SafeArea(
           child: Scaffold(
-              backgroundColor: const Color(0xFF9F1382),
+              backgroundColor: const Color(0xFFE8E9E6),
               extendBody: true,
               body: Padding(
                 padding: const EdgeInsets.all(30.0),
@@ -34,11 +38,24 @@ class WelcomeView extends StatelessWidget {
                     const Spacer(),
                     FadeInUp(
                       duration: const Duration(milliseconds: 1000),
-                      child: SvgPicture.asset("assets/icon/heroku_logo.svg",
-                          height: 300,
-                          width: 300,
-                          color: const Color(0xFFFFFFFF),
-                          semanticsLabel: 'Open Pill'),
+                      child: ShaderMask(
+                        blendMode: BlendMode.srcIn,
+                        shaderCallback: (Rect bounds) {
+                          return ui.Gradient.linear(
+                            const Offset(1.0, 34.0),
+                            const Offset(34.0, 4.0),
+                            [
+                              Colors.purple.shade300,
+                              Colors.purpleAccent.shade200,
+                            ],
+                          );
+                        },
+                        child: SvgPicture.asset("assets/icon/heroku_logo.svg",
+                            height: 300,
+                            width: 300,
+                            color: const Color(0xFFFFFFFF),
+                            semanticsLabel: 'Open Pill'),
+                      ),
                     ),
                     FadeIn(
                       duration: const Duration(milliseconds: 2000),
@@ -47,7 +64,7 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20.sp,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -59,7 +76,7 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: Colors.white54,
+                          color: Colors.black54,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
@@ -70,9 +87,11 @@ class WelcomeView extends StatelessWidget {
                     FadeInDown(
                       duration: const Duration(milliseconds: 1000),
                       child: CupertinoButton(
-                          color: Colors.white30,
+                          color: Colors.purple.shade300,
                           borderRadius: BorderRadius.circular(30),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(const DashboardView());
+                          },
                           child: Text(
                             "Let's Go!",
                             style: TextStyle(
