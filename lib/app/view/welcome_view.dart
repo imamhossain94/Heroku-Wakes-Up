@@ -45,8 +45,8 @@ class WelcomeView extends StatelessWidget {
                             const Offset(1.0, 34.0),
                             const Offset(34.0, 4.0),
                             [
-                              Colors.purple.shade300,
-                              Colors.purpleAccent.shade200,
+                              const Color(0xFF232157),
+                              const Color(0xFF29266F),
                             ],
                           );
                         },
@@ -87,7 +87,7 @@ class WelcomeView extends StatelessWidget {
                     FadeInDown(
                       duration: const Duration(milliseconds: 1000),
                       child: CupertinoButton(
-                          color: Colors.purple.shade300,
+                          color: const Color(0xFF232157),
                           borderRadius: BorderRadius.circular(30),
                           onPressed: () {
                             Get.to(const DashboardView());
