@@ -45,14 +45,14 @@ class WelcomeView extends StatelessWidget {
                             const Offset(1.0, 34.0),
                             const Offset(34.0, 4.0),
                             [
-                              const Color(0xFF232157),
-                              const Color(0xFF29266F),
+                              const Color(0xFF9966FF).withOpacity(0.7),
+                              const Color(0xFFFF6384).withOpacity(0.7),
                             ],
                           );
                         },
                         child: SvgPicture.asset("assets/icon/heroku_logo.svg",
-                            height: 300,
-                            width: 300,
+                            height: 200.sp,
+                            width: 200.sp,
                             color: const Color(0xFFFFFFFF),
                             semanticsLabel: 'Open Pill'),
                       ),
@@ -63,7 +63,7 @@ class WelcomeView extends StatelessWidget {
                         '"Heroku Wake Up"',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20.sp,
+                          fontSize: 12.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -75,7 +75,7 @@ class WelcomeView extends StatelessWidget {
                         "Prevent your free heroku app from ever falling asleep again.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 8.sp,
                           color: Colors.black54,
                           fontWeight: FontWeight.normal,
                         ),
@@ -87,7 +87,7 @@ class WelcomeView extends StatelessWidget {
                     FadeInDown(
                       duration: const Duration(milliseconds: 1000),
                       child: CupertinoButton(
-                          color: const Color(0xFF232157),
+                          color: const Color(0xFFFF6384).withOpacity(0.7),
                           borderRadius: BorderRadius.circular(30),
                           onPressed: () {
                             Get.to(const DashboardView());
@@ -95,12 +95,12 @@ class WelcomeView extends StatelessWidget {
                           child: Text(
                             "Let's Go!",
                             style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 10.sp,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
                             ),
                           )),
-                    )
+                    ),
+
                   ],
                 ),
               )),
@@ -109,3 +109,5 @@ class WelcomeView extends StatelessWidget {
     );
   }
 }
+
+

@@ -3,10 +3,10 @@
     <rect id="Rectangle_111" width="19" height="19" rx="2" transform="translate(4 4)"/>
     <rect id="Rectangle_112" width="19" height="19" rx="2" transform="translate(4 33)"/>
     <rect id="Rectangle_113" width="19" height="19" rx="2" transform="translate(33 4)"/>
-    <g id="Group_189" transform="translate(34.581 34.624)">
-      <path id="Path_190" d="M28,28.5H43.633" transform="translate(-27.998 -12.946)" fill="rgba(0,0,0,0)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-      <path id="Path_191" d="M36,36H46.219" transform="translate(-30.584 -28.246)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-      <path id="Path_199" d="M28,28H43.633" transform="translate(-28 -28)" fill="rgba(0,0,0,0)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <g id="Group_189" transform="translate(35.572 35.013)">
+      <path id="Path_190" d="M28,28.5H42.982" transform="translate(-28.564 -13.526)" fill="rgba(0,0,0,0)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      <path id="Path_191" d="M36,36h8.939" transform="translate(-30.521 -28.535)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      <path id="Path_199" d="M28,28H42.982" transform="translate(-28.564 -28)" fill="rgba(0,0,0,0)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
     </g>
   </g>
 </svg>
