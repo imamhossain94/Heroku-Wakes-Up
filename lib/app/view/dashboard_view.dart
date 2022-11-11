@@ -1,16 +1,10 @@
 import 'package:animate_do/animate_do.dart';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
-
-import 'dart:async';
-import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 
 
 class DashboardView extends StatelessWidget {
@@ -35,7 +29,7 @@ class DashboardView extends StatelessWidget {
               backgroundColor: Colors.white, // const Color(0xFFE8E9E6),
               extendBody: true,
               body: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 5, 15, 15),
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +43,23 @@ class DashboardView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/heroku_icon.svg",
                                   height: 24.sp,
                                   width: 24.sp,
-                                  color: const Color(0xFF232157),
+                                  color: Colors.black87,
                                   semanticsLabel: 'Heroku'),
+                            ),
+                          ),
+                          const Spacer(),
+                          FadeInDown(
+                            duration: const Duration(milliseconds: 500),
+                            child: SizedBox(
+                              //width: double.infinity,
+                              child: Text(
+                                'Heroku Wake Up',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
                           ),
                           const Spacer(),
@@ -77,21 +86,20 @@ class DashboardView extends StatelessWidget {
                           )
                         ],
                       ),
-                      FadeInDown(
-                        duration: const Duration(milliseconds: 500),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            'Heroku Wake Up',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: const Color(0xFF232157),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // FadeInDown(
+                      //   duration: const Duration(milliseconds: 500),
+                      //   child: SizedBox(
+                      //     width: double.infinity,
+                      //     child: Text(
+                      //       'Heroku Wake Up',
+                      //       textAlign: TextAlign.center,
+                      //       style: TextStyle(
+                      //         fontSize: 14.sp,
+                      //         color: Colors.black,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.sp),
                         child: Row(
@@ -128,9 +136,8 @@ class DashboardView extends StatelessWidget {
                               'App list',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 10.sp,
-                                color: const Color(0xFF232157),
-                                fontWeight: FontWeight.bold,
+                                fontSize: 12.sp,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -145,10 +152,12 @@ class DashboardView extends StatelessWidget {
 
                                 },
                                 borderRadius: BorderRadius.circular(8),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Icon(
-                                    FontAwesomeIcons.plus, color: Color(0xFFA6A8AA),
+                                    FontAwesomeIcons.plus,
+                                    size: 12.sp,
+                                    color: const Color(0xFFA6A8AA),
                                   ),
                                 ),
                               ),
@@ -157,12 +166,11 @@ class DashboardView extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 10.sp,),
-
                       FadeInRight(
                           duration: const Duration(milliseconds: 500),
                           child: appCard(
                             cardColor: const Color(0xFFFF6384).withOpacity(0.2),
-                            icon: SvgPicture.asset("assets/icon/menu.svg",
+                            icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
                               height: 14.sp,
                               width: 14.sp,
                               color: Colors.black,
@@ -176,7 +184,7 @@ class DashboardView extends StatelessWidget {
                           duration: const Duration(milliseconds: 500),
                           child: appCard(
                             cardColor: const Color(0xFF9966FF).withOpacity(0.2),
-                            icon: SvgPicture.asset("assets/icon/menu.svg",
+                            icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
                                 height: 14.sp,
                                 width: 14.sp,
                                 color: Colors.black,
@@ -190,7 +198,7 @@ class DashboardView extends StatelessWidget {
                           duration: const Duration(milliseconds: 500),
                           child: appCard(
                             cardColor: const Color(0xFF4BC0C0).withOpacity(0.2),
-                            icon: SvgPicture.asset("assets/icon/menu.svg",
+                            icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
                                 height: 14.sp,
                                 width: 14.sp,
                                 color: Colors.black,
@@ -208,9 +216,8 @@ class DashboardView extends StatelessWidget {
                           child: Text(
                             'Events Life Line',
                             style: TextStyle(
-                              fontSize: 10.sp,
-                              color: const Color(0xFF232157),
-                              fontWeight: FontWeight.bold,
+                              fontSize: 12.sp,
+                              color: Colors.black
                             ),
                           ),
                         ),
@@ -282,45 +289,39 @@ class DashboardView extends StatelessWidget {
         ),
         child: Row(
           children: [
+            icon,
+            SizedBox(width: 10.sp,),
             Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        icon,
-                        SizedBox(width: 5.sp,),
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Colors.black,
+                      ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(19.sp, 5.sp, 5.sp, 0),
-                      child: Text(
-                        description,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 8.sp,
-                          color: Colors.grey,
-                        ),
+                    SizedBox(height: 5.sp,),
+                    Text(
+                      description,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 8.sp,
+                        color: Colors.black45,
                       ),
                     )
                   ],
                 )
             ),
             Container(
-              width: 12.sp,
-              height: 12.sp,
+              width: 8.sp,
+              height: 8.sp,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: statusColor, width: 3)
+                  border: Border.all(color: statusColor, width: 1.sp)
               ),
             )
           ],
@@ -422,8 +423,8 @@ class _LineChart extends StatelessWidget {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     var style = TextStyle(
-      color: const Color(0xff72719b),
-      fontSize: 10.sp,
+      color: Colors.grey,
+      fontSize: 8.sp,
     );
     Widget text;
     switch (value.toInt()) {
@@ -546,8 +547,8 @@ class LineChartSample1State extends State<LineChartSample1> {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           gradient: LinearGradient(
             colors: [
-              Color(0xffECEDEA),
-              Color(0xffECEDEA),
+              Color(0x4decedea),
+              Color(0x4decedea),
             ],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
@@ -565,12 +566,11 @@ class LineChartSample1State extends State<LineChartSample1> {
                   Text(
                     'Daily Events',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12.sp,
+                      color: Colors.black54,
+                      fontSize: 10.sp,
                       letterSpacing: 2,
                     ),
                   ),
-
                 ],
               ),
             ),
