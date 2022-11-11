@@ -30,7 +30,8 @@ class WelcomeView extends StatelessWidget {
           child: Scaffold(
               backgroundColor: const Color(0xFFE8E9E6),
               extendBody: true,
-              body: Padding(
+              body: Container(
+                width: double.infinity,
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
