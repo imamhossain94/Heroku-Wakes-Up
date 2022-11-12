@@ -46,6 +46,24 @@ class WelcomeView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: InkWell(
                               onTap: () {
+                              },
+                              borderRadius: BorderRadius.circular(8),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                    "assets/icon/tick.svg",
+                                    height: 22.sp,
+                                    width: 22.sp,
+                                    color: Colors.black,
+                                    semanticsLabel: 'Menu'),
+                              ),
+                            ),
+                          ),
+                          Material(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                            child: InkWell(
+                              onTap: () {
                                 Get.back();
                               },
                               borderRadius: BorderRadius.circular(8),
