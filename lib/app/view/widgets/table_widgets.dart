@@ -24,7 +24,8 @@ class THeader extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.sp),
               topRight: Radius.circular(8.sp)
-          )
+          ),
+          border: Border.all(color: const Color(0xFFF1F3F2))
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -83,7 +84,8 @@ class TRow extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: borderRadius
+          borderRadius: borderRadius,
+          border: Border.all(color: const Color(0xFFF1F3F2))
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

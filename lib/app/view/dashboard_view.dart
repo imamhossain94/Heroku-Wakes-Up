@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -139,7 +138,7 @@ class DashboardView extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 12.sp,
-                                color: Colors.black,
+                                color: const Color(0xFF613C96).withOpacity(0.8),
                               ),
                             ),
                           ),
@@ -156,12 +155,13 @@ class DashboardView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Padding(
                                   padding: EdgeInsets.all(8.sp),
-                                  child: SvgPicture.asset("assets/icon/plus_square.svg",
-                                      height: 15.sp,
-                                      width: 15.sp,
-                                      color: Colors.black,
-                                      semanticsLabel: 'heroku-icon'
-                                  ),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/plus_square.svg",
+                                      height: 14.sp,
+                                      width: 14.sp,
+                                      color: const Color(0xFF613C96)
+                                          .withOpacity(0.8),
+                                      semanticsLabel: 'heroku-icon'),
                                 ),
                               ),
                             ),
@@ -218,8 +218,9 @@ class DashboardView extends StatelessWidget {
                         duration: const Duration(milliseconds: 500),
                         child: Text(
                           'Events Life Line',
-                          style:
-                              TextStyle(fontSize: 12.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xFF613C96).withOpacity(0.8)),
                         ),
                       ),
                     ),
@@ -231,8 +232,9 @@ class DashboardView extends StatelessWidget {
                         duration: const Duration(milliseconds: 500),
                         child: Text(
                           'Events Logs',
-                          style:
-                              TextStyle(fontSize: 12.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xFF613C96).withOpacity(0.8)),
                         ),
                       ),
                     ),
@@ -245,7 +247,7 @@ class DashboardView extends StatelessWidget {
                         child: Column(
                           children: [
                             THeader(
-                              bgColor: const Color(0x4decedea),
+                              bgColor: Colors.white,
                               padding: EdgeInsets.all(10.sp),
                               textColor: Colors.black,
                               fontSize: 10.sp,
@@ -400,18 +402,17 @@ class DashboardView extends StatelessWidget {
     );
   }
 
-
   Widget eventsLifeLine() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
         child: Container(
-          height: (Get.size.width - 16)/2,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            color: Color(0x4decedea),
-          ),
+          height: (Get.size.width - 16) / 2,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: Colors.white,
+              border: Border.all(color: const Color(0xFFF1F3F2))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -512,7 +513,8 @@ class DashboardView extends StatelessWidget {
                                 return Container();
                             }
 
-                            return Text(text, style: style, textAlign: TextAlign.center);
+                            return Text(text,
+                                style: style, textAlign: TextAlign.center);
                           },
                           showTitles: false,
                           interval: 1,
@@ -523,7 +525,8 @@ class DashboardView extends StatelessWidget {
                     borderData: FlBorderData(
                       show: true,
                       border: const Border(
-                        bottom: BorderSide(color: Color(0xff959598), width: 0.5),
+                        bottom:
+                            BorderSide(color: Color(0xff959598), width: 0.5),
                         left: BorderSide(color: Colors.transparent),
                         right: BorderSide(color: Colors.transparent),
                         top: BorderSide(color: Colors.transparent),
@@ -537,7 +540,8 @@ class DashboardView extends StatelessWidget {
                         isStrokeCapRound: true,
                         dotData: FlDotData(show: false),
                         belowBarData: BarAreaData(
-                            show: true, color: const Color(0xff2CB77F).withOpacity(0.1)),
+                            show: true,
+                            color: const Color(0xff2CB77F).withOpacity(0.1)),
                         spots: const [
                           FlSpot(0, 0),
                           FlSpot(3, 1.5),
@@ -600,7 +604,4 @@ class DashboardView extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

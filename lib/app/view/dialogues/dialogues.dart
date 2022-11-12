@@ -122,7 +122,8 @@ void showAboutDialogue() async {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.sp),
                                 child: Text(
-                                  "56",
+                                  "6",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12.sp,
                                       color: Colors.black,
@@ -155,6 +156,7 @@ void showAboutDialogue() async {
                             ],
                           ),
                         ),
+                        SizedBox(width: 10.sp,),
                         Expanded(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -186,7 +188,8 @@ void showAboutDialogue() async {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.sp),
                                 child: Text(
-                                  "AM",
+                                  "h",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12.sp,
                                       color: Colors.black,

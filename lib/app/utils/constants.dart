@@ -10,10 +10,12 @@ const String designerName = 'Md. Imam Hossain';
 const String feedbackMail = 'mailto:imamagun94@gmail.com';
 const String contactMail = 'mailto:imamagun94@gmail.com';
 
+const String sourceCodeLink = 'https://github.com/imamhossain94/Heroku-Wakes-Up';
 const String appLink =
     'https://play.google.com/store/apps/details?id=com.newagedevs.heroku_wake_up';
 const String storeLink =
     'https://play.google.com/store/apps/developer?id=NewAgeDevs';
+const String websiteUrl = 'https://newagedevs.com/';
 const String privacyPolicyUrl = '';
 
 // Test ads unit id Google

@@ -47,13 +47,11 @@ class WelcomeView extends StatelessWidget {
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
                             child: InkWell(
-                              onTap: () {
-                              },
+                              onTap: () {},
                               borderRadius: BorderRadius.circular(8),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: SvgPicture.asset(
-                                    "assets/icon/tick.svg",
+                                child: SvgPicture.asset("assets/icon/tick.svg",
                                     height: 22.sp,
                                     width: 22.sp,
                                     color: Colors.black,
@@ -87,7 +85,6 @@ class WelcomeView extends StatelessWidget {
                   SizedBox(
                     height: 10.sp,
                   ),
-
                   FadeInLeft(
                     duration: const Duration(milliseconds: 500),
                     child: Padding(
@@ -103,9 +100,7 @@ class WelcomeView extends StatelessWidget {
                     ),
                   ),
                   customInputField(
-                      hintText: 'Ex- Bubt Smart Notice',
-                      controller: null),
-
+                      hintText: 'Ex- Bubt Smart Notice', controller: null),
                   FadeInLeft(
                     duration: const Duration(milliseconds: 500),
                     child: Padding(
@@ -123,14 +118,9 @@ class WelcomeView extends StatelessWidget {
                   customInputField(
                       hintText: 'Ex- https://smart-notice-bubt.herokuapp.com/',
                       controller: null),
-
-
                   ZoomIn(
-                    duration: const Duration(milliseconds:500),
-                      child: const CustomTimePicker()
-                  ),
-
-
+                      duration: const Duration(milliseconds: 500),
+                      child: const CustomTimePicker()),
                   FadeInLeft(
                     duration: const Duration(milliseconds: 500),
                     child: Padding(
@@ -145,15 +135,15 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   FadeInUp(
                     duration: Duration(milliseconds: 500),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.sp, vertical: 5.sp),
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: (){
+                          onTap: () {
                             showAboutDialogue();
                           },
                           borderRadius: BorderRadius.circular(8.sp),
@@ -161,7 +151,8 @@ class WelcomeView extends StatelessWidget {
                             padding: EdgeInsets.all(15.sp),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8.sp),
-                                border: Border.all(color: const Color(0xFFF1F3F2))),
+                                border:
+                                    Border.all(color: const Color(0xFFF1F3F2))),
                             child: Row(
                               children: [
                                 SvgPicture.asset("assets/icon/heroku_icon.svg",
@@ -169,7 +160,9 @@ class WelcomeView extends StatelessWidget {
                                     width: 14.sp,
                                     color: Colors.black,
                                     semanticsLabel: 'heroku-icon'),
-                                SizedBox(width: 10.sp,),
+                                SizedBox(
+                                  width: 10.sp,
+                                ),
                                 Text(
                                   '1 hours',
                                   style: TextStyle(
@@ -178,7 +171,8 @@ class WelcomeView extends StatelessWidget {
                                       fontWeight: FontWeight.normal),
                                 ),
                                 const Spacer(),
-                                SvgPicture.asset("assets/icon/down_arrow_square.svg",
+                                SvgPicture.asset(
+                                    "assets/icon/down_arrow_square.svg",
                                     height: 14.sp,
                                     width: 14.sp,
                                     color: Colors.black,
@@ -190,7 +184,6 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   FadeInLeft(
                     duration: const Duration(milliseconds: 500),
                     child: Padding(
@@ -205,9 +198,9 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
                     child: Wrap(
                       spacing: 8,
                       runSpacing: 8,
@@ -216,7 +209,8 @@ class WelcomeView extends StatelessWidget {
                           padding: EdgeInsets.all(8.sp),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.sp),
-                              border: Border.all(color: const Color(0xFFF1F3F2))),
+                              border:
+                                  Border.all(color: const Color(0xFFF1F3F2))),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -225,7 +219,9 @@ class WelcomeView extends StatelessWidget {
                                   width: 12.sp,
                                   color: Colors.black,
                                   semanticsLabel: 'heroku-icon'),
-                              SizedBox(width: 8.sp,),
+                              SizedBox(
+                                width: 8.sp,
+                              ),
                               Text(
                                 '10:30 PM',
                                 style: TextStyle(
@@ -239,9 +235,6 @@ class WelcomeView extends StatelessWidget {
                       }),
                     ),
                   )
-
-
-
                 ],
               ),
             )),
@@ -250,8 +243,7 @@ class WelcomeView extends StatelessWidget {
   }
 
   Widget customInputField(
-      {required String hintText,
-      TextEditingController? controller}) {
+      {required String hintText, TextEditingController? controller}) {
     return FadeInUp(
       duration: const Duration(milliseconds: 500),
       child: Padding(
@@ -288,7 +280,6 @@ class WelcomeView extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class CustomTimePicker extends StatefulWidget {
@@ -315,7 +306,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
             Padding(
               padding: EdgeInsets.only(left: 10.sp, top: 10.sp, bottom: 10.sp),
               child: Text(
-                "Smart Time",
+                "Start Time",
                 style: TextStyle(
                     fontSize: 12.sp,
                     color: Colors.black87,
@@ -333,193 +324,207 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/up_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/up_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.sp),
-                        child: Text(
-                          "10",
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.sp),
+                          child: Text(
+                            "10",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/down_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/down_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      )
-                    ],
+                            ))
+                      ],
+                    ),
                   ),
-                  Expanded(child: Text(':')),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/up_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                  SizedBox(
+                    width: 10.sp,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/up_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.sp),
-                        child: Text(
-                          "56",
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.sp),
+                          child: Text(
+                            "56",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/down_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/down_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      )
-                    ],
+                            ))
+                      ],
+                    ),
                   ),
-                  Spacer(),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/up_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                  SizedBox(
+                    width: 10.sp,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/up_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.sp),
-                        child: Text(
-                          "AM",
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.sp),
+                          child: Text(
+                            "AM",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54, width: 2.0),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.sp)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(7.sp),
-                              onTap: (){},
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: SvgPicture.asset(
-                                    "assets/icon/down_arrow.svg",
-                                    height: 12.sp,
-                                    width: 12.sp,
-                                    color: Colors.black54,
-                                    semanticsLabel: 'Menu'),
+                        Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2.0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.sp)),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(7.sp),
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
+                                  child: SvgPicture.asset(
+                                      "assets/icon/down_arrow.svg",
+                                      height: 12.sp,
+                                      width: 12.sp,
+                                      color: Colors.black54,
+                                      semanticsLabel: 'Menu'),
+                                ),
                               ),
-                            ),
-                          )
-                      )
-                    ],
+                            ))
+                      ],
+                    ),
                   ),
-
                 ],
               ),
             )
@@ -529,7 +534,3 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
     );
   }
 }
-
-
-
-
