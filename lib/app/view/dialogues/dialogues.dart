@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 
 
 
-void showAboutDialogue() async {
+void timeDialogue() async {
   return showModalBottomSheet(
     barrierColor: Colors.black12,
     backgroundColor: Colors.transparent,

@@ -14,8 +14,8 @@ void setAppVersion() async {
 }
 
 bool isFirstLaunch() {
-  return box.read("first_launch") ?? false;
+  return box.read("first_launch") ?? true;
 }
 void setFirstLaunch() async {
-  box.write("first_launch", true);
+  box.write("first_launch", false);
 }
