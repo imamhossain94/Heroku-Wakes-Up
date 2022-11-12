@@ -68,51 +68,59 @@ class MenuView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15.sp,),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
                   menuItem(
-                      title: 'Write us', description: 'imamagun94@gmail.com'),
+                      title: 'Write us',
+                      description: 'imamagun94@gmail.com',
+                      onTap: () {}),
                   menuItem(
                       title: 'Check our website',
                       icon: SvgPicture.asset("assets/icon/link.svg",
                           height: 14.sp,
                           width: 14.sp,
                           color: Colors.black,
-                          semanticsLabel: 'link')),
-
+                          semanticsLabel: 'link'),
+                      onTap: () {}),
                   menuItem(
                       title: 'Privacy Policy',
                       icon: SvgPicture.asset("assets/icon/link.svg",
                           height: 14.sp,
                           width: 14.sp,
                           color: Colors.black,
-                          semanticsLabel: 'link')),
+                          semanticsLabel: 'link'),
+                      onTap: () {}),
                   menuItem(
-                      title: 'Feedback', description: 'imamagun94@gmail.com'),
+                      title: 'Feedback',
+                      description: 'imamagun94@gmail.com',
+                      onTap: () {}),
                   menuItem(
                       title: 'Rate us',
                       icon: SvgPicture.asset("assets/icon/star.svg",
                           height: 12.sp,
                           width: 12.sp,
                           color: Colors.black,
-                          semanticsLabel: 'star')),
+                          semanticsLabel: 'star'),
+                      onTap: () {}),
                   menuItem(
                       title: 'Other apps',
                       icon: SvgPicture.asset("assets/icon/play_store.svg",
                           height: 12.sp,
                           width: 12.sp,
                           color: Colors.black,
-                          semanticsLabel: 'play_store')),
+                          semanticsLabel: 'play_store'),
+                      onTap: () {}),
                   menuItem(
                       title: 'Source code',
                       icon: SvgPicture.asset("assets/icon/git.svg",
                           height: 14.sp,
                           width: 14.sp,
                           color: Colors.black,
-                          semanticsLabel: 'play_store')),
-                  menuItem(
-                      title: 'Icons by', description: 'svgrepo.com'),
-                  menuItem(
-                      title: 'Version', description: '1.0.0'),
+                          semanticsLabel: 'play_store'),
+                      onTap: () {}),
+                  menuItem(title: 'Icons by', description: 'svgrepo.com'),
+                  menuItem(title: 'Version', description: '1.0.0'),
                 ],
               ),
             )),
@@ -120,36 +128,47 @@ class MenuView extends StatelessWidget {
     );
   }
 
-  Widget menuItem({required String title, String? description, Widget? icon}) {
+  Widget menuItem(
+      {required String title,
+      String? description,
+      Widget? icon,
+      VoidCallback? onTap}) {
     return ZoomIn(
-      duration:  const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-        child: Container(
-          padding: EdgeInsets.all(15.sp),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.sp),
-              border: Border.all(color: const Color(0xFFF1F3F2))),
-          child: Row(
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.normal),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(8.sp),
+            child: Container(
+              padding: EdgeInsets.all(15.sp),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  border: Border.all(color: const Color(0xFFF1F3F2))),
+              child: Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  const Spacer(),
+                  if (description != null)
+                    Text(
+                      description,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w200),
+                    ),
+                  if (icon != null) icon
+                ],
               ),
-              const Spacer(),
-              if (description != null)
-                Text(
-                  description,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w200),
-                ),
-              if (icon != null) icon
-            ],
+            ),
           ),
         ),
       ),
