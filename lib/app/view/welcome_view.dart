@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../services/get_storage_service.dart';
+import '../utils/system_overlay.dart';
 import 'dashboard_view.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -18,13 +20,7 @@ class WelcomeView extends StatelessWidget {
         return false;
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light.copyWith(
-          systemNavigationBarColor: Colors.white,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.white,
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.dark,
-        ),
+        value: SystemOverlay.common,
         child: SafeArea(
           child: Scaffold(
               backgroundColor: Colors.white,
@@ -73,6 +69,7 @@ class WelcomeView extends StatelessWidget {
                             color: const Color(0xFFFF6384).withOpacity(0.7),
                             borderRadius: BorderRadius.circular(30),
                             onPressed: () {
+                              setFirstLaunch();
                               Get.to(const DashboardView());
                             },
                             child: Text(

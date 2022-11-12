@@ -38,7 +38,7 @@ class Themes {
         bodyText2: TextStyle(fontFamily: "SofiaPro", fontSize: 14, color: colorOnPrimary,),
         button: TextStyle(fontFamily: "SofiaPro", fontSize: 20, color: colorOnPrimary,),
       ),
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       dividerTheme: const DividerThemeData(
         color: colorButtonDisable,
         thickness: 0.2,
@@ -86,7 +86,7 @@ class Themes {
       bodyText2: TextStyle(fontSize: 14, color: colorOnSecondary,),
       button: TextStyle(fontSize: 20, color: colorOnSecondary,),
     ),
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     dividerTheme: const DividerThemeData(
       color: colorButtonDisable,
       thickness: 0.2,
