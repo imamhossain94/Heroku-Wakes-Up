@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'dart:ui' as ui;
 import 'package:sizer/sizer.dart';
-
-import 'dashboard_view.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({Key? key}) : super(key: key);
@@ -26,69 +23,136 @@ class MenuView extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Colors.white,
             extendBody: true,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    FadeInLeft(
-                      duration: const Duration(milliseconds: 500),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: SvgPicture.asset(
-                            "assets/icon/heroku_icon.svg",
-                            height: 24.sp,
-                            width: 24.sp,
-                            color: const Color(0xFF2CB77F).withOpacity(0.8),
-                            semanticsLabel: 'Heroku'),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ZoomIn(
+                    duration: const Duration(milliseconds: 500),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            //width: double.infinity,
+                            child: Text(
+                              'Menu',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Material(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                            child: InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              borderRadius: BorderRadius.circular(8),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                    "assets/icon/multiply.svg",
+                                    height: 22.sp,
+                                    width: 22.sp,
+                                    color: Colors.black,
+                                    semanticsLabel: 'Menu'),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const Spacer(),
-                    FadeInDown(
-                      duration: const Duration(milliseconds: 500),
-                      child: SizedBox(
-                        //width: double.infinity,
-                        child: Text(
-                          'Heroku Wake Up',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    FadeInRight(
-                      duration: const Duration(milliseconds: 500),
-                      child: Material(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                        child: InkWell(
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(8),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: SvgPicture.asset(
-                                "assets/icon/menu.svg",
-                                height: 22.sp,
-                                width: 22.sp,
-                                color: const Color(0xFF613C96).withOpacity(0.8),
-                                semanticsLabel: 'Menu'),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 15.sp,),
+                  menuItem(
+                      title: 'Write us', description: 'imamagun94@gmail.com'),
+                  menuItem(
+                      title: 'Check our website',
+                      icon: SvgPicture.asset("assets/icon/link.svg",
+                          height: 14.sp,
+                          width: 14.sp,
+                          color: Colors.black,
+                          semanticsLabel: 'link')),
 
-
-
-              ],
+                  menuItem(
+                      title: 'Privacy Policy',
+                      icon: SvgPicture.asset("assets/icon/link.svg",
+                          height: 14.sp,
+                          width: 14.sp,
+                          color: Colors.black,
+                          semanticsLabel: 'link')),
+                  menuItem(
+                      title: 'Feedback', description: 'imamagun94@gmail.com'),
+                  menuItem(
+                      title: 'Rate us',
+                      icon: SvgPicture.asset("assets/icon/star.svg",
+                          height: 12.sp,
+                          width: 12.sp,
+                          color: Colors.black,
+                          semanticsLabel: 'star')),
+                  menuItem(
+                      title: 'Other apps',
+                      icon: SvgPicture.asset("assets/icon/play_store.svg",
+                          height: 12.sp,
+                          width: 12.sp,
+                          color: Colors.black,
+                          semanticsLabel: 'play_store')),
+                  menuItem(
+                      title: 'Source code',
+                      icon: SvgPicture.asset("assets/icon/git.svg",
+                          height: 14.sp,
+                          width: 14.sp,
+                          color: Colors.black,
+                          semanticsLabel: 'play_store')),
+                  menuItem(
+                      title: 'Icons by', description: 'svgrepo.com'),
+                  menuItem(
+                      title: 'Version', description: '1.0.0'),
+                ],
+              ),
             )),
       ),
     );
   }
+
+  Widget menuItem({required String title, String? description, Widget? icon}) {
+    return ZoomIn(
+      duration:  const Duration(milliseconds: 500),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+        child: Container(
+          padding: EdgeInsets.all(15.sp),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: const Color(0xFFF1F3F2))),
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                    fontSize: 12.sp,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.normal),
+              ),
+              const Spacer(),
+              if (description != null)
+                Text(
+                  description,
+                  style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w200),
+                ),
+              if (icon != null) icon
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
-
-
