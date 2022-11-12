@@ -69,7 +69,7 @@ class MenuView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15.sp,
+                    height: 10.sp,
                   ),
                   menuItem(
                       title: 'Write us',

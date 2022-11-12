@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'dart:ui' as ui;
 import 'package:sizer/sizer.dart';
 
 import 'dashboard_view.dart';
@@ -33,32 +32,16 @@ class WelcomeView extends StatelessWidget {
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-
                   const Spacer(),
-
                   FadeInUp(
                     duration: const Duration(milliseconds: 1000),
-                    child: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) {
-                        return ui.Gradient.linear(
-                          const Offset(1.0, 34.0),
-                          const Offset(34.0, 4.0),
-                          [
-                            const Color(0xFF9966FF).withOpacity(0.7),
-                            const Color(0xFFFF6384).withOpacity(0.7),
-                          ],
-                        );
-                      },
-                      child: SvgPicture.asset("assets/icon/heroku_logo.svg",
-                          height: 200.sp,
-                          width: 200.sp,
-                          color: const Color(0xFFFFFFFF),
-                          semanticsLabel: 'Open Pill'),
-                    ),
+                    child: SvgPicture.asset("assets/icon/heroku_logo.svg",
+                        height: 200.sp,
+                        width: 200.sp,
+                        semanticsLabel: 'Open Pill'),
                   ),
-                  FadeIn(
-                    duration: const Duration(milliseconds: 2000),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1100),
                     child: Text(
                       '"Heroku Wake Up"',
                       textAlign: TextAlign.center,
@@ -69,8 +52,8 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  FadeIn(
-                    duration: const Duration(milliseconds: 2000),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1200),
                     child: Text(
                       "Prevent your free heroku app from ever falling asleep again.",
                       textAlign: TextAlign.center,
@@ -84,7 +67,7 @@ class WelcomeView extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 10.h, bottom: 3.h),
                     child: FadeInUp(
-                      duration: const Duration(milliseconds: 1000),
+                      duration: const Duration(milliseconds: 1300),
                       child: Center(
                         child: CupertinoButton(
                             color: const Color(0xFFFF6384).withOpacity(0.7),
@@ -102,7 +85,6 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ],
               )),
         ),
@@ -110,5 +92,3 @@ class WelcomeView extends StatelessWidget {
     );
   }
 }
-
-

@@ -41,7 +41,7 @@ class DashboardView extends StatelessWidget {
                         FadeInLeft(
                           duration: const Duration(milliseconds: 500),
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(15.sp, 10.sp, 0, 0),
+                            padding: EdgeInsets.fromLTRB(15.sp, 0.sp, 0, 0),
                             child: SvgPicture.asset(
                                 "assets/icon/heroku_icon.svg",
                                 height: 22.sp,
@@ -96,7 +96,7 @@ class DashboardView extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 20.sp, horizontal: 10.sp),
+                          vertical: 15.sp, horizontal: 10.sp),
                       child: Row(
                         children: [
                           statCard(

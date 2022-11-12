@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import 'dialogues/dialogues.dart';
+
 class WelcomeView extends StatelessWidget {
   const WelcomeView({Key? key}) : super(key: key);
 
@@ -83,7 +85,7 @@ class WelcomeView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15.sp,
+                    height: 10.sp,
                   ),
 
                   FadeInLeft(
@@ -123,7 +125,10 @@ class WelcomeView extends StatelessWidget {
                       controller: null),
 
 
-                  const CustomTimePicker(),
+                  ZoomIn(
+                    duration: const Duration(milliseconds:500),
+                      child: const CustomTimePicker()
+                  ),
 
 
                   FadeInLeft(
@@ -148,7 +153,9 @@ class WelcomeView extends StatelessWidget {
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: (){},
+                          onTap: (){
+                            showAboutDialogue();
+                          },
                           borderRadius: BorderRadius.circular(8.sp),
                           child: Container(
                             padding: EdgeInsets.all(15.sp),
@@ -306,7 +313,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10.sp, top: 5.sp, bottom: 5.sp),
+              padding: EdgeInsets.only(left: 10.sp, top: 10.sp, bottom: 10.sp),
               child: Text(
                 "Smart Time",
                 style: TextStyle(
