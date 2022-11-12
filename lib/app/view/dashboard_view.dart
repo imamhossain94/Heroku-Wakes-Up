@@ -41,12 +41,12 @@ class DashboardView extends StatelessWidget {
                         FadeInLeft(
                           duration: const Duration(milliseconds: 500),
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
+                            padding: EdgeInsets.fromLTRB(15.sp, 10.sp, 0, 0),
                             child: SvgPicture.asset(
                                 "assets/icon/heroku_icon.svg",
-                                height: 24.sp,
-                                width: 24.sp,
-                                color: const Color(0xFF2CB77F).withOpacity(0.8),
+                                height: 22.sp,
+                                width: 22.sp,
+                                color: const Color(0xFF613C96).withOpacity(0.8),
                                 semanticsLabel: 'Heroku'),
                           ),
                         ),
@@ -69,7 +69,7 @@ class DashboardView extends StatelessWidget {
                         FadeInRight(
                           duration: const Duration(milliseconds: 500),
                           child: Padding(
-                            padding: EdgeInsets.only(right: 10.sp),
+                            padding: EdgeInsets.only(right: 5.sp),
                             child: Material(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(8),
@@ -79,7 +79,7 @@ class DashboardView extends StatelessWidget {
                                 },
                                 borderRadius: BorderRadius.circular(8),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(10.sp),
                                   child: SvgPicture.asset(
                                       "assets/icon/menu.svg",
                                       height: 22.sp,
@@ -155,11 +155,12 @@ class DashboardView extends StatelessWidget {
                                 },
                                 borderRadius: BorderRadius.circular(8),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.plus,
-                                    size: 12.sp,
-                                    color: const Color(0xFFA6A8AA),
+                                  padding: EdgeInsets.all(8.sp),
+                                  child: SvgPicture.asset("assets/icon/plus_square.svg",
+                                      height: 15.sp,
+                                      width: 15.sp,
+                                      color: Colors.black,
+                                      semanticsLabel: 'heroku-icon'
                                   ),
                                 ),
                               ),
@@ -244,13 +245,13 @@ class DashboardView extends StatelessWidget {
                         child: Column(
                           children: [
                             THeader(
-                              bgColor: Colors.blueAccent.withOpacity(0.1),
+                              bgColor: const Color(0x4decedea),
                               padding: EdgeInsets.all(10.sp),
                               textColor: Colors.black,
                               fontSize: 10.sp,
                             ),
                             TRow(
-                                bgColor: Colors.green.withOpacity(0.1),
+                                bgColor: Colors.green.withOpacity(0.2),
                                 padding: EdgeInsets.all(10.sp),
                                 borderRadius: BorderRadius.zero,
                                 textColor: Colors.black,
@@ -261,7 +262,7 @@ class DashboardView extends StatelessWidget {
                                   'Server running'
                                 ]),
                             TRow(
-                                bgColor: Colors.redAccent.withOpacity(0.1),
+                                bgColor: Colors.redAccent.withOpacity(0.06),
                                 padding: EdgeInsets.all(10.sp),
                                 borderRadius: BorderRadius.zero,
                                 textColor: Colors.black,
@@ -272,7 +273,7 @@ class DashboardView extends StatelessWidget {
                                   'Invalid data'
                                 ]),
                             TRow(
-                                bgColor: Colors.green.withOpacity(0.1),
+                                bgColor: Colors.green.withOpacity(0.2),
                                 padding: EdgeInsets.all(10.sp),
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(8.sp),
@@ -402,7 +403,7 @@ class DashboardView extends StatelessWidget {
 
   Widget eventsLifeLine() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.sp),
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
         child: Container(

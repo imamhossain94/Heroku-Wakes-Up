@@ -27,10 +27,10 @@ class MenuView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ZoomIn(
+                  FadeInUp(
                     duration: const Duration(milliseconds: 500),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                      padding: EdgeInsets.only(left: 15.sp, right: 5.sp),
                       child: Row(
                         children: [
                           SizedBox(
@@ -54,7 +54,7 @@ class MenuView extends StatelessWidget {
                               },
                               borderRadius: BorderRadius.circular(8),
                               child: Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: EdgeInsets.all(10.sp),
                                 child: SvgPicture.asset(
                                     "assets/icon/multiply.svg",
                                     height: 22.sp,
@@ -74,6 +74,7 @@ class MenuView extends StatelessWidget {
                   menuItem(
                       title: 'Write us',
                       description: 'imamagun94@gmail.com',
+                      duration: 500,
                       onTap: () {}),
                   menuItem(
                       title: 'Check our website',
@@ -82,6 +83,7 @@ class MenuView extends StatelessWidget {
                           width: 14.sp,
                           color: Colors.black,
                           semanticsLabel: 'link'),
+                      duration: 600,
                       onTap: () {}),
                   menuItem(
                       title: 'Privacy Policy',
@@ -90,10 +92,12 @@ class MenuView extends StatelessWidget {
                           width: 14.sp,
                           color: Colors.black,
                           semanticsLabel: 'link'),
+                      duration: 700,
                       onTap: () {}),
                   menuItem(
                       title: 'Feedback',
                       description: 'imamagun94@gmail.com',
+                      duration: 800,
                       onTap: () {}),
                   menuItem(
                       title: 'Rate us',
@@ -102,6 +106,7 @@ class MenuView extends StatelessWidget {
                           width: 12.sp,
                           color: Colors.black,
                           semanticsLabel: 'star'),
+                      duration: 900,
                       onTap: () {}),
                   menuItem(
                       title: 'Other apps',
@@ -110,6 +115,7 @@ class MenuView extends StatelessWidget {
                           width: 12.sp,
                           color: Colors.black,
                           semanticsLabel: 'play_store'),
+                      duration: 1000,
                       onTap: () {}),
                   menuItem(
                       title: 'Source code',
@@ -118,9 +124,10 @@ class MenuView extends StatelessWidget {
                           width: 14.sp,
                           color: Colors.black,
                           semanticsLabel: 'play_store'),
+                      duration: 1100,
                       onTap: () {}),
-                  menuItem(title: 'Icons by', description: 'svgrepo.com'),
-                  menuItem(title: 'Version', description: '1.0.0'),
+                  menuItem(title: 'Icons by', description: 'svgrepo.com', duration: 1200),
+                  menuItem(title: 'Version', description: '1.0.0', duration: 1300,),
                 ],
               ),
             )),
@@ -132,9 +139,9 @@ class MenuView extends StatelessWidget {
       {required String title,
       String? description,
       Widget? icon,
-      VoidCallback? onTap}) {
-    return ZoomIn(
-      duration: const Duration(milliseconds: 500),
+      VoidCallback? onTap, required int duration}) {
+    return FadeInUp(
+      duration: Duration(milliseconds: duration),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
         child: Material(
