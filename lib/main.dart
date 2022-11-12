@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:heroku_wake_up/app/model/heroku_app.dart';
 import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'app/services/get_storage_service.dart';
+import 'app/services/hive_helper.dart';
 import 'app/services/theme_service.dart';
 import 'app/utils/themes.dart';
 import 'app/view/welcome_view.dart';
@@ -14,15 +17,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final appDocDir = await getApplicationDocumentsDirectory();
-  // Hive
-  //   ..init(appDocDir.path)
-  //   ..registerAdapter(MedicineAdapter())
-  //   ..registerAdapter(ReminderAdapter());
-  //
-  // await HiveHelper().init();
-  // await DatabaseService().init();
+  Hive
+    ..init(appDocDir.path)
+    ..registerAdapter(HerokuAppAdapter());
+
+  await HiveHelper().init();
   await GetStorage.init();
-  // setAppVersion();
+  setAppVersion();
 
   runApp(const MyApp());
 }

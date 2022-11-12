@@ -19,23 +19,29 @@ class HerokuAppAdapter extends TypeAdapter<HerokuApp> {
     return HerokuApp(
       id: fields[0] as String,
       name: fields[1] as String,
-      icon: fields[2] as String,
-      link: fields[3] as String,
+      link: fields[2] as String,
+      startTime: fields[3] as String,
+      interval: fields[4] as String,
+      wakingUpTimes: (fields[5] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, HerokuApp obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.icon)
+      ..write(obj.link)
       ..writeByte(3)
-      ..write(obj.link);
+      ..write(obj.startTime)
+      ..writeByte(4)
+      ..write(obj.interval)
+      ..writeByte(5)
+      ..write(obj.wakingUpTimes);
   }
 
   @override
