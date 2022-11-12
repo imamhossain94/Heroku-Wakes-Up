@@ -22,7 +22,7 @@ void showAboutDialogue() async {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.sp),
-                  border: Border.all(color: const Color(0xFFF1F3F2))),
+                  border: Border.all(color: const Color(0xFFFF79D8).withOpacity(0.5))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -84,7 +84,7 @@ void showAboutDialogue() async {
                   Container(
                     padding: EdgeInsets.all(10.sp),
                     decoration: BoxDecoration(
-                      color: Colors.blueGrey.withOpacity(0.03),
+                      color: const Color(0xFFFF79D8).withOpacity(0.1),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(8.sp),
                           bottomRight: Radius.circular(8.sp)),

@@ -40,6 +40,7 @@ class WelcomeView extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.black,
+                              letterSpacing: 0.5,
                             ),
                           ),
                           const Spacer(),
@@ -54,7 +55,7 @@ class WelcomeView extends StatelessWidget {
                                 child: SvgPicture.asset("assets/icon/tick.svg",
                                     height: 22.sp,
                                     width: 22.sp,
-                                    color: Colors.black,
+                                    color: Colors.green.withOpacity(0.9),
                                     semanticsLabel: 'Menu'),
                               ),
                             ),
@@ -73,7 +74,7 @@ class WelcomeView extends StatelessWidget {
                                     "assets/icon/multiply.svg",
                                     height: 22.sp,
                                     width: 22.sp,
-                                    color: Colors.black,
+                                    color: Colors.redAccent.withOpacity(0.8),
                                     semanticsLabel: 'Menu'),
                               ),
                             ),
@@ -85,8 +86,8 @@ class WelcomeView extends StatelessWidget {
                   SizedBox(
                     height: 10.sp,
                   ),
-                  FadeInLeft(
-                    duration: const Duration(milliseconds: 500),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 550),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 0, 10.sp, 0),
                       child: Text(
@@ -94,15 +95,19 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: const Color(0xFF613C96).withOpacity(0.8),
                         ),
                       ),
                     ),
                   ),
                   customInputField(
-                      hintText: 'Ex- Bubt Smart Notice', controller: null),
-                  FadeInLeft(
-                    duration: const Duration(milliseconds: 500),
+                      hintText: 'Ex- Bubt Smart Notice',
+                      controller: null,
+                      duration: 550,
+                      bgColor: const Color(0xFFFFB711)
+                  ),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 600),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 0, 10.sp, 0),
                       child: Text(
@@ -110,19 +115,22 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: const Color(0xFF613C96).withOpacity(0.8),
                         ),
                       ),
                     ),
                   ),
                   customInputField(
                       hintText: 'Ex- https://smart-notice-bubt.herokuapp.com/',
-                      controller: null),
-                  ZoomIn(
-                      duration: const Duration(milliseconds: 500),
+                      controller: null,
+                      duration: 600,
+                      bgColor: const Color(0xFFFF7171)
+                  ),
+                  FadeInUp(
+                      duration: const Duration(milliseconds: 700),
                       child: const CustomTimePicker()),
-                  FadeInLeft(
-                    duration: const Duration(milliseconds: 500),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 650),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 15.sp, 10.sp, 0),
                       child: Text(
@@ -130,13 +138,13 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: const Color(0xFF613C96).withOpacity(0.8),
                         ),
                       ),
                     ),
                   ),
                   FadeInUp(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 700),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.sp, vertical: 5.sp),
@@ -150,9 +158,10 @@ class WelcomeView extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.all(15.sp),
                             decoration: BoxDecoration(
+                                color: const Color(0xFFFF79D8).withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(8.sp),
                                 border:
-                                    Border.all(color: const Color(0xFFF1F3F2))),
+                                    Border.all(color: const Color(0xFFFF79D8).withOpacity(0.3))),
                             child: Row(
                               children: [
                                 SvgPicture.asset("assets/icon/heroku_icon.svg",
@@ -184,8 +193,8 @@ class WelcomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  FadeInLeft(
-                    duration: const Duration(milliseconds: 500),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 750),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 15.sp, 10.sp, 0),
                       child: Text(
@@ -193,46 +202,50 @@ class WelcomeView extends StatelessWidget {
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: const Color(0xFF613C96).withOpacity(0.8),
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: List.generate(5, (index) {
-                        return Container(
-                          padding: EdgeInsets.all(8.sp),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.sp),
-                              border:
-                                  Border.all(color: const Color(0xFFF1F3F2))),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset("assets/icon/clock_square.svg",
-                                  height: 12.sp,
-                                  width: 12.sp,
-                                  color: Colors.black,
-                                  semanticsLabel: 'heroku-icon'),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Text(
-                                '10:30 PM',
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 800),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+                      child: Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(5, (index) {
+                          return Container(
+                            padding: EdgeInsets.all(8.sp),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF575880).withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8.sp),
+                                border:
+                                    Border.all(color: const Color(0xFF575880).withOpacity(0.3))),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset("assets/icon/clock_square.svg",
+                                    height: 12.sp,
+                                    width: 12.sp,
+                                    color: Colors.black,
+                                    semanticsLabel: 'heroku-icon'),
+                                SizedBox(
+                                  width: 8.sp,
+                                ),
+                                Text(
+                                  '10:30 PM',
+                                  style: TextStyle(
+                                      fontSize: 10.sp,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                      ),
                     ),
                   )
                 ],
@@ -243,9 +256,12 @@ class WelcomeView extends StatelessWidget {
   }
 
   Widget customInputField(
-      {required String hintText, TextEditingController? controller}) {
+      {required String hintText,
+        required Color bgColor,
+        TextEditingController? controller,
+        required int duration}) {
     return FadeInUp(
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: duration),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
         child: TextFormField(
@@ -258,23 +274,25 @@ class WelcomeView extends StatelessWidget {
           decoration: InputDecoration(
               counterText: '',
               hintText: hintText,
-              hintStyle: TextStyle(fontSize: 10.sp, color: Colors.grey),
+              hintStyle: TextStyle(fontSize: 10.sp,
+                  color: Colors.black38,
+                  letterSpacing: 0.2),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.sp),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
+                borderSide: BorderSide(
+                  color: bgColor,
                   style: BorderStyle.solid,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.sp),
-                borderSide: const BorderSide(
-                  color: Color(0xFFF1F3F2),
+                borderSide: BorderSide(
+                  color: bgColor.withOpacity(0.3),
                   style: BorderStyle.solid,
                 ),
               ),
               enabled: true,
-              fillColor: Colors.blueGrey.withOpacity(0.03),
+              fillColor: bgColor.withOpacity(0.1),
               filled: true),
         ),
       ),
@@ -298,7 +316,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8.sp),
-            border: Border.all(color: const Color(0xFFF1F3F2))),
+            border: Border.all(color: const Color(0xFFFFA451).withOpacity(0.3))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -306,17 +324,17 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
             Padding(
               padding: EdgeInsets.only(left: 10.sp, top: 10.sp, bottom: 10.sp),
               child: Text(
-                "Start Time",
+                "From when to take this service?",
                 style: TextStyle(
                     fontSize: 12.sp,
-                    color: Colors.black87,
+                    color: const Color(0xFF613C96).withOpacity(0.8),
                     fontWeight: FontWeight.normal),
               ),
             ),
             Container(
               padding: EdgeInsets.all(10.sp),
               decoration: BoxDecoration(
-                color: Colors.blueGrey.withOpacity(0.03),
+                color: const Color(0xFFFFA451).withOpacity(0.1),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(8.sp),
                     bottomRight: Radius.circular(8.sp)),

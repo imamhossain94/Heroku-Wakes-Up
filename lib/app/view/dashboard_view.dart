@@ -35,11 +35,11 @@ class DashboardView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 500),
-                          child: Padding(
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 500),
+                      child: Row(
+                        children: [
+                          Padding(
                             padding: EdgeInsets.fromLTRB(15.sp, 0.sp, 0, 0),
                             child: SvgPicture.asset(
                                 "assets/icon/heroku_icon.svg",
@@ -48,11 +48,8 @@ class DashboardView extends StatelessWidget {
                                 color: const Color(0xFF613C96).withOpacity(0.8),
                                 semanticsLabel: 'Heroku'),
                           ),
-                        ),
-                        const Spacer(),
-                        FadeInDown(
-                          duration: const Duration(milliseconds: 500),
-                          child: SizedBox(
+                          const Spacer(),
+                          SizedBox(
                             //width: double.infinity,
                             child: Text(
                               'Heroku Wake Up',
@@ -60,14 +57,12 @@ class DashboardView extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: Colors.black,
+                                letterSpacing: 0.5,
                               ),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        FadeInRight(
-                          duration: const Duration(milliseconds: 500),
-                          child: Padding(
+                          const Spacer(),
+                          Padding(
                             padding: EdgeInsets.only(right: 5.sp),
                             child: Material(
                               color: Colors.transparent,
@@ -89,51 +84,54 @@ class DashboardView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 15.sp, horizontal: 10.sp),
-                      child: Row(
-                        children: [
-                          statCard(
-                              cardColor:
-                                  const Color(0xFF2CB77F).withOpacity(0.8),
-                              icon: SvgPicture.asset(
-                                  "assets/icon/total_app.svg",
-                                  height: 24.sp,
-                                  width: 24.sp,
-                                  color: Colors.white,
-                                  semanticsLabel: 'Total app'),
-                              title: 'Total App',
-                              description: '3/20'),
-                          SizedBox(
-                            width: 8.sp,
-                          ),
-                          statCard(
-                              cardColor:
-                                  const Color(0xFF613C96).withOpacity(0.8),
-                              icon: SvgPicture.asset(
-                                  "assets/icon/statistic.svg",
-                                  height: 24.sp,
-                                  width: 24.sp,
-                                  color: Colors.white,
-                                  semanticsLabel: 'Total event'),
-                              title: 'Total Event',
-                              description: '320')
+                          )
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.sp, right: 10.sp, bottom: 10.sp),
-                      child: Row(
-                        children: [
-                          FadeInLeft(
-                            duration: const Duration(milliseconds: 500),
-                            child: Text(
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 600),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.sp, horizontal: 10.sp),
+                        child: Row(
+                          children: [
+                            statCard(
+                                cardColor:
+                                    const Color(0xFF2CB77F).withOpacity(0.8),
+                                icon: SvgPicture.asset(
+                                    "assets/icon/total_app.svg",
+                                    height: 24.sp,
+                                    width: 24.sp,
+                                    color: Colors.white,
+                                    semanticsLabel: 'Total app'),
+                                title: 'Total App',
+                                description: '3/20'),
+                            SizedBox(
+                              width: 8.sp,
+                            ),
+                            statCard(
+                                cardColor:
+                                    const Color(0xFF613C96).withOpacity(0.8),
+                                icon: SvgPicture.asset(
+                                    "assets/icon/statistic.svg",
+                                    height: 24.sp,
+                                    width: 24.sp,
+                                    color: Colors.white,
+                                    semanticsLabel: 'Total event'),
+                                title: 'Total Event',
+                                description: '320')
+                          ],
+                        ),
+                      ),
+                    ),
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 700),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: 10.sp, right: 10.sp, bottom: 10.sp),
+                        child: Row(
+                          children: [
+                            Text(
                               'App list',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -141,11 +139,8 @@ class DashboardView extends StatelessWidget {
                                 color: const Color(0xFF613C96).withOpacity(0.8),
                               ),
                             ),
-                          ),
-                          const Spacer(),
-                          FadeInRight(
-                            duration: const Duration(milliseconds: 500),
-                            child: Material(
+                            const Spacer(),
+                            Material(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(8),
                               child: InkWell(
@@ -165,12 +160,12 @@ class DashboardView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    FadeInRight(
-                        duration: const Duration(milliseconds: 500),
+                    FadeInUp(
+                        duration: const Duration(milliseconds: 800),
                         child: appCard(
                           cardColor: const Color(0xFFFF6384).withOpacity(0.2),
                           icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
@@ -183,8 +178,8 @@ class DashboardView extends StatelessWidget {
                               'Give me a cup of coffee every 30 minutes',
                           statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
                         )),
-                    FadeInLeft(
-                        duration: const Duration(milliseconds: 500),
+                    FadeInUp(
+                        duration: const Duration(milliseconds: 900),
                         child: appCard(
                           cardColor: const Color(0xFF9966FF).withOpacity(0.2),
                           icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
@@ -197,8 +192,8 @@ class DashboardView extends StatelessWidget {
                               'Give me a cup of coffee every 720 minutes',
                           statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
                         )),
-                    FadeInRight(
-                        duration: const Duration(milliseconds: 500),
+                    FadeInUp(
+                        duration: const Duration(milliseconds: 1000),
                         child: appCard(
                           cardColor: const Color(0xFF4BC0C0).withOpacity(0.2),
                           icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
@@ -211,11 +206,11 @@ class DashboardView extends StatelessWidget {
                               'Give me a cup of coffee every 360 minutes',
                           statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
                         )),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.sp, horizontal: 10.sp),
-                      child: FadeInLeft(
-                        duration: const Duration(milliseconds: 500),
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1100),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.sp, horizontal: 10.sp),
                         child: Text(
                           'Events Life Line',
                           style: TextStyle(
@@ -225,11 +220,11 @@ class DashboardView extends StatelessWidget {
                       ),
                     ),
                     eventsLifeLine(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.sp, horizontal: 10.sp),
-                      child: FadeInLeft(
-                        duration: const Duration(milliseconds: 500),
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1200),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.sp, horizontal: 10.sp),
                         child: Text(
                           'Events Logs',
                           style: TextStyle(
@@ -239,7 +234,7 @@ class DashboardView extends StatelessWidget {
                       ),
                     ),
                     FadeInUp(
-                      duration: const Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 1300),
                       child: Container(
                         color: Colors.white,
                         padding: EdgeInsets.only(
@@ -305,41 +300,38 @@ class DashboardView extends StatelessWidget {
       required String title,
       required String description}) {
     return Expanded(
-      child: ZoomIn(
-        duration: const Duration(milliseconds: 500),
-        child: Container(
-          padding: EdgeInsets.all(15.sp),
-          decoration: BoxDecoration(
-              color: cardColor, borderRadius: BorderRadius.circular(15)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              icon,
-              SizedBox(
-                height: 10.sp,
+      child: Container(
+        padding: EdgeInsets.all(15.sp),
+        decoration: BoxDecoration(
+            color: cardColor, borderRadius: BorderRadius.circular(15)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            icon,
+            SizedBox(
+              height: 10.sp,
+            ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: Colors.white,
               ),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  color: Colors.white,
-                ),
+            ),
+            SizedBox(
+              height: 5.sp,
+            ),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: Colors.white70,
               ),
-              SizedBox(
-                height: 5.sp,
-              ),
-              Text(
-                description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  color: Colors.white70,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -405,8 +397,8 @@ class DashboardView extends StatelessWidget {
   Widget eventsLifeLine() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
-      child: ZoomIn(
-        duration: const Duration(milliseconds: 500),
+      child: FadeInUp(
+        duration: const Duration(milliseconds: 1200),
         child: Container(
           height: (Get.size.width - 16) / 2,
           decoration: BoxDecoration(

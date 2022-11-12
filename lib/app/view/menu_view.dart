@@ -42,7 +42,8 @@ class MenuView extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 14.sp,
-                                color: const Color(0xFF613C96).withOpacity(0.8),
+                                color: Colors.black,
+                                letterSpacing: 0.5,
                               ),
                             ),
                           ),

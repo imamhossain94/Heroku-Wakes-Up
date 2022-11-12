@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class THeader extends StatelessWidget {
-
   final double fontSize;
   final Color textColor, bgColor;
   final EdgeInsetsGeometry padding;
@@ -13,7 +12,7 @@ class THeader extends StatelessWidget {
     required this.textColor,
     required this.bgColor,
     required this.padding,
-  }) :super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +21,8 @@ class THeader extends StatelessWidget {
       decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8.sp),
-              topRight: Radius.circular(8.sp)
-          ),
-          border: Border.all(color: const Color(0xFFF1F3F2))
-      ),
+              topLeft: Radius.circular(8.sp), topRight: Radius.circular(8.sp)),
+          border: Border.all(color: const Color(0xFFF1F3F2))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -60,7 +56,6 @@ class THeader extends StatelessWidget {
   }
 }
 
-
 class TRow extends StatelessWidget {
   final double fontSize;
   final Color textColor, bgColor;
@@ -68,15 +63,15 @@ class TRow extends StatelessWidget {
   final BorderRadius borderRadius;
   final List<String> data;
 
-  const TRow({
-    Key? key,
-    required this.fontSize,
-    required this.textColor,
-    required this.bgColor,
-    required this.padding,
-    required this.borderRadius,
-    required this.data
-  }) :super(key: key);
+  const TRow(
+      {Key? key,
+      required this.fontSize,
+      required this.textColor,
+      required this.bgColor,
+      required this.padding,
+      required this.borderRadius,
+      required this.data})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +80,7 @@ class TRow extends StatelessWidget {
       decoration: BoxDecoration(
           color: bgColor,
           borderRadius: borderRadius,
-          border: Border.all(color: const Color(0xFFF1F3F2))
-      ),
+          border: Border.all(color: const Color(0xFFF1F3F2))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
