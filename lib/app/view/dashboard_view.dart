@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import 'create_app_view.dart';
+import 'menu_view.dart';
 import 'widgets/table_widgets.dart';
 
 class DashboardView extends StatelessWidget {
@@ -29,111 +32,105 @@ class DashboardView extends StatelessWidget {
           child: Scaffold(
               backgroundColor: Colors.white, // const Color(0xFFE8E9E6),
               extendBody: true,
-              body: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          FadeInLeft(
-                            duration: const Duration(milliseconds: 500),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: SvgPicture.asset(
-                                  "assets/icon/heroku_icon.svg",
-                                  height: 24.sp,
-                                  width: 24.sp,
-                                  color: Colors.black87,
-                                  semanticsLabel: 'Heroku'),
-                            ),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
+                            child: SvgPicture.asset(
+                                "assets/icon/heroku_icon.svg",
+                                height: 24.sp,
+                                width: 24.sp,
+                                color: const Color(0xFF2CB77F).withOpacity(0.8),
+                                semanticsLabel: 'Heroku'),
                           ),
-                          const Spacer(),
-                          FadeInDown(
-                            duration: const Duration(milliseconds: 500),
-                            child: SizedBox(
-                              //width: double.infinity,
-                              child: Text(
-                                'Heroku Wake Up',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.black,
-                                ),
+                        ),
+                        const Spacer(),
+                        FadeInDown(
+                          duration: const Duration(milliseconds: 500),
+                          child: SizedBox(
+                            //width: double.infinity,
+                            child: Text(
+                              'Heroku Wake Up',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.black,
                               ),
                             ),
                           ),
-                          const Spacer(),
-                          FadeInRight(
-                            duration: const Duration(milliseconds: 500),
+                        ),
+                        const Spacer(),
+                        FadeInRight(
+                          duration: const Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.sp),
                             child: Material(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(8),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(const MenuView());
+                                },
                                 borderRadius: BorderRadius.circular(8),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: SvgPicture.asset(
                                       "assets/icon/menu.svg",
                                       height: 22.sp,
                                       width: 22.sp,
-                                      color: const Color(0xFF232157),
+                                      color: const Color(0xFF613C96)
+                                          .withOpacity(0.8),
                                       semanticsLabel: 'Menu'),
                                 ),
                               ),
                             ),
-                          )
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.sp, horizontal: 10.sp),
+                      child: Row(
+                        children: [
+                          statCard(
+                              cardColor:
+                                  const Color(0xFF2CB77F).withOpacity(0.8),
+                              icon: SvgPicture.asset(
+                                  "assets/icon/total_app.svg",
+                                  height: 24.sp,
+                                  width: 24.sp,
+                                  color: Colors.white,
+                                  semanticsLabel: 'Total app'),
+                              title: 'Total App',
+                              description: '3/20'),
+                          SizedBox(
+                            width: 8.sp,
+                          ),
+                          statCard(
+                              cardColor:
+                                  const Color(0xFF613C96).withOpacity(0.8),
+                              icon: SvgPicture.asset(
+                                  "assets/icon/statistic.svg",
+                                  height: 24.sp,
+                                  width: 24.sp,
+                                  color: Colors.white,
+                                  semanticsLabel: 'Total event'),
+                              title: 'Total Event',
+                              description: '320')
                         ],
                       ),
-                      // FadeInDown(
-                      //   duration: const Duration(milliseconds: 500),
-                      //   child: SizedBox(
-                      //     width: double.infinity,
-                      //     child: Text(
-                      //       'Heroku Wake Up',
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(
-                      //         fontSize: 14.sp,
-                      //         color: Colors.black,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.sp),
-                        child: Row(
-                          children: [
-                            statCard(
-                                cardColor:
-                                    const Color(0xFF2CB77F).withOpacity(0.8),
-                                icon: SvgPicture.asset(
-                                    "assets/icon/total_app.svg",
-                                    height: 24.sp,
-                                    width: 24.sp,
-                                    color: Colors.white,
-                                    semanticsLabel: 'Total app'),
-                                title: 'Total App',
-                                description: '3/20'),
-                            SizedBox(
-                              width: 8.sp,
-                            ),
-                            statCard(
-                                cardColor:
-                                    const Color(0xFF613C96).withOpacity(0.8),
-                                icon: SvgPicture.asset(
-                                    "assets/icon/statistic.svg",
-                                    height: 24.sp,
-                                    width: 24.sp,
-                                    color: Colors.white,
-                                    semanticsLabel: 'Total event'),
-                                title: 'Total Event',
-                                description: '320')
-                          ],
-                        ),
-                      ),
-                      Row(
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 10.sp, right: 10.sp, bottom: 10.sp),
+                      child: Row(
                         children: [
                           FadeInLeft(
                             duration: const Duration(milliseconds: 500),
@@ -153,7 +150,9 @@ class DashboardView extends StatelessWidget {
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(8),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(const WelcomeView());
+                                },
                                 borderRadius: BorderRadius.circular(8),
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -168,87 +167,80 @@ class DashboardView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.sp,
-                      ),
-                      FadeInRight(
-                          duration: const Duration(milliseconds: 500),
-                          child: appCard(
-                            cardColor: const Color(0xFFFF6384).withOpacity(0.2),
-                            icon: SvgPicture.asset(
-                                "assets/icon/heroku_icon.svg",
-                                height: 14.sp,
-                                width: 14.sp,
-                                color: Colors.black,
-                                semanticsLabel: 'icon'),
-                            title: 'Bubt Smart Routine',
-                            description:
-                                'Give me a cup of coffee every 30 minutes',
-                            statusColor:
-                                const Color(0xFF2CB77F).withOpacity(0.8),
-                          )),
-                      FadeInLeft(
-                          duration: const Duration(milliseconds: 500),
-                          child: appCard(
-                            cardColor: const Color(0xFF9966FF).withOpacity(0.2),
-                            icon: SvgPicture.asset(
-                                "assets/icon/heroku_icon.svg",
-                                height: 14.sp,
-                                width: 14.sp,
-                                color: Colors.black,
-                                semanticsLabel: 'icon'),
-                            title: 'Url Shortener',
-                            description:
-                                'Give me a cup of coffee every 720 minutes',
-                            statusColor:
-                                const Color(0xFF2CB77F).withOpacity(0.8),
-                          )),
-                      FadeInRight(
-                          duration: const Duration(milliseconds: 500),
-                          child: appCard(
-                            cardColor: const Color(0xFF4BC0C0).withOpacity(0.2),
-                            icon: SvgPicture.asset(
-                                "assets/icon/heroku_icon.svg",
-                                height: 14.sp,
-                                width: 14.sp,
-                                color: Colors.black,
-                                semanticsLabel: 'icon'),
-                            title: 'Bubt Smart Notice',
-                            description:
-                                'Give me a cup of coffee every 360 minutes',
-                            statusColor:
-                                const Color(0xFF2CB77F).withOpacity(0.8),
-                          )),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.sp),
-                        child: FadeInLeft(
-                          duration: const Duration(milliseconds: 500),
-                          child: Text(
-                            'Events Life Line',
-                            style:
-                                TextStyle(fontSize: 12.sp, color: Colors.black),
-                          ),
+                    ),
+                    FadeInRight(
+                        duration: const Duration(milliseconds: 500),
+                        child: appCard(
+                          cardColor: const Color(0xFFFF6384).withOpacity(0.2),
+                          icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
+                              height: 14.sp,
+                              width: 14.sp,
+                              color: Colors.black,
+                              semanticsLabel: 'icon'),
+                          title: 'Bubt Smart Routine',
+                          description:
+                              'Give me a cup of coffee every 30 minutes',
+                          statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
+                        )),
+                    FadeInLeft(
+                        duration: const Duration(milliseconds: 500),
+                        child: appCard(
+                          cardColor: const Color(0xFF9966FF).withOpacity(0.2),
+                          icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
+                              height: 14.sp,
+                              width: 14.sp,
+                              color: Colors.black,
+                              semanticsLabel: 'icon'),
+                          title: 'Url Shortener',
+                          description:
+                              'Give me a cup of coffee every 720 minutes',
+                          statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
+                        )),
+                    FadeInRight(
+                        duration: const Duration(milliseconds: 500),
+                        child: appCard(
+                          cardColor: const Color(0xFF4BC0C0).withOpacity(0.2),
+                          icon: SvgPicture.asset("assets/icon/heroku_icon.svg",
+                              height: 14.sp,
+                              width: 14.sp,
+                              color: Colors.black,
+                              semanticsLabel: 'icon'),
+                          title: 'Bubt Smart Notice',
+                          description:
+                              'Give me a cup of coffee every 360 minutes',
+                          statusColor: const Color(0xFF2CB77F).withOpacity(0.8),
+                        )),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.sp, horizontal: 10.sp),
+                      child: FadeInLeft(
+                        duration: const Duration(milliseconds: 500),
+                        child: Text(
+                          'Events Life Line',
+                          style:
+                              TextStyle(fontSize: 12.sp, color: Colors.black),
                         ),
                       ),
-
-                      const LineChartSample1(),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.sp),
-                        child: FadeInLeft(
-                          duration: const Duration(milliseconds: 500),
-                          child: Text(
-                            'Events Logs',
-                            style:
-                                TextStyle(fontSize: 12.sp, color: Colors.black),
-                          ),
+                    ),
+                    eventsLifeLine(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.sp, horizontal: 10.sp),
+                      child: FadeInLeft(
+                        duration: const Duration(milliseconds: 500),
+                        child: Text(
+                          'Events Logs',
+                          style:
+                              TextStyle(fontSize: 12.sp, color: Colors.black),
                         ),
                       ),
-
-                      Container(
+                    ),
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 500),
+                      child: Container(
                         color: Colors.white,
-                        padding: EdgeInsets.only(bottom: 15.sp),
+                        padding: EdgeInsets.only(
+                            left: 10.sp, right: 10.sp, bottom: 15.sp),
                         child: Column(
                           children: [
                             THeader(
@@ -263,16 +255,22 @@ class DashboardView extends StatelessWidget {
                                 borderRadius: BorderRadius.zero,
                                 textColor: Colors.black,
                                 fontSize: 8.sp,
-                                data: const ['11 Nov, 10:20:10', 'Success', 'Server running']
-                            ),
+                                data: const [
+                                  '11 Nov, 10:20:10',
+                                  'Success',
+                                  'Server running'
+                                ]),
                             TRow(
                                 bgColor: Colors.redAccent.withOpacity(0.1),
                                 padding: EdgeInsets.all(10.sp),
                                 borderRadius: BorderRadius.zero,
                                 textColor: Colors.black,
                                 fontSize: 8.sp,
-                                data: const ['11 Nov, 10:35:49', 'Error', 'Invalid data']
-                            ),
+                                data: const [
+                                  '11 Nov, 10:35:49',
+                                  'Error',
+                                  'Invalid data'
+                                ]),
                             TRow(
                                 bgColor: Colors.green.withOpacity(0.1),
                                 padding: EdgeInsets.all(10.sp),
@@ -281,13 +279,16 @@ class DashboardView extends StatelessWidget {
                                     bottomRight: Radius.circular(8.sp)),
                                 textColor: Colors.black,
                                 fontSize: 8.sp,
-                                data: const ['11 Nov, 10:56:20', 'Success', 'Project running']
-                            ),
+                                data: const [
+                                  '11 Nov, 10:56:20',
+                                  'Success',
+                                  'Project running'
+                                ]),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               )),
         ),
@@ -301,8 +302,8 @@ class DashboardView extends StatelessWidget {
       required String title,
       required String description}) {
     return Expanded(
-      child: FadeIn(
-        duration: const Duration(milliseconds: 2000),
+      child: ZoomIn(
+        duration: const Duration(milliseconds: 500),
         child: Container(
           padding: EdgeInsets.all(15.sp),
           decoration: BoxDecoration(
@@ -348,7 +349,7 @@ class DashboardView extends StatelessWidget {
       required String description,
       required Color statusColor}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8.sp),
+      padding: EdgeInsets.only(left: 10.sp, right: 10.sp, bottom: 8.sp),
       child: Container(
         padding: EdgeInsets.all(15.sp),
         decoration: BoxDecoration(
@@ -397,267 +398,208 @@ class DashboardView extends StatelessWidget {
       ),
     );
   }
-}
 
-class _LineChart extends StatelessWidget {
-  const _LineChart();
 
-  @override
-  Widget build(BuildContext context) {
-    return LineChart(
-      sampleData1,
-      swapAnimationDuration: const Duration(milliseconds: 250),
-    );
-  }
-
-  LineChartData get sampleData1 => LineChartData(
-        lineTouchData: lineTouchData1,
-        gridData: gridData,
-        titlesData: titlesData1,
-        borderData: borderData,
-        lineBarsData: lineBarsData1,
-        minX: 0,
-        maxX: 14,
-        maxY: 4,
-        minY: 0,
-      );
-
-  LineTouchData get lineTouchData1 => LineTouchData(
-        handleBuiltInTouches: true,
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
-        ),
-      );
-
-  FlTitlesData get titlesData1 => FlTitlesData(
-        bottomTitles: AxisTitles(
-          sideTitles: bottomTitles,
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: leftTitles(),
-        ),
-      );
-
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData1_1,
-        lineChartBarData1_2,
-        lineChartBarData1_3,
-      ];
-
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
-    var style = TextStyle(
-      color: const Color(0xff000000),
-      fontSize: 8.sp,
-    );
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '1m';
-        break;
-      case 2:
-        text = '2m';
-        break;
-      case 3:
-        text = '3m';
-        break;
-      case 4:
-        text = '5m';
-        break;
-      case 5:
-        text = '6m';
-        break;
-      default:
-        return Container();
-    }
-
-    return Text(text, style: style, textAlign: TextAlign.center);
-  }
-
-  SideTitles leftTitles() => SideTitles(
-        getTitlesWidget: leftTitleWidgets,
-        showTitles: false,
-        interval: 1,
-        reservedSize: 40,
-      );
-
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    var style = TextStyle(
-      color: Colors.grey,
-      fontSize: 8.sp,
-    );
-    Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = Text('6:00 AM', style: style);
-        break;
-      case 7:
-        text = Text('12:00 AM', style: style);
-        break;
-      case 12:
-        text = Text('6:00 PM', style: style);
-        break;
-      default:
-        text = const Text('');
-        break;
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 10,
-      child: text,
-    );
-  }
-
-  SideTitles get bottomTitles => SideTitles(
-        showTitles: true,
-        reservedSize: 32,
-        interval: 1,
-        getTitlesWidget: bottomTitleWidgets,
-      );
-
-  FlGridData get gridData => FlGridData(show: false);
-
-  FlBorderData get borderData => FlBorderData(
-        show: true,
-        border: const Border(
-          bottom: BorderSide(color: Color(0xff959598), width: 0.5),
-          left: BorderSide(color: Colors.transparent),
-          right: BorderSide(color: Colors.transparent),
-          top: BorderSide(color: Colors.transparent),
-        ),
-      );
-
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: true,
-        color: const Color(0xff2CB77F),
-        barWidth: 2.sp,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(
-            show: true, color: const Color(0xff2CB77F).withOpacity(0.1)),
-        spots: const [
-          FlSpot(0, 0),
-          FlSpot(3, 1.5),
-          FlSpot(5, 1.4),
-          FlSpot(7, 3.4),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
-          FlSpot(15, 1.8),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: true,
-        color: const Color(0xffaa4cfc),
-        barWidth: 2.sp,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: true,
-          color: const Color(0x00aa4cfc).withOpacity(0.1),
-        ),
-        spots: const [
-          FlSpot(0, 0),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(15, 3.9),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_3 => LineChartBarData(
-        isCurved: true,
-        color: const Color(0xff27b6fc),
-        barWidth: 2.sp,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: true,
-          color: const Color(0xff27b6fc).withOpacity(0.1),
-        ),
-        spots: const [
-          FlSpot(0, 2.8),
-          FlSpot(3, 1.9),
-          FlSpot(6, 3),
-          FlSpot(10, 1.3),
-          FlSpot(15, 2.5),
-        ],
-      );
-}
-
-class LineChartSample1 extends StatefulWidget {
-  const LineChartSample1({super.key});
-
-  @override
-  State<StatefulWidget> createState() => LineChartSample1State();
-}
-
-class LineChartSample1State extends State<LineChartSample1> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          gradient: LinearGradient(
-            colors: [
-              Color(0x4decedea),
-              Color(0x4decedea),
-            ],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
+  Widget eventsLifeLine() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ZoomIn(
+        duration: const Duration(milliseconds: 500),
+        child: Container(
+          height: (Get.size.width - 16)/2,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Color(0x4decedea),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 15.sp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.sp),
-              child: Row(
-                children: [
-                  Text(
-                    'Daily Events',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 10.sp,
-                      letterSpacing: 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 15.sp,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                child: Row(
+                  children: [
+                    Text(
+                      'Daily Events',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 10.sp,
+                        letterSpacing: 2,
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: LineChart(
+                  LineChartData(
+                    lineTouchData: LineTouchData(
+                      handleBuiltInTouches: true,
+                      touchTooltipData: LineTouchTooltipData(
+                        tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+                      ),
+                    ),
+                    gridData: FlGridData(show: false),
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 32,
+                          interval: 1,
+                          getTitlesWidget: (double value, TitleMeta meta) {
+                            var style = TextStyle(
+                              color: Colors.grey,
+                              fontSize: 8.sp,
+                            );
+                            Widget text;
+                            switch (value.toInt()) {
+                              case 2:
+                                text = Text('6:00 AM', style: style);
+                                break;
+                              case 7:
+                                text = Text('12:00 AM', style: style);
+                                break;
+                              case 12:
+                                text = Text('6:00 PM', style: style);
+                                break;
+                              default:
+                                text = const Text('');
+                                break;
+                            }
+
+                            return SideTitleWidget(
+                              axisSide: meta.axisSide,
+                              space: 10,
+                              child: text,
+                            );
+                          },
+                        ),
+                      ),
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          getTitlesWidget: (double value, TitleMeta meta) {
+                            var style = TextStyle(
+                              color: const Color(0xff000000),
+                              fontSize: 8.sp,
+                            );
+                            String text;
+                            switch (value.toInt()) {
+                              case 1:
+                                text = '1m';
+                                break;
+                              case 2:
+                                text = '2m';
+                                break;
+                              case 3:
+                                text = '3m';
+                                break;
+                              case 4:
+                                text = '5m';
+                                break;
+                              case 5:
+                                text = '6m';
+                                break;
+                              default:
+                                return Container();
+                            }
+
+                            return Text(text, style: style, textAlign: TextAlign.center);
+                          },
+                          showTitles: false,
+                          interval: 1,
+                          reservedSize: 40,
+                        ),
+                      ),
+                    ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: const Border(
+                        bottom: BorderSide(color: Color(0xff959598), width: 0.5),
+                        left: BorderSide(color: Colors.transparent),
+                        right: BorderSide(color: Colors.transparent),
+                        top: BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    lineBarsData: [
+                      LineChartBarData(
+                        isCurved: true,
+                        color: const Color(0xff2CB77F),
+                        barWidth: 2.sp,
+                        isStrokeCapRound: true,
+                        dotData: FlDotData(show: false),
+                        belowBarData: BarAreaData(
+                            show: true, color: const Color(0xff2CB77F).withOpacity(0.1)),
+                        spots: const [
+                          FlSpot(0, 0),
+                          FlSpot(3, 1.5),
+                          FlSpot(5, 1.4),
+                          FlSpot(7, 3.4),
+                          FlSpot(10, 2),
+                          FlSpot(12, 2.2),
+                          FlSpot(15, 1.8),
+                        ],
+                      ),
+                      LineChartBarData(
+                        isCurved: true,
+                        color: const Color(0xffaa4cfc),
+                        barWidth: 2.sp,
+                        isStrokeCapRound: true,
+                        dotData: FlDotData(show: false),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          color: const Color(0x00aa4cfc).withOpacity(0.1),
+                        ),
+                        spots: const [
+                          FlSpot(0, 0),
+                          FlSpot(3, 2.8),
+                          FlSpot(7, 1.2),
+                          FlSpot(10, 2.8),
+                          FlSpot(12, 2.6),
+                          FlSpot(15, 3.9),
+                        ],
+                      ),
+                      LineChartBarData(
+                        isCurved: true,
+                        color: const Color(0xff27b6fc),
+                        barWidth: 2.sp,
+                        isStrokeCapRound: true,
+                        dotData: FlDotData(show: false),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          color: const Color(0xff27b6fc).withOpacity(0.1),
+                        ),
+                        spots: const [
+                          FlSpot(0, 2.8),
+                          FlSpot(3, 1.9),
+                          FlSpot(6, 3),
+                          FlSpot(10, 1.3),
+                          FlSpot(15, 2.5),
+                        ],
+                      ),
+                    ],
+                    minX: 0,
+                    maxX: 15,
+                    maxY: 4,
+                    minY: 0,
                   ),
-                ],
+                  swapAnimationDuration: const Duration(milliseconds: 250),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 37,
-            ),
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(right: 0, left: 0),
-                child: _LineChart(),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+
+
+
 }

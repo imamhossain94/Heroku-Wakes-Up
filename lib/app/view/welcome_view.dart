@@ -20,15 +20,15 @@ class WelcomeView extends StatelessWidget {
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light.copyWith(
-          systemNavigationBarColor: const Color(0xFFE8E9E6),
+          systemNavigationBarColor: Colors.white,
           systemNavigationBarIconBrightness: Brightness.dark,
-          statusBarColor: const Color(0xFFE8E9E6),
+          statusBarColor: Colors.white,
           statusBarBrightness: Brightness.dark,
           statusBarIconBrightness: Brightness.dark,
         ),
         child: SafeArea(
           child: Scaffold(
-              backgroundColor: const Color(0xFFE8E9E6),
+              backgroundColor: Colors.white,
               extendBody: true,
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
