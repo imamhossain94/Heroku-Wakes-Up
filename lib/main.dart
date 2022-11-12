@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'app/controller/binding.dart';
 import 'app/services/get_storage_service.dart';
 import 'app/services/hive_helper.dart';
 import 'app/services/theme_service.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeService().theme,
         debugShowCheckedModeBanner: false,
         defaultTransition: Transition.fadeIn,
+        initialBinding: Binding(),
         home: isFirstLaunch() ? const WelcomeView(): const DashboardView(),
       );
     });

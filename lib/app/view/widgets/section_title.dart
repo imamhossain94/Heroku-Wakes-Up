@@ -8,7 +8,7 @@ Widget sectionTitle({required String title, Widget? icon, VoidCallback? onTap}) 
   duration: const Duration(milliseconds: 700),
   child: Padding(
     padding: EdgeInsets.only(
-        left: 10.sp, right: 10.sp, top: 15.sp, bottom: 10.sp),
+        left: 15.sp, right: 10.sp, top: 15.sp, bottom: 5.sp),
     child: Row(
       children: [
         Text(
