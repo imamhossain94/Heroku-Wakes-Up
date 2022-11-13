@@ -38,7 +38,7 @@ Widget customTextEditingField(
               ),
             ),
             enabled: true,
-            fillColor: bgColor.withOpacity(0.1),
+            fillColor: bgColor.withOpacity(0.03),
             filled: true),
       ),
     ),

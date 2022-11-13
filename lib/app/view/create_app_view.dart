@@ -6,7 +6,6 @@ import '../controller/heroku_wake_up_controller.dart';
 import '../utils/extensions.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/create_app_appbar.dart';
-import 'widgets/custom_drop_button.dart';
 import 'widgets/custom_text_editing_field.dart';
 import 'widgets/custom_time_picker.dart';
 import 'widgets/interval_time_picker.dart';
@@ -57,10 +56,11 @@ class CreateAppView extends StatelessWidget {
                         title: 'Give me a cup of coffee every?',
                       ),
                       intervalTimePicker(controller: controller),
-                      sectionTitle(
-                        title: 'You will be given a cup of coffee during these times:',
-                      ),
-                      wakingUpTimesWidget()
+                      Obx(() => sectionTitle(
+                            title:
+                                'You will be given ${controller.coffeeServingTimes.length} cup of coffees during these times:',
+                          )),
+                      wakingUpTimesWidget(controller: controller)
                     ],
                   ),
                 ));
@@ -68,5 +68,3 @@ class CreateAppView extends StatelessWidget {
     );
   }
 }
-
-

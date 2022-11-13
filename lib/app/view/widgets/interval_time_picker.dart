@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../controller/heroku_wake_up_controller.dart';
+import '../../utils/constants.dart';
 
 Widget intervalTimePicker({required HerokuWakeUpController controller}) {
   return FadeInUp(
@@ -14,10 +15,10 @@ Widget intervalTimePicker({required HerokuWakeUpController controller}) {
         child: Container(
           padding: EdgeInsets.all(10.sp),
           decoration: BoxDecoration(
-              color: const Color(0xFFFF79D8).withOpacity(0.1),
+              color: const Color(0xFFD4D6C0).withOpacity(0.03),
               borderRadius: BorderRadius.circular(8.sp),
               border:
-                  Border.all(color: const Color(0xFFFF79D8).withOpacity(0.3))),
+                  Border.all(color: const Color(0xFFD4D6C0).withOpacity(0.3))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -28,37 +29,19 @@ Widget intervalTimePicker({required HerokuWakeUpController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        onTap: () {
-                          if (controller.intervalHmIndex.value == 0) {
-                            controller.intervalHIndex < 11
-                                ? controller.intervalHIndex++
-                                : controller.intervalHIndex.value = 0;
-                          } else {
-                            controller.intervalMIndex < 59
-                                ? controller.intervalMIndex++
-                                : controller.intervalMIndex.value = 0;
-                          }
-                        }),
-                    Obx(() => controller.intervalHmIndex.value == 0
+                        color: colorList[3],
+                        onTap: controller.intervalTimeIncrement),
+                    Obx(() => controller.intervalHourOrMinuteIndex.value == 0
                         ? _selectedText(
-                            value: controller
-                                .hours[controller.intervalHIndex.value])
+                            value: controller.intervalHours[
+                                controller.intervalHoursIndex.value])
                         : _selectedText(
-                            value: controller
-                                .minutes[controller.intervalMIndex.value])),
+                            value: controller.intervalMinutes[
+                                controller.intervalMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        onTap: () {
-                          if (controller.intervalHmIndex.value == 0) {
-                            controller.intervalHIndex > 0
-                                ? controller.intervalHIndex--
-                                : controller.intervalHIndex.value = 11;
-                          } else {
-                            controller.intervalMIndex > 0
-                                ? controller.intervalMIndex--
-                                : controller.intervalMIndex.value = 59;
-                          }
-                        }),
+                        color: colorList[9],
+                        onTap: controller.intervalTimeDecrement),
                   ],
                 ),
               ),
@@ -72,17 +55,15 @@ Widget intervalTimePicker({required HerokuWakeUpController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        onTap: () => controller.intervalHmIndex.value == 0
-                            ? controller.intervalHmIndex++
-                            : controller.intervalHmIndex.value = 0),
+                        color: colorList[9],
+                        onTap: controller.intervalClockTypeIncrement),
                     Obx(() => _selectedText(
-                        value: controller
-                            .hourOrMinute[controller.intervalHmIndex.value])),
+                        value: controller.intervalHourOrMinute[
+                            controller.intervalHourOrMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        onTap: () => controller.intervalHmIndex.value == 1
-                            ? controller.intervalHmIndex--
-                            : controller.intervalHmIndex.value = 1),
+                        color: colorList[3],
+                        onTap: controller.intervalClockTypeDecrement),
                   ],
                 ),
               ),
@@ -92,12 +73,13 @@ Widget intervalTimePicker({required HerokuWakeUpController controller}) {
       ));
 }
 
-Widget _arrowButton({required String iconPath, VoidCallback? onTap}) {
+Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int color}) {
   return Material(
-      type: MaterialType.transparency,
+      color:  Color(color).withOpacity(0.03),
+      borderRadius: BorderRadius.circular(8.sp),
       child: Ink(
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.black54, width: 2.0),
+            border: Border.all(color: Color(color).withOpacity(0.3)),
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8.sp)),
         child: InkWell(
@@ -108,7 +90,7 @@ Widget _arrowButton({required String iconPath, VoidCallback? onTap}) {
             child: SvgPicture.asset(iconPath,
                 height: 12.sp,
                 width: 12.sp,
-                color: Colors.black54,
+                color: Color(color).withOpacity(0.5),
                 semanticsLabel: 'arrow'),
           ),
         ),

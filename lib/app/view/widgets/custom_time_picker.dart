@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../controller/heroku_wake_up_controller.dart';
+import '../../utils/constants.dart';
 
 Widget customTimePicker({required HerokuWakeUpController controller}) {
   return FadeInUp(
@@ -14,10 +15,10 @@ Widget customTimePicker({required HerokuWakeUpController controller}) {
         child: Container(
           padding: EdgeInsets.all(10.sp),
           decoration: BoxDecoration(
-              color: const Color(0xFFFFA451).withOpacity(0.1),
+              color: const Color(0xFF85B1C5).withOpacity(0.03),
               borderRadius: BorderRadius.circular(8.sp),
               border:
-                  Border.all(color: const Color(0xFFFFA451).withOpacity(0.3))),
+                  Border.all(color: const Color(0xFF85B1C5).withOpacity(0.3))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -28,16 +29,14 @@ Widget customTimePicker({required HerokuWakeUpController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        onTap: () => controller.hourIndex < 11
-                            ? controller.hourIndex++
-                            : controller.hourIndex.value = 0),
+                        color: colorList[16],
+                        onTap: controller.customTimeHourIncrement),
                     Obx(() => _selectedText(
                         value: controller.hours[controller.hourIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        onTap: () => controller.hourIndex > 0
-                            ? controller.hourIndex--
-                            : controller.hourIndex.value = 11),
+                        color: colorList[26],
+                        onTap: controller.customTimeHourDecrement),
                   ],
                 ),
               ),
@@ -51,17 +50,15 @@ Widget customTimePicker({required HerokuWakeUpController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        onTap: () => controller.minuteIndex < 59
-                            ? controller.minuteIndex++
-                            : controller.minuteIndex.value = 0),
+                        color: colorList[26],
+                        onTap: controller.customTimeMinuteIncrement),
                     Obx(() => _selectedText(
                         value:
                             controller.minutes[controller.minuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        onTap: () => controller.minuteIndex > 0
-                            ? controller.minuteIndex--
-                            : controller.minuteIndex.value = 59),
+                        color: colorList[16],
+                        onTap: controller.customTimeMinuteDecrement),
                   ],
                 ),
               ),
@@ -75,17 +72,15 @@ Widget customTimePicker({required HerokuWakeUpController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        onTap: () => controller.meridiemIndex.value == 0
-                            ? controller.meridiemIndex++
-                            : controller.meridiemIndex.value = 0),
+                        color: colorList[16],
+                        onTap: controller.customTimeMeridiemIncrement),
                     Obx(() => _selectedText(
                         value: controller
                             .meridiem[controller.meridiemIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        onTap: () => controller.meridiemIndex.value == 1
-                            ? controller.meridiemIndex--
-                            : controller.meridiemIndex.value = 1),
+                        color: colorList[26],
+                        onTap: controller.customTimeMeridiemDecrement),
                   ],
                 ),
               ),
@@ -95,12 +90,13 @@ Widget customTimePicker({required HerokuWakeUpController controller}) {
       ));
 }
 
-Widget _arrowButton({required String iconPath, VoidCallback? onTap}) {
+Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int color}) {
   return Material(
-      type: MaterialType.transparency,
+      color:  Color(color).withOpacity(0.05),
+      borderRadius: BorderRadius.circular(8.sp),
       child: Ink(
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.black54, width: 2.0),
+            border: Border.all(color: Color(color).withOpacity(0.3)),
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8.sp)),
         child: InkWell(
@@ -111,12 +107,13 @@ Widget _arrowButton({required String iconPath, VoidCallback? onTap}) {
             child: SvgPicture.asset(iconPath,
                 height: 12.sp,
                 width: 12.sp,
-                color: Colors.black54,
+                color: Color(color).withOpacity(0.5),
                 semanticsLabel: 'arrow'),
           ),
         ),
       ));
 }
+
 
 Widget _selectedText({required String value}) {
   return Padding(
