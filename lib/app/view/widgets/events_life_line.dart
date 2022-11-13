@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 Widget eventsLifeLine() {
+
+  double size = (Get.size.width - 16) / 2;
+
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10.sp),
     child: FadeInUp(
       duration: const Duration(milliseconds: 1200),
       child: Container(
-        height: (Get.size.width - 16) / 2,
+        height: size > 0 && size < 300 ? size : 200,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             color: Colors.white,

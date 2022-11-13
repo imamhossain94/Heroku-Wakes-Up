@@ -51,7 +51,7 @@ class CreateAppView extends StatelessWidget {
                       sectionTitle(
                         title: 'From when to take this service?',
                       ),
-                      customTimePicker(),
+                      customTimePicker(controller: controller),
                       sectionTitle(
                         title: 'Give me a cup of coffee every?',
                       ),
