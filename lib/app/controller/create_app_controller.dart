@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../model/heroku_app.dart';
+import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
-class HerokuWakeUpController extends GetxController {
-  HerokuApp? herokuApp;
+class CreateAppController extends GetxController {
+  final String iD;
+  CreateAppController({required String id}) : iD = id;
+
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
 
@@ -158,8 +161,26 @@ class HerokuWakeUpController extends GetxController {
     String appLink = appLinkTextController.text.toString();
 
     if (appName.isNotEmpty && appLink.isNotEmpty) {
+      var interval = intervalHourOrMinute[intervalHourOrMinuteIndex.value] ==
+              intervalHourOrMinute[0]
+          ? intervalHours[intervalHoursIndex.value]
+          : intervalMinutes[intervalMinuteIndex.value];
+
+      var herokuApp = HerokuApp(
+          id: '',
+          name: appName,
+          link: appLink,
+          startTime:
+              '${hours[hourIndex.value]}:${minutes[minuteIndex.value]} ${meridiem[meridiemIndex.value]}',
+          interval:
+              '$interval/${intervalHourOrMinute[intervalHourOrMinuteIndex.value]}',
+          wakingUpTimes: coffeeServingTimes);
+
+      saveApp(herokuApp);
+      Get.delete(tag: iD);
+      Get.back();
     } else {
-      showMessage('Error message');
+      showMessage('Please enter both name and link');
     }
   }
 }

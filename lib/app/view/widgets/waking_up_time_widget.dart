@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../controller/heroku_wake_up_controller.dart';
+import '../../controller/create_app_controller.dart';
 import '../../utils/constants.dart';
 
-Widget wakingUpTimesWidget({required HerokuWakeUpController controller}) {
+Widget wakingUpTimesWidget({required CreateAppController controller}) {
   return FadeInUp(
     duration: const Duration(milliseconds: 800),
     child: Padding(
@@ -20,7 +20,7 @@ Widget wakingUpTimesWidget({required HerokuWakeUpController controller}) {
               return Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(8.sp),
-                margin: EdgeInsets.only(bottom: 5.sp),
+                margin: EdgeInsets.only(bottom: 8.sp),
                 decoration: BoxDecoration(
                     color: Color(colorList[index]).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8.sp),

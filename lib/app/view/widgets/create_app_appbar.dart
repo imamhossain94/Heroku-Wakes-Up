@@ -2,10 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:heroku_wake_up/app/controller/create_app_controller.dart';
 import 'package:sizer/sizer.dart';
 
 
-Widget createAppAppBar() => FadeInUp(
+Widget createAppAppBar({required CreateAppController controller}) => FadeInUp(
   duration: const Duration(milliseconds: 500),
   child: Padding(
     padding: EdgeInsets.only(left: 15.sp, right: 5.sp),
@@ -26,8 +27,7 @@ Widget createAppAppBar() => FadeInUp(
           borderRadius: BorderRadius.circular(8),
           child: InkWell(
             onTap: () {
-
-
+              controller.createApp();
             },
             borderRadius: BorderRadius.circular(8),
             child: Padding(
@@ -46,6 +46,7 @@ Widget createAppAppBar() => FadeInUp(
           child: InkWell(
             onTap: () {
               Get.back();
+              Get.delete(tag: controller.iD);
             },
             borderRadius: BorderRadius.circular(8),
             child: Padding(
