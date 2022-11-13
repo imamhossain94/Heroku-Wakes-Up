@@ -9,6 +9,7 @@ import 'widgets/create_app_appbar.dart';
 import 'widgets/custom_drop_button.dart';
 import 'widgets/custom_text_editing_field.dart';
 import 'widgets/custom_time_picker.dart';
+import 'widgets/interval_time_picker.dart';
 import 'widgets/section_title.dart';
 import 'widgets/waking_up_time_widget.dart';
 
@@ -55,7 +56,7 @@ class CreateAppView extends StatelessWidget {
                       sectionTitle(
                         title: 'Give me a cup of coffee every?',
                       ),
-                      customDropDownButton(),
+                      intervalTimePicker(controller: controller),
                       sectionTitle(
                         title: 'You will be given a cup of coffee during these times:',
                       ),

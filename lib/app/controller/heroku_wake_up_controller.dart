@@ -10,13 +10,23 @@ class HerokuWakeUpController extends GetxController {
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
 
+
   var hours = [for (var i = 1; i <= 12; i++) '$i'];
   var minutes = [for (var i = 0; i < 60; i++) i < 10 ? '0$i' : '$i'];
   var meridiem = ['AM', 'PM'];
+  var hourOrMinute = ['H', 'M'];
 
+  // Time selector
   var hourIndex = 0.obs;
   var minuteIndex = 0.obs;
   var meridiemIndex = 0.obs;
+
+  // Interval selector
+  var intervalHmIndex = 0.obs;
+  var intervalHIndex = 0.obs;
+  var intervalMIndex = 0.obs;
+
+
 
   @override
   void onInit() {
