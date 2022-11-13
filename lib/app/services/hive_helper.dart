@@ -13,13 +13,13 @@ class HiveHelper {
 List<HerokuApp> getAppList() {
   List apps = <HerokuApp>[];
   apps = HiveHelper.appBox.values.toList();
-  apps = apps.reversed.toList();
+  // apps = apps.reversed.toList();
   return List<HerokuApp>.from(apps).toList();
 }
 
 void saveApp(HerokuApp app) async{
   var apps = getAppList();
-  app.id = (apps.isNotEmpty ? int.parse(apps.first.id) + 1 : 0).toString();
+  app.id = (apps.isNotEmpty ? int.parse(apps.last.id) + 1 : 0).toString();
   await HiveHelper.appBox.add(app);
 }
 

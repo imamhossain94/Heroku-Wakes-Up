@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../controller/create_app_controller.dart';
+import '../controller/heroku_wake_up_app_controller.dart';
 import '../utils/extensions.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/create_app_appbar.dart';
@@ -13,10 +13,9 @@ import 'widgets/section_title.dart';
 import 'widgets/waking_up_time_widget.dart';
 
 class CreateAppView extends StatelessWidget {
-  final CreateAppController controller;
+  final HerokuWakeUpAppController controller;
 
-  const CreateAppView({Key? key, required this.controller})
-      : super(key: key);
+  const CreateAppView({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class CreateAppView extends StatelessWidget {
                 intervalTimePicker(controller: controller),
                 Obx(() => sectionTitle(
                       title:
-                          'You will be given ${controller.coffeeServingTimes.length} cup of coffees during these times:',
+                          'You will be given ${controller.coffeeServingTimes.length} cup of coffees per day:',
                     )),
                 wakingUpTimesWidget(controller: controller)
               ],

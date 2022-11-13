@@ -11,11 +11,13 @@ class HerokuApp {
   @HiveField(2)
   String link;
   @HiveField(3)
-  String startTime; // Ex: 10/56/AM
+  String startTime; // Ex: 10:56 AM
   @HiveField(4)
   String interval;  // Ex: 30/m
   @HiveField(5)
-  List<String> wakingUpTimes;   // Ex: ['10/56/AM', '11/36/AM', '12/56/AM']
+  List<String> wakingUpTimes;   // Ex: ['10:56 AM', '11:36 AM', '12:56 AM']
+  @HiveField(6)
+  bool status;
 
   HerokuApp(
       {required this.id,
@@ -23,7 +25,8 @@ class HerokuApp {
       required this.link,
       required this.startTime,
       required this.interval,
-      required this.wakingUpTimes});
+      required this.wakingUpTimes,
+      required this.status});
 
   HerokuApp.fromJson(Map<String, dynamic> json)
       : id = json['id'] ?? '',
@@ -31,7 +34,8 @@ class HerokuApp {
         link = json['link'] ?? '',
         startTime = json['startTime'] ?? '',
         interval = json['interval'] ?? '',
-        wakingUpTimes = json['wakingUpTimes'] ?? [];
+        wakingUpTimes = json['wakingUpTimes'] ?? [],
+        status = json['status'] ?? false;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -41,6 +45,7 @@ class HerokuApp {
     data['startTime'] = startTime;
     data['interval'] = interval;
     data['wakingUpTimes'] = wakingUpTimes;
+    data['status'] = status;
     return data;
   }
 }

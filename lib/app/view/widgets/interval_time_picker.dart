@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../controller/create_app_controller.dart';
+import '../../controller/heroku_wake_up_app_controller.dart';
 import '../../utils/constants.dart';
 
-Widget intervalTimePicker({required CreateAppController controller}) {
+Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
   return FadeInUp(
       duration: const Duration(milliseconds: 700),
       child: Padding(

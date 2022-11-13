@@ -6,9 +6,9 @@ import '../model/heroku_app.dart';
 import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
-class CreateAppController extends GetxController {
-  final String iD;
-  CreateAppController({required String id}) : iD = id;
+class HerokuWakeUpAppController extends GetxController {
+  var isLoading = false.obs;
+  var appList = <HerokuApp>[].obs;
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -27,9 +27,9 @@ class CreateAppController extends GetxController {
   var intervalMinutes = ['15', '30'];
   var intervalHourOrMinute = ['H', 'M'];
 
-  var intervalHourOrMinuteIndex = 1.obs;
-  var intervalHoursIndex = 0.obs;
-  var intervalMinuteIndex = 1.obs;
+  var intervalHourOrMinuteIndex = 0.obs;
+  var intervalHoursIndex = 11.obs;
+  var intervalMinuteIndex = 0.obs;
 
   // Possible coffee serving time
   var coffeeServingTimes = <String>[].obs;
@@ -38,6 +38,7 @@ class CreateAppController extends GetxController {
   void onInit() {
     appNameTextController = TextEditingController();
     appLinkTextController = TextEditingController();
+    fetchApps();
     possibleServingTime();
     super.onInit();
   }
@@ -47,6 +48,27 @@ class CreateAppController extends GetxController {
     appNameTextController.dispose();
     appLinkTextController.dispose();
     super.dispose();
+  }
+
+  void fetchApps() {
+    isLoading(true);
+    appList.value = getAppList();
+    isLoading(false);
+  }
+
+  void reset() {
+    appNameTextController.clear();
+    appLinkTextController.clear();
+    hourIndex.value = 0;
+    minuteIndex.value = 0;
+    meridiemIndex.value = 0;
+    intervalHourOrMinuteIndex.value = 0;
+    intervalHoursIndex.value = 11;
+    intervalMinuteIndex.value = 0;
+    coffeeServingTimes.clear();
+    possibleServingTime();
+    fetchApps();
+    update();
   }
 
   // Custom Time Picker
@@ -134,7 +156,7 @@ class CreateAppController extends GetxController {
 
     if (clockType == intervalHourOrMinute[0]) {
       int intervalHour = int.parse(intervalHours[intervalHoursIndex.value]);
-      for (int i = 0; i < (24 / intervalHour).floor(); i++) {
+      for (int i = 0; i < ((24 - 6) / intervalHour).floor(); i++) {
         h = ((h + (intervalHour * i) > 23))
             ? (h + (intervalHour * i) - 24)
             : (h + (intervalHour * i));
@@ -145,10 +167,13 @@ class CreateAppController extends GetxController {
       int intervalMinute =
           int.parse(intervalMinutes[intervalMinuteIndex.value]);
 
-      for (int i = 0; i < (24 * 60 / intervalMinute).floor(); i++) {
-        int intervalTime =
-            ((intervalMinute % 1440) + (h * 60 + (intervalMinute * i)) + 1440) %
-                1440;
+      for (int i = 0;
+          i < ((24 - 6) * 60 / intervalMinute).floor();
+          i++) {
+        int intervalTime = ((intervalMinute % 1440) +
+                (h * 60 + (intervalMinute * i) + int.parse(m)) +
+                1440) %
+            1440;
         DateTime tempDate = DateFormat("hh:mm")
             .parse('${intervalTime ~/ 60}:${intervalTime % 60}');
         coffeeServingTimes.add(DateFormat("h:mm a").format(tempDate));
@@ -174,10 +199,10 @@ class CreateAppController extends GetxController {
               '${hours[hourIndex.value]}:${minutes[minuteIndex.value]} ${meridiem[meridiemIndex.value]}',
           interval:
               '$interval/${intervalHourOrMinute[intervalHourOrMinuteIndex.value]}',
-          wakingUpTimes: coffeeServingTimes);
+          wakingUpTimes: coffeeServingTimes, status: true);
 
       saveApp(herokuApp);
-      Get.delete(tag: iD);
+      reset();
       Get.back();
     } else {
       showMessage('Please enter both name and link');
