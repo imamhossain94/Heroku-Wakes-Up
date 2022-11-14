@@ -26,7 +26,9 @@ class MenuView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: MediaQuery.of(context).viewPadding.top,),
+                SizedBox(
+                  height: MediaQuery.of(context).viewPadding.top,
+                ),
                 FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: Padding(
@@ -51,7 +53,8 @@ class MenuView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           child: InkWell(
                             onTap: () {
-                              Share.share('Hey check out this android app $appLink');
+                              Share.share(
+                                  'Hey check out this android app $appLink');
                             },
                             borderRadius: BorderRadius.circular(8),
                             child: Padding(
@@ -93,7 +96,7 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Write us',
                     description: 'imamagun94@gmail.com',
-                    bgColor: const Color(0xFF4EBBFF).withOpacity(0.3),
+                    bgColor: const Color(0xFF4EBBFF),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(contactMail))) {
@@ -107,7 +110,7 @@ class MenuView extends StatelessWidget {
                         width: 14.sp,
                         color: Colors.black,
                         semanticsLabel: 'link'),
-                    bgColor: const Color(0xFFFFA451).withOpacity(0.1),
+                    bgColor: const Color(0xFFFFA451),
                     duration: 600,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(websiteUrl))) {
@@ -121,7 +124,7 @@ class MenuView extends StatelessWidget {
                         width: 14.sp,
                         color: Colors.black,
                         semanticsLabel: 'link'),
-                    bgColor: const Color(0xFF53F1F1).withOpacity(0.3),
+                    bgColor: const Color(0xFF53F1F1),
                     duration: 700,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(privacyPolicyUrl))) {
@@ -131,7 +134,7 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Feedback',
                     description: 'imamagun94@gmail.com',
-                    bgColor: const Color(0xFFFF79D8).withOpacity(0.3),
+                    bgColor: const Color(0xFFFF79D8),
                     duration: 800,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(feedbackMail))) {
@@ -145,7 +148,7 @@ class MenuView extends StatelessWidget {
                         width: 12.sp,
                         color: Colors.black,
                         semanticsLabel: 'star'),
-                    bgColor: const Color(0xFFFF7171).withOpacity(0.3),
+                    bgColor: const Color(0xFFFF7171),
                     duration: 900,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(appLink))) {
@@ -159,7 +162,7 @@ class MenuView extends StatelessWidget {
                         width: 12.sp,
                         color: Colors.black,
                         semanticsLabel: 'play_store'),
-                    bgColor: const Color(0xFFAE7AFB).withOpacity(0.3),
+                    bgColor: const Color(0xFFAE7AFB),
                     duration: 1000,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(storeLink))) {
@@ -173,7 +176,7 @@ class MenuView extends StatelessWidget {
                         width: 14.sp,
                         color: Colors.black,
                         semanticsLabel: 'git source'),
-                    bgColor: const Color(0xFF2DE786).withOpacity(0.3),
+                    bgColor: const Color(0xFF2DE786),
                     duration: 1100,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(sourceCodeLink))) {
@@ -183,12 +186,12 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Icons by',
                     description: 'svgrepo.com',
-                    bgColor: const Color(0xFF575880).withOpacity(0.3),
+                    bgColor: const Color(0xFF575880),
                     duration: 1200),
                 menuItem(
                   title: 'Version',
                   description: appVersion(),
-                  bgColor: const Color(0xFFFFB711).withOpacity(0.3),
+                  bgColor: const Color(0xFFFFB711),
                   duration: 1300,
                 ),
               ],
@@ -196,6 +199,4 @@ class MenuView extends StatelessWidget {
           )),
     );
   }
-
-
 }

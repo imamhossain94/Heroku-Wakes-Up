@@ -14,7 +14,6 @@ import 'widgets/waking_up_time_widget.dart';
 
 class CreateAppView extends StatelessWidget {
   final HerokuWakeUpAppController controller;
-
   const CreateAppView({Key? key, required this.controller}) : super(key: key);
 
   @override

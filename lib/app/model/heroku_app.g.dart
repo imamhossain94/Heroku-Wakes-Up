@@ -24,13 +24,19 @@ class HerokuAppAdapter extends TypeAdapter<HerokuApp> {
       interval: fields[4] as String,
       wakingUpTimes: (fields[5] as List).cast<String>(),
       status: fields[6] as bool,
+      hourIndex: fields[7] as int,
+      minuteIndex: fields[8] as int,
+      meridiemIndex: fields[9] as int,
+      intervalHourOrMinuteIndex: fields[10] as int,
+      intervalHoursIndex: fields[11] as int,
+      intervalMinuteIndex: fields[12] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, HerokuApp obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +50,19 @@ class HerokuAppAdapter extends TypeAdapter<HerokuApp> {
       ..writeByte(5)
       ..write(obj.wakingUpTimes)
       ..writeByte(6)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(7)
+      ..write(obj.hourIndex)
+      ..writeByte(8)
+      ..write(obj.minuteIndex)
+      ..writeByte(9)
+      ..write(obj.meridiemIndex)
+      ..writeByte(10)
+      ..write(obj.intervalHourOrMinuteIndex)
+      ..writeByte(11)
+      ..write(obj.intervalHoursIndex)
+      ..writeByte(12)
+      ..write(obj.intervalMinuteIndex);
   }
 
   @override

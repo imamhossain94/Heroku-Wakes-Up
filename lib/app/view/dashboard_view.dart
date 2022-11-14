@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart';
 import 'package:heroku_wake_up/app/utils/constants.dart';
+import 'package:heroku_wake_up/app/view/app_list_view.dart';
 import 'package:heroku_wake_up/app/view/create_app_view.dart';
-import 'package:sizer/sizer.dart';
 
 import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
@@ -45,38 +44,42 @@ class DashboardView extends StatelessWidget {
                             totalEvents: 150)),
                         sectionTitle(
                             title: 'App list',
-                            icon: SvgPicture.asset(
-                                "assets/icon/plus_square.svg",
-                                height: 14.sp,
-                                width: 14.sp,
-                                color: const Color(0xFF613C96).withOpacity(0.8),
-                                semanticsLabel: 'heroku-icon'),
-                            onTap: () => Get.to(CreateAppView(
+                            onAddClick: () => Get.to(CreateAppView(
+                                  controller: controller,
+                                )),
+                            onListClick: () => Get.to(AppListView(
                                   controller: controller,
                                 ))),
                         Obx(
                           () => ListView.builder(
-                            shrinkWrap: true,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
                               itemCount: controller.appList.length,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return appCard(
-                                  app: controller.appList[index],
-                                  cardColor: Color(colorList[index]).withOpacity(0.2),
-                                  statusColor: Color(colorList[index]).withOpacity(0.8),
-                                  confirmDismiss: (direction) async {
-                                    if (direction == DismissDirection.endToStart) {
-                                      // TODO: delete this item.
-                                      deleteApp(controller.appList[index]);
-                                      return true;
-                                    } else {
-                                      // TODO: edit this item.
-                                    }
-                                    return null;
-                                  }
-                                );
-                              }
-                          ),
+                                    app: controller.appList[index],
+                                    cardColor: Color(colorList[index])
+                                        .withOpacity(0.2),
+                                    statusColor: Color(colorList[index])
+                                        .withOpacity(0.8),
+                                    confirmDismiss: (direction) async {
+                                      if (direction ==
+                                          DismissDirection.endToStart) {
+                                        // TODO: delete this item.
+                                        controller.deleteHerokuApp(controller.appList[index]);
+                                        return true;
+                                      } else {
+                                        // TODO: edit this item.
+                                        controller.loadControllerValueFromApp(
+                                            controller.appList[index]);
+                                        Get.to(CreateAppView(
+                                          controller: controller,
+                                        ));
+                                      }
+                                      return null;
+                                    });
+                              }),
                         ),
                         sectionTitle(
                           title: 'Events Life Line',

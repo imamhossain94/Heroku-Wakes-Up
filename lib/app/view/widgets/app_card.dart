@@ -17,7 +17,7 @@ Widget appCard(
           key: Key(app.id),
           background: slideBackground(
             bgColor: Colors.green,
-            icon: Icons.edit,
+            iconPath: "assets/icon/edit.svg",
             text: "Edit",
             mainAxisAlignment: MainAxisAlignment.start,
             textAlign: TextAlign.left,
@@ -25,7 +25,7 @@ Widget appCard(
           ),
           secondaryBackground: slideBackground(
             bgColor: Colors.red,
-            icon: Icons.delete,
+            iconPath: "assets/icon/trash.svg",
             text: "Delete",
             mainAxisAlignment: MainAxisAlignment.end,
             textAlign: TextAlign.right,
@@ -88,7 +88,7 @@ Widget appCard(
 
 Widget slideBackground({
   required Color bgColor,
-  required IconData icon,
+  required String iconPath,
   required String text,
   required MainAxisAlignment mainAxisAlignment,
   required TextAlign textAlign,
@@ -105,10 +105,15 @@ Widget slideBackground({
           SizedBox(
             width: 15.sp,
           ),
-          Icon(
-            icon,
-            size: 14.sp,
-            color: Colors.white,
+          SvgPicture.asset(
+              iconPath,
+              height: 14.sp,
+              width: 14.sp,
+              color: Colors.white,
+              semanticsLabel: ''
+          ),
+          SizedBox(
+            width: 5.sp,
           ),
           Text(
             " $text",

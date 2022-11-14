@@ -9,6 +9,7 @@ import '../utils/extensions.dart';
 class HerokuWakeUpAppController extends GetxController {
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
+  int? id;
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -56,7 +57,24 @@ class HerokuWakeUpAppController extends GetxController {
     isLoading(false);
   }
 
-  void reset() {
+  void loadControllerValueFromApp(HerokuApp app) {
+    id = int.parse(app.id);
+    appNameTextController.text = app.name;
+    appLinkTextController.text = app.link;
+    hourIndex.value = app.hourIndex;
+    minuteIndex.value = app.minuteIndex;
+    meridiemIndex.value = app.meridiemIndex;
+    intervalHourOrMinuteIndex.value = app.intervalHourOrMinuteIndex;
+    intervalHoursIndex.value = app.intervalHoursIndex;
+    intervalMinuteIndex.value = app.intervalMinuteIndex;
+    coffeeServingTimes.clear();
+    possibleServingTime();
+    fetchApps();
+    update();
+  }
+
+  void resetControllerValue() {
+    id = null;
     appNameTextController.clear();
     appLinkTextController.clear();
     hourIndex.value = 0;
@@ -167,9 +185,7 @@ class HerokuWakeUpAppController extends GetxController {
       int intervalMinute =
           int.parse(intervalMinutes[intervalMinuteIndex.value]);
 
-      for (int i = 0;
-          i < ((24 - 6) * 60 / intervalMinute).floor();
-          i++) {
+      for (int i = 0; i < ((24 - 6) * 60 / intervalMinute).floor(); i++) {
         int intervalTime = ((intervalMinute % 1440) +
                 (h * 60 + (intervalMinute * i) + int.parse(m)) +
                 1440) %
@@ -192,20 +208,39 @@ class HerokuWakeUpAppController extends GetxController {
           : intervalMinutes[intervalMinuteIndex.value];
 
       var herokuApp = HerokuApp(
-          id: '',
-          name: appName,
-          link: appLink,
-          startTime:
-              '${hours[hourIndex.value]}:${minutes[minuteIndex.value]} ${meridiem[meridiemIndex.value]}',
-          interval:
-              '$interval/${intervalHourOrMinute[intervalHourOrMinuteIndex.value]}',
-          wakingUpTimes: coffeeServingTimes, status: true);
+        id: id != null ? id.toString() : '',
+        name: appName,
+        link: appLink,
+        startTime:
+            '${hours[hourIndex.value]}:${minutes[minuteIndex.value]} ${meridiem[meridiemIndex.value]}',
+        interval:
+            '$interval/${intervalHourOrMinute[intervalHourOrMinuteIndex.value]}',
+        wakingUpTimes: coffeeServingTimes,
+        status: true,
+        hourIndex: hourIndex.value,
+        minuteIndex: minuteIndex.value,
+        meridiemIndex: meridiemIndex.value,
+        intervalHourOrMinuteIndex: intervalHourOrMinuteIndex.value,
+        intervalHoursIndex: intervalHoursIndex.value,
+        intervalMinuteIndex: intervalMinuteIndex.value,
+      );
 
-      saveApp(herokuApp);
-      reset();
+      if(id != null) {
+        updateApp(herokuApp);
+      }else{
+        saveApp(herokuApp);
+      }
+
+      resetControllerValue();
       Get.back();
     } else {
       showMessage('Please enter both name and link');
     }
   }
+
+  void deleteHerokuApp(HerokuApp app) {
+    deleteApp(app);
+    resetControllerValue();
+  }
+
 }
