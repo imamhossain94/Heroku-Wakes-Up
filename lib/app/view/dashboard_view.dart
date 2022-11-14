@@ -7,6 +7,7 @@ import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:heroku_wake_up/app/view/create_app_view.dart';
 import 'package:sizer/sizer.dart';
 
+import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/app_card.dart';
@@ -59,26 +60,20 @@ class DashboardView extends StatelessWidget {
                               itemCount: controller.appList.length,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return Dismissible(
-                                  key: Key(controller.appList[index].id),
-                                  child: appCard(
-                                    cardColor:
-                                    Color(colorList[index]).withOpacity(0.2),
-                                    title: controller.appList[index].name,
-                                    description:
-                                    'Give me a cup of coffee every ${controller.appList[index].interval} minutes',
-                                    statusColor:
-                                    Color(colorList[index]).withOpacity(0.8),
-                                  ),
-                                  background: Container(
-                                    alignment: Alignment.center,
-                                     margin: EdgeInsets.all(10.sp),
-                                     decoration: BoxDecoration(
-                                       color: Colors.red,
-                                       borderRadius: BorderRadius.circular(8.sp)
-                                     ),
-                                      child: Text('Delete'),
-                                  ),
+                                return appCard(
+                                  app: controller.appList[index],
+                                  cardColor: Color(colorList[index]).withOpacity(0.2),
+                                  statusColor: Color(colorList[index]).withOpacity(0.8),
+                                  confirmDismiss: (direction) async {
+                                    if (direction == DismissDirection.endToStart) {
+                                      // TODO: delete this item.
+                                      deleteApp(controller.appList[index]);
+                                      return true;
+                                    } else {
+                                      // TODO: edit this item.
+                                    }
+                                    return null;
+                                  }
                                 );
                               }
                           ),
