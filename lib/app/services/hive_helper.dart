@@ -26,8 +26,8 @@ void updateApp(HerokuApp app) async {
   await HiveHelper.appBox.putAt(int.parse(app.id), app);
 }
 
-void deleteApp(HerokuApp app) async {
-  await HiveHelper.appBox.deleteAt(int.parse(app.id));
+void deleteApp(int index) async {
+  await HiveHelper.appBox.deleteAt(index);
 }
 
 void closeHive() {

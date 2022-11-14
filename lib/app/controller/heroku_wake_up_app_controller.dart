@@ -9,7 +9,7 @@ import '../utils/extensions.dart';
 class HerokuWakeUpAppController extends GetxController {
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
-  int? id;
+  int? index;
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -57,8 +57,9 @@ class HerokuWakeUpAppController extends GetxController {
     isLoading(false);
   }
 
-  void loadControllerValueFromApp(HerokuApp app) {
-    id = int.parse(app.id);
+  void loadControllerValueFromApp(int appIndex) {
+    index = appIndex;
+    var app = appList[appIndex];
     appNameTextController.text = app.name;
     appLinkTextController.text = app.link;
     hourIndex.value = app.hourIndex;
@@ -74,7 +75,7 @@ class HerokuWakeUpAppController extends GetxController {
   }
 
   void resetControllerValue() {
-    id = null;
+    index = null;
     appNameTextController.clear();
     appLinkTextController.clear();
     hourIndex.value = 0;
@@ -208,7 +209,7 @@ class HerokuWakeUpAppController extends GetxController {
           : intervalMinutes[intervalMinuteIndex.value];
 
       var herokuApp = HerokuApp(
-        id: id != null ? id.toString() : '',
+        id: index != null ? index.toString() : '',
         name: appName,
         link: appLink,
         startTime:
@@ -225,7 +226,7 @@ class HerokuWakeUpAppController extends GetxController {
         intervalMinuteIndex: intervalMinuteIndex.value,
       );
 
-      if(id != null) {
+      if(index != null) {
         updateApp(herokuApp);
       }else{
         saveApp(herokuApp);
@@ -238,8 +239,8 @@ class HerokuWakeUpAppController extends GetxController {
     }
   }
 
-  void deleteHerokuApp(HerokuApp app) {
-    deleteApp(app);
+  void deleteHerokuApp(int index) {
+    deleteApp(index);
     resetControllerValue();
   }
 

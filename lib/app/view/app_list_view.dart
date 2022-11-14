@@ -109,12 +109,11 @@ class AppListView extends StatelessWidget {
                               if (direction == DismissDirection.endToStart) {
                                 // TODO: delete this item.
                                 controller
-                                    .deleteHerokuApp(controller.appList[index]);
+                                    .deleteHerokuApp(index);
                                 return true;
                               } else {
                                 // TODO: edit this item.
-                                controller.loadControllerValueFromApp(
-                                    controller.appList[index]);
+                                controller.loadControllerValueFromApp(index);
                                 Get.to(CreateAppView(
                                   controller: controller,
                                 ));

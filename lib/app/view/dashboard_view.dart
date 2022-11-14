@@ -6,7 +6,6 @@ import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:heroku_wake_up/app/view/app_list_view.dart';
 import 'package:heroku_wake_up/app/view/create_app_view.dart';
 
-import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/app_card.dart';
@@ -44,9 +43,12 @@ class DashboardView extends StatelessWidget {
                             totalEvents: 150)),
                         sectionTitle(
                             title: 'App list',
-                            onAddClick: () => Get.to(CreateAppView(
-                                  controller: controller,
-                                )),
+                            onAddClick: () {
+                              controller.resetControllerValue();
+                              Get.to(CreateAppView(
+                                controller: controller,
+                              ));
+                            },
                             onListClick: () => Get.to(AppListView(
                                   controller: controller,
                                 ))),
@@ -54,7 +56,9 @@ class DashboardView extends StatelessWidget {
                           () => ListView.builder(
                               shrinkWrap: true,
                               padding: EdgeInsets.zero,
-                              itemCount: controller.appList.length,
+                              itemCount: controller.appList.length < 3
+                                  ? controller.appList.length
+                                  : 3,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return appCard(
@@ -67,12 +71,12 @@ class DashboardView extends StatelessWidget {
                                       if (direction ==
                                           DismissDirection.endToStart) {
                                         // TODO: delete this item.
-                                        controller.deleteHerokuApp(controller.appList[index]);
+                                        controller.deleteHerokuApp(index);
                                         return true;
                                       } else {
                                         // TODO: edit this item.
-                                        controller.loadControllerValueFromApp(
-                                            controller.appList[index]);
+                                        controller
+                                            .loadControllerValueFromApp(index);
                                         Get.to(CreateAppView(
                                           controller: controller,
                                         ));

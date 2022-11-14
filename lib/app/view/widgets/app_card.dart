@@ -39,8 +39,8 @@ Widget appCard(
             child: Row(
               children: [
                 SvgPicture.asset("assets/icon/heroku_icon.svg",
-                    height: 14.sp,
-                    width: 14.sp,
+                    height: 18.sp,
+                    width: 18.sp,
                     color: Colors.black,
                     semanticsLabel: 'icon'),
                 SizedBox(
@@ -76,8 +76,9 @@ Widget appCard(
                   width: 8.sp,
                   height: 8.sp,
                   decoration: BoxDecoration(
+                      color: statusColor.withOpacity(0.5),
                       shape: BoxShape.circle,
-                      border: Border.all(color: statusColor, width: 1.sp)),
+                      border: Border.all(color: statusColor.withOpacity(0.5), width: 1.sp)),
                 )
               ],
             ),
