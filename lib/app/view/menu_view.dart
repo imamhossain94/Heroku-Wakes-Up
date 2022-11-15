@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -62,7 +62,25 @@ class MenuView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/share.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.green.withOpacity(0.9),
+                                  color: const Color(0xFF613C96).withOpacity(0.9),
+                                  semanticsLabel: 'Menu'),
+                            ),
+                          ),
+                        ),
+                        Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                          child: InkWell(
+                            onTap: () {
+
+                            },
+                            borderRadius: BorderRadius.circular(8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: SvgPicture.asset("assets/icon/settings.svg",
+                                  height: 22.sp,
+                                  width: 22.sp,
+                                  color: const Color(0xFF613C96).withOpacity(0.9),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),

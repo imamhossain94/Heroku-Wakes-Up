@@ -68,8 +68,7 @@ class HerokuWakeUpAppController extends GetxController {
     intervalHourOrMinuteIndex.value = app.intervalHourOrMinuteIndex;
     intervalHoursIndex.value = app.intervalHoursIndex;
     intervalMinuteIndex.value = app.intervalMinuteIndex;
-    coffeeServingTimes.clear();
-    possibleServingTime();
+    coffeeServingTimes.addAll(app.wakingUpTimes);
     fetchApps();
     update();
   }
