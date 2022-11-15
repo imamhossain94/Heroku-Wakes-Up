@@ -22,10 +22,7 @@ Widget eventLogs() {
             fontSize: 10.sp,
           ),
           TRow(
-              bgColor: Colors.green.withOpacity(0.2),
-              padding: EdgeInsets.all(10.sp),
-              borderRadius: BorderRadius.zero,
-              textColor: Colors.black,
+              textColor: Colors.black54,
               fontSize: 8.sp,
               data: const [
                 '11 Nov, 10:20:10',
@@ -33,10 +30,7 @@ Widget eventLogs() {
                 'Server running'
               ]),
           TRow(
-              bgColor: Colors.redAccent.withOpacity(0.06),
-              padding: EdgeInsets.all(10.sp),
-              borderRadius: BorderRadius.zero,
-              textColor: Colors.black,
+              textColor: Colors.black54,
               fontSize: 8.sp,
               data: const [
                 '11 Nov, 10:35:49',
@@ -44,12 +38,11 @@ Widget eventLogs() {
                 'Invalid data'
               ]),
           TRow(
-              bgColor: Colors.green.withOpacity(0.2),
               padding: EdgeInsets.all(10.sp),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(8.sp),
                   bottomRight: Radius.circular(8.sp)),
-              textColor: Colors.black,
+              textColor: Colors.black54,
               fontSize: 8.sp,
               data: const [
                 '11 Nov, 10:56:20',

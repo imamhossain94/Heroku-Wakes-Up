@@ -11,7 +11,7 @@ import '../utils/system_overlay.dart';
 import 'widgets/app_card.dart';
 import 'widgets/dashboard_appbar.dart';
 import 'widgets/dashboard_statistic_card.dart';
-import 'widgets/events_life_line.dart';
+import 'widgets/activity_logs.dart';
 import 'widgets/events_logs.dart';
 import 'widgets/section_title.dart';
 
@@ -71,24 +71,27 @@ class DashboardView extends StatelessWidget {
                                       if (direction ==
                                           DismissDirection.endToStart) {
                                         // TODO: delete this item.
-                                        controller.deleteHerokuApp(index);
+                                        controller.deleteHerokuApp(
+                                            controller.appList[index]);
                                         return true;
                                       } else {
                                         // TODO: edit this item.
                                         controller
-                                            .loadControllerValueFromApp(index);
-                                        Get.to(CreateAppView(
-                                          controller: controller,
-                                        ));
+                                            .loadControllerValueFromApp(
+                                                controller.appList[index])
+                                            .then(
+                                                (value) => Get.to(CreateAppView(
+                                                      controller: controller,
+                                                    )));
                                       }
                                       return null;
                                     });
                               }),
                         ),
                         sectionTitle(
-                          title: 'Events Life Line',
+                          title: 'Activity logs',
                         ),
-                        eventsLifeLine(),
+                        const ActivityLogs(),
                         sectionTitle(
                           title: 'Events Logs',
                         ),

@@ -68,24 +68,24 @@ class MenuView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                          child: InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                  "assets/icon/settings.svg",
-                                  height: 22.sp,
-                                  width: 22.sp,
-                                  color:
-                                      const Color(0xFF613C96).withOpacity(0.9),
-                                  semanticsLabel: 'Menu'),
-                            ),
-                          ),
-                        ),
+                        // Material(
+                        //   color: Colors.transparent,
+                        //   borderRadius: BorderRadius.circular(8),
+                        //   child: InkWell(
+                        //     onTap: () {},
+                        //     borderRadius: BorderRadius.circular(8),
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.all(10.0),
+                        //       child: SvgPicture.asset(
+                        //           "assets/icon/settings.svg",
+                        //           height: 22.sp,
+                        //           width: 22.sp,
+                        //           color:
+                        //               const Color(0xFF613C96).withOpacity(0.9),
+                        //           semanticsLabel: 'Menu'),
+                        //     ),
+                        //   ),
+                        // ),
                         Material(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(8),

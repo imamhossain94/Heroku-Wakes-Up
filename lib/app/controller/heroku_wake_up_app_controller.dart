@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/heroku_app.dart';
 import '../services/hive_helper.dart';
@@ -9,7 +10,7 @@ import '../utils/extensions.dart';
 class HerokuWakeUpAppController extends GetxController {
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
-  int? index;
+  var id = '';
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -57,9 +58,8 @@ class HerokuWakeUpAppController extends GetxController {
     isLoading(false);
   }
 
-  void loadControllerValueFromApp(int appIndex) {
-    index = appIndex;
-    var app = appList[appIndex];
+  Future<void> loadControllerValueFromApp(HerokuApp app) async {
+    id = app.id;
     appNameTextController.text = app.name;
     appLinkTextController.text = app.link;
     hourIndex.value = app.hourIndex;
@@ -68,17 +68,16 @@ class HerokuWakeUpAppController extends GetxController {
     intervalHourOrMinuteIndex.value = app.intervalHourOrMinuteIndex;
     intervalHoursIndex.value = app.intervalHoursIndex;
     intervalMinuteIndex.value = app.intervalMinuteIndex;
+    coffeeServingTimes.clear();
     if(app.wakingUpTimes.isNotEmpty) {
       coffeeServingTimes.addAll(app.wakingUpTimes);
-    }else{
-      coffeeServingTimes.clear();
     }
     fetchApps();
     update();
   }
 
   void resetControllerValue() {
-    index = null;
+    id = '';
     appNameTextController.clear();
     appLinkTextController.clear();
     hourIndex.value = 0;
@@ -212,14 +211,14 @@ class HerokuWakeUpAppController extends GetxController {
           : intervalMinutes[intervalMinuteIndex.value];
 
       var herokuApp = HerokuApp(
-        id: index != null ? index.toString() : '',
+        id: id.isNotEmpty ? id : const Uuid().v1().toString(),
         name: appName,
         link: appLink,
         startTime:
             '${hours[hourIndex.value]}:${minutes[minuteIndex.value]} ${meridiem[meridiemIndex.value]}',
         interval:
             '$interval/${intervalHourOrMinute[intervalHourOrMinuteIndex.value]}',
-        wakingUpTimes: coffeeServingTimes,
+        wakingUpTimes: coffeeServingTimes.toList(),
         status: true,
         hourIndex: hourIndex.value,
         minuteIndex: minuteIndex.value,
@@ -229,12 +228,7 @@ class HerokuWakeUpAppController extends GetxController {
         intervalMinuteIndex: intervalMinuteIndex.value,
       );
 
-      if(index != null) {
-        updateApp(herokuApp);
-      }else{
-        saveApp(herokuApp);
-      }
-
+      saveApp(herokuApp);
       resetControllerValue();
       Get.back();
     } else {
@@ -242,8 +236,8 @@ class HerokuWakeUpAppController extends GetxController {
     }
   }
 
-  void deleteHerokuApp(int index) {
-    deleteApp(index);
+  void deleteHerokuApp(HerokuApp app) {
+    deleteApp(app);
     resetControllerValue();
   }
 

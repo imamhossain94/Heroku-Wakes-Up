@@ -22,15 +22,16 @@ class THeader extends StatelessWidget {
           color: bgColor,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.sp), topRight: Radius.circular(8.sp)),
-          border: Border.all(color: const Color(0xFFF1F3F2))),
+          border: Border.all(color: const Color(0xFFF1F3F2), width: 0.7)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
             flex: 3,
             child: Text(
-              'Time',
+              'Timestamp',
               textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: textColor, fontSize: fontSize),
             ),
           ),
@@ -39,14 +40,16 @@ class THeader extends StatelessWidget {
             child: Text(
               'Status',
               textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: textColor, fontSize: fontSize),
             ),
           ),
           Expanded(
-            flex: 5,
+            flex: 6,
             child: Text(
-              'Message',
+              'Summary',
               textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: textColor, fontSize: fontSize),
             ),
           ),
@@ -58,29 +61,30 @@ class THeader extends StatelessWidget {
 
 class TRow extends StatelessWidget {
   final double fontSize;
-  final Color textColor, bgColor;
-  final EdgeInsetsGeometry padding;
-  final BorderRadius borderRadius;
+  final Color textColor;
+  Color? bgColor;
+  EdgeInsetsGeometry? padding;
+  BorderRadius? borderRadius;
   final List<String> data;
 
-  const TRow(
+  TRow(
       {Key? key,
       required this.fontSize,
       required this.textColor,
-      required this.bgColor,
-      required this.padding,
-      required this.borderRadius,
+      this.bgColor,
+      this.padding,
+      this.borderRadius,
       required this.data})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding,
+      padding: padding ?? EdgeInsets.all(10.sp),
       decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: borderRadius,
-          border: Border.all(color: const Color(0xFFF1F3F2))),
+          color: bgColor ?? Colors.grey.withOpacity(0.06),
+          borderRadius: borderRadius ?? BorderRadius.zero,
+          border: Border.all(color: const Color(0xFFF1F3F2), width: 0.5)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -89,7 +93,7 @@ class TRow extends StatelessWidget {
             child: Text(
               data[0],
               textAlign: TextAlign.start,
-              style: TextStyle(color: textColor, fontSize: fontSize),
+              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
@@ -97,15 +101,15 @@ class TRow extends StatelessWidget {
             child: Text(
               data[1],
               textAlign: TextAlign.start,
-              style: TextStyle(color: textColor, fontSize: fontSize),
+              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
-            flex: 5,
+            flex: 6,
             child: Text(
               data[2],
               textAlign: TextAlign.start,
-              style: TextStyle(color: textColor, fontSize: fontSize),
+              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
             ),
           ),
         ],

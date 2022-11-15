@@ -17,17 +17,11 @@ List<HerokuApp> getAppList() {
 }
 
 void saveApp(HerokuApp app) async {
-  var apps = getAppList();
-  app.id = (apps.isNotEmpty ? int.parse(apps.last.id) + 1 : 0).toString();
-  await HiveHelper.appBox.add(app);
+  await HiveHelper.appBox.put(app.id, app);
 }
 
-void updateApp(HerokuApp app) async {
-  await HiveHelper.appBox.putAt(int.parse(app.id), app);
-}
-
-void deleteApp(int index) async {
-  await HiveHelper.appBox.deleteAt(index);
+void deleteApp(HerokuApp app) async {
+  await HiveHelper.appBox.delete(app.id);
 }
 
 void deleteAllApp() async {
