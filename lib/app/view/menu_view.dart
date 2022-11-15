@@ -62,7 +62,8 @@ class MenuView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/share.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFF613C96).withOpacity(0.9),
+                                  color:
+                                      const Color(0xFF613C96).withOpacity(0.9),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),
@@ -71,16 +72,16 @@ class MenuView extends StatelessWidget {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                           child: InkWell(
-                            onTap: () {
-
-                            },
+                            onTap: () {},
                             borderRadius: BorderRadius.circular(8),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset("assets/icon/settings.svg",
+                              child: SvgPicture.asset(
+                                  "assets/icon/settings.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFF613C96).withOpacity(0.9),
+                                  color:
+                                      const Color(0xFF613C96).withOpacity(0.9),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),
@@ -169,7 +170,8 @@ class MenuView extends StatelessWidget {
                     bgColor: const Color(0xFFFF7171),
                     duration: 900,
                     onTap: () async {
-                      if (!await launchUrl(Uri.parse(appLink))) {
+                      if (!await launchUrl(Uri.parse(appLink),
+                          mode: LaunchMode.externalApplication)) {
                         throw 'Could not launch $appLink';
                       }
                     }),
@@ -183,7 +185,8 @@ class MenuView extends StatelessWidget {
                     bgColor: const Color(0xFFAE7AFB),
                     duration: 1000,
                     onTap: () async {
-                      if (!await launchUrl(Uri.parse(storeLink))) {
+                      if (!await launchUrl(Uri.parse(storeLink),
+                          mode: LaunchMode.externalApplication)) {
                         throw 'Could not launch $storeLink';
                       }
                     }),
