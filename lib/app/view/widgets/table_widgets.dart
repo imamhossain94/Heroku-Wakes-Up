@@ -109,6 +109,8 @@ class TRow extends StatelessWidget {
             child: Text(
               data[2],
               textAlign: TextAlign.start,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
             ),
           ),
