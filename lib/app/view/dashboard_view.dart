@@ -95,7 +95,7 @@ class DashboardView extends StatelessWidget {
                         sectionTitle(
                           title: 'Events Logs',
                         ),
-                        eventLogs()
+                        eventLogs(controller: controller)
                       ],
                     ),
                   ));

@@ -14,6 +14,7 @@ import '../utils/extensions.dart';
 class HerokuWakeUpAppController extends GetxController {
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
+  var eventList = <Events>[].obs;
   var id = '';
 
   late TextEditingController appNameTextController;
@@ -45,6 +46,7 @@ class HerokuWakeUpAppController extends GetxController {
     appNameTextController = TextEditingController();
     appLinkTextController = TextEditingController();
     fetchApps();
+    fetchEvents();
     possibleServingTime();
     initPlatformState();
     startBackgroundFetch();
@@ -61,6 +63,12 @@ class HerokuWakeUpAppController extends GetxController {
   void fetchApps() {
     isLoading(true);
     appList.value = getAppList();
+    isLoading(false);
+  }
+
+  void fetchEvents() {
+    isLoading(true);
+    eventList.value = getEventList();
     isLoading(false);
   }
 
@@ -184,6 +192,7 @@ class HerokuWakeUpAppController extends GetxController {
       }
     }
 
+    fetchEvents();
     BackgroundFetch.finish(taskId);
   }
 
@@ -198,6 +207,7 @@ class HerokuWakeUpAppController extends GetxController {
       status: 'timeout',
       summary: taskId,
     ));
+    fetchEvents();
     BackgroundFetch.finish(taskId);
   }
 
@@ -242,6 +252,7 @@ class HerokuWakeUpAppController extends GetxController {
         setBackgroundFetchRunningStatus(false);
       });
     }
+    fetchEvents();
   }
 
   // Custom Time Picker
