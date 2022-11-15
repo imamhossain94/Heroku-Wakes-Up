@@ -68,7 +68,11 @@ class HerokuWakeUpAppController extends GetxController {
     intervalHourOrMinuteIndex.value = app.intervalHourOrMinuteIndex;
     intervalHoursIndex.value = app.intervalHoursIndex;
     intervalMinuteIndex.value = app.intervalMinuteIndex;
-    coffeeServingTimes.addAll(app.wakingUpTimes);
+    if(app.wakingUpTimes.isNotEmpty) {
+      coffeeServingTimes.addAll(app.wakingUpTimes);
+    }else{
+      coffeeServingTimes.clear();
+    }
     fetchApps();
     update();
   }
@@ -240,6 +244,11 @@ class HerokuWakeUpAppController extends GetxController {
 
   void deleteHerokuApp(int index) {
     deleteApp(index);
+    resetControllerValue();
+  }
+
+  void deleteAllHerokuApp() {
+    deleteAllApp();
     resetControllerValue();
   }
 

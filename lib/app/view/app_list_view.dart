@@ -53,9 +53,7 @@ class AppListView extends StatelessWidget {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                           child: InkWell(
-                            onTap: () {
-
-                            },
+                            onTap: () => controller.deleteAllHerokuApp,
                             borderRadius: BorderRadius.circular(8),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),

@@ -30,6 +30,10 @@ void deleteApp(int index) async {
   await HiveHelper.appBox.deleteAt(index);
 }
 
+void deleteAllApp() async {
+  await HiveHelper.appBox.clear();
+}
+
 void closeHive() {
   HiveHelper.appBox.close();
 }
