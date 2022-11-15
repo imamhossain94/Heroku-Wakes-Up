@@ -8,9 +8,9 @@ import 'legend_widget.dart';
 class ActivityLogs extends StatelessWidget {
   const ActivityLogs({super.key});
 
-  static const pilateColor = Color(0xff632af2);
+  static const pilateColor = Color(0xff578eff);
   static const cyclingColor = Color(0xffffb3ba);
-  static const quickWorkoutColor = Color(0xff578eff);
+  static const quickWorkoutColor = Color(0xa600732d);
   static const betweenSpace = 0.2;
 
   BarChartGroupData generateGroupData(
@@ -53,41 +53,41 @@ class ActivityLogs extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'JAN';
+        text = 'SAT';
         break;
       case 1:
-        text = 'FEB';
+        text = 'SUN';
         break;
       case 2:
-        text = 'MAR';
+        text = 'MON';
         break;
       case 3:
-        text = 'APR';
+        text = 'TUE';
         break;
       case 4:
-        text = 'MAY';
+        text = 'WED';
         break;
       case 5:
-        text = 'JUN';
+        text = 'THU';
         break;
       case 6:
-        text = 'JUL';
+        text = 'FRI';
         break;
-      case 7:
-        text = 'AUG';
-        break;
-      case 8:
-        text = 'SEP';
-        break;
-      case 9:
-        text = 'OCT';
-        break;
-      case 10:
-        text = 'NOV';
-        break;
-      case 11:
-        text = 'DEC';
-        break;
+      // case 7:
+      //   text = 'AUG';
+      //   break;
+      // case 8:
+      //   text = 'SEP';
+      //   break;
+      // case 9:
+      //   text = 'OCT';
+      //   break;
+      // case 10:
+      //   text = 'NOV';
+      //   break;
+      // case 11:
+      //   text = 'DEC';
+      //   break;
       default:
         text = '';
     }
@@ -107,7 +107,7 @@ class ActivityLogs extends StatelessWidget {
           padding: EdgeInsets.all(10.sp),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: Colors.greenAccent.withOpacity(0.1),
+              color: Colors.greenAccent.withOpacity(0.05),
               border: Border.all(color: const Color(0xFFF1F3F2))),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -149,11 +149,11 @@ class ActivityLogs extends StatelessWidget {
                       generateGroupData(4, 0.8, 3.3, 3.4),
                       generateGroupData(5, 2, 5.6, 1.8),
                       generateGroupData(6, 1.3, 3.2, 2),
-                      generateGroupData(7, 2.3, 3.2, 3),
-                      generateGroupData(8, 2, 4.8, 2.5),
-                      generateGroupData(9, 1.2, 3.2, 2.5),
-                      generateGroupData(10, 1, 4.8, 3),
-                      generateGroupData(11, 2, 4.4, 2.8),
+                      // generateGroupData(7, 2.3, 3.2, 3),
+                      // generateGroupData(8, 2, 4.8, 2.5),
+                      // generateGroupData(9, 1.2, 3.2, 2.5),
+                      // generateGroupData(10, 1, 4.8, 3),
+                      // generateGroupData(11, 2, 4.4, 2.8),
                     ],
                     maxY: 10 + (betweenSpace * 3),
                   ),
