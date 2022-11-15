@@ -19,3 +19,10 @@ bool isFirstLaunch() {
 void setFirstLaunch() async {
   box.write("first_launch", false);
 }
+
+bool isBackgroundFetchRunning() {
+  return box.read("bg_fetch_status") ?? false;
+}
+void setBackgroundFetchRunningStatus(bool value) async {
+  box.write("bg_fetch_status", value);
+}

@@ -1,9 +1,13 @@
+import 'package:background_fetch/background_fetch.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+import '../model/events.dart';
 import '../model/heroku_app.dart';
+import '../services/get_storage_service.dart';
 import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
@@ -42,6 +46,8 @@ class HerokuWakeUpAppController extends GetxController {
     appLinkTextController = TextEditingController();
     fetchApps();
     possibleServingTime();
+    initPlatformState();
+    startBackgroundFetch();
     super.onInit();
   }
 
@@ -69,7 +75,7 @@ class HerokuWakeUpAppController extends GetxController {
     intervalHoursIndex.value = app.intervalHoursIndex;
     intervalMinuteIndex.value = app.intervalMinuteIndex;
     coffeeServingTimes.clear();
-    if(app.wakingUpTimes.isNotEmpty) {
+    if (app.wakingUpTimes.isNotEmpty) {
       coffeeServingTimes.addAll(app.wakingUpTimes);
     }
     fetchApps();
@@ -90,6 +96,152 @@ class HerokuWakeUpAppController extends GetxController {
     possibleServingTime();
     fetchApps();
     update();
+  }
+
+  // Background fetch
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    // Configure BackgroundFetch.
+    try {
+      await BackgroundFetch.configure(
+          BackgroundFetchConfig(
+              minimumFetchInterval: 15,
+              forceAlarmManager: false,
+              stopOnTerminate: false,
+              startOnBoot: true,
+              enableHeadless: true,
+              requiresBatteryNotLow: false,
+              requiresCharging: false,
+              requiresStorageNotLow: false,
+              requiresDeviceIdle: false,
+              requiredNetworkType: NetworkType.NONE),
+          _onBackgroundFetch,
+          _onBackgroundFetchTimeout);
+    } on Exception catch (e) {
+      print("[BackgroundFetch] ERROR: $e");
+      saveEvent(Events(
+        id: const Uuid().v1().toString(),
+        appId: '',
+        appName: 'BackgroundFetch',
+        timestamp: DateTime.now().toString(),
+        status: 'error',
+        summary: '$e',
+      ));
+    }
+  }
+
+  void _onBackgroundFetch(String taskId) async {
+    saveEvent(Events(
+      id: const Uuid().v1().toString(),
+      appId: '',
+      appName: 'BackgroundFetch',
+      timestamp: DateTime.now().toString(),
+      status: 'success',
+      summary: 'Event received',
+    ));
+
+    if (taskId == "flutter_background_fetch") {
+      var appList = getAppList();
+      for (var app in appList) {
+        bool flag = false;
+        DateTime now = DateTime.now();
+        for (var wake in app.wakingUpTimes) {
+          DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
+              .parse('${now.day}.${now.month}.${now.year} $wake');
+
+          DateTime startDate = now.subtract(const Duration(minutes: 3));
+          DateTime endDate = now.add(const Duration(minutes: 3));
+          if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
+            flag = true;
+            break;
+          }
+        }
+        if (flag) {
+          // Give heroku a cup of coffee 🥀
+          try {
+            var response = await Dio().get(app.link);
+            print(response);
+            saveEvent(Events(
+              id: const Uuid().v1().toString(),
+              appId: app.id,
+              appName: app.name,
+              timestamp: DateTime.now().toString(),
+              status: 'success',
+              summary: '$response',
+            ));
+          } catch (e) {
+            print(e);
+            saveEvent(Events(
+              id: const Uuid().v1().toString(),
+              appId: app.id,
+              appName: app.name,
+              timestamp: DateTime.now().toString(),
+              status: 'failure',
+              summary: '$e',
+            ));
+          }
+        }
+      }
+    }
+
+    BackgroundFetch.finish(taskId);
+  }
+
+  void _onBackgroundFetchTimeout(String taskId) {
+    print("[BackgroundFetch] TIMEOUT: $taskId");
+    // update events logs
+    saveEvent(Events(
+      id: const Uuid().v1().toString(),
+      appId: '',
+      appName: 'BackgroundFetch',
+      timestamp: DateTime.now().toString(),
+      status: 'timeout',
+      summary: taskId,
+    ));
+    BackgroundFetch.finish(taskId);
+  }
+
+  // Start the background fetch
+  void startBackgroundFetch() {
+    if (isBackgroundFetchRunning()) {
+      // Never stop is
+      setBackgroundFetchRunningStatus(true);
+      // BackgroundFetch.stop().then((status) {
+      //   print('[BackgroundFetch] stop success: $status');
+      // });
+      saveEvent(Events(
+        id: const Uuid().v1().toString(),
+        appId: '',
+        appName: 'HerokuWakeUp',
+        timestamp: DateTime.now().toString(),
+        status: 'success',
+        summary: 'launched successfully',
+      ));
+    } else {
+      BackgroundFetch.start().then((status) {
+        print('[BackgroundFetch] start success: $status');
+        saveEvent(Events(
+          id: const Uuid().v1().toString(),
+          appId: '',
+          appName: 'BackgroundFetch',
+          timestamp: DateTime.now().toString(),
+          status: 'success',
+          summary: 'start success: $status',
+        ));
+        setBackgroundFetchRunningStatus(true);
+      }).catchError((e) {
+        print('[BackgroundFetch] start FAILURE: $e');
+        saveEvent(Events(
+          id: const Uuid().v1().toString(),
+          appId: '',
+          appName: 'BackgroundFetch',
+          timestamp: DateTime.now().toString(),
+          status: 'failure',
+          summary: 'start failure: $e',
+        ));
+        setBackgroundFetchRunningStatus(false);
+      });
+    }
   }
 
   // Custom Time Picker
@@ -245,5 +397,4 @@ class HerokuWakeUpAppController extends GetxController {
     deleteAllApp();
     resetControllerValue();
   }
-
 }
