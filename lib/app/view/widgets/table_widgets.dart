@@ -22,7 +22,7 @@ class THeader extends StatelessWidget {
           color: bgColor,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.sp), topRight: Radius.circular(8.sp)),
-          border: Border.all(color: const Color(0xFFF1F3F2), width: 0.7)),
+          border: Border.all(color: const Color(0xFFF1F3F2), width: 0.9)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

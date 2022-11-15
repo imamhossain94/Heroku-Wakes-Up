@@ -219,6 +219,7 @@ class HerokuWakeUpAppController extends GetxController {
       // BackgroundFetch.stop().then((status) {
       //   print('[BackgroundFetch] stop success: $status');
       // });
+      print('[BackgroundFetch] already running!');
       saveEvent(Events(
         id: const Uuid().v1().toString(),
         appId: '',

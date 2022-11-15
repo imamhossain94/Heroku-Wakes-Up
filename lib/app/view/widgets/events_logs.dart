@@ -10,8 +10,11 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
   return FadeInUp(
     duration: const Duration(milliseconds: 1300),
     child: Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(left: 10.sp, right: 10.sp, bottom: 15.sp),
+      margin: EdgeInsets.only(left: 10.sp, right: 10.sp, bottom: 15.sp),
+      decoration: BoxDecoration(
+        color: Colors.orangeAccent.withOpacity(0.02),
+        borderRadius: BorderRadius.circular(8.sp)
+      ),
       child: Column(
         children: [
           THeader(
@@ -27,11 +30,19 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
                 itemCount: controller.eventList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return TRow(textColor: Colors.black54, fontSize: 8.sp, data: [
-                    controller.eventList[index].timestamp,
-                    controller.eventList[index].status,
-                    controller.eventList[index].summary
-                  ]);
+                  return TRow(
+                      textColor: Colors.black54,
+                      fontSize: 8.sp,
+                      borderRadius: index == controller.eventList.length - 1
+                          ? BorderRadius.only(
+                              bottomRight: Radius.circular(8.sp),
+                              bottomLeft: Radius.circular(8.sp))
+                          : null,
+                      data: [
+                        controller.eventList[index].timestamp,
+                        controller.eventList[index].status,
+                        controller.eventList[index].summary
+                      ]);
                 }),
           ),
         ],

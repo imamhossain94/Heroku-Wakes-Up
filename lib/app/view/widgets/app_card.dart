@@ -63,7 +63,7 @@ Widget appCard(
                       height: 5.sp,
                     ),
                     Text(
-                      'Give me a cup of coffee every ${app.interval} minutes',
+                      'Give me ${app.wakingUpTimes.length} cups of coffee every day if you can',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 8.sp,
@@ -78,7 +78,8 @@ Widget appCard(
                   decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.5),
                       shape: BoxShape.circle,
-                      border: Border.all(color: statusColor.withOpacity(0.5), width: 1.sp)),
+                      border: Border.all(
+                          color: statusColor.withOpacity(0.5), width: 1.sp)),
                 )
               ],
             ),
@@ -106,13 +107,11 @@ Widget slideBackground({
           SizedBox(
             width: 15.sp,
           ),
-          SvgPicture.asset(
-              iconPath,
+          SvgPicture.asset(iconPath,
               height: 14.sp,
               width: 14.sp,
               color: Colors.white,
-              semanticsLabel: ''
-          ),
+              semanticsLabel: ''),
           SizedBox(
             width: 5.sp,
           ),
