@@ -29,9 +29,10 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
             itemCount: controller.eventList.length < 5
                 ? controller.eventList.length
                 : 5,
-            reverse: true,
+            reverse: false,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
+            itemBuilder: (context, ind) {
+              int index = (controller.eventList.length -1) - ind;
               return Padding(
                 padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                 child: TRow(

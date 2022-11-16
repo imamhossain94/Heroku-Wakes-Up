@@ -109,9 +109,7 @@ class EventsLogsView extends StatelessWidget {
                       : ListView.builder(
                           shrinkWrap: true,
                           padding: EdgeInsets.zero,
-                          itemCount: controller.eventList.length < 5
-                              ? controller.eventList.length
-                              : 5,
+                          itemCount: controller.eventList.length,
                           reverse: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {

@@ -19,7 +19,7 @@ class HerokuWakeUpAppController extends GetxController {
 
   var isLoadingEvent = false.obs;
   List<String> bottomTitles = [];
-  List<List<int>> chartData = [];
+  List<List<double>> chartData = [];
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -74,20 +74,33 @@ class HerokuWakeUpAppController extends GetxController {
   void fetchEvents() {
     isLoading(true);
     eventList.value = getEventList();
+    generateActivityLogData();
     isLoading(false);
   }
 
   void generateActivityLogData() {
+    if(chartData.isEmpty) {
+      isLoadingEvent(true);
+    }
+    bottomTitles = [];
+    chartData = [];
     var now = DateTime.now();
     var startDate = now.subtract(const Duration(days: 6));
     var endDate = now.add(const Duration(days: 6));
     List<DateTime> dateList = getDaysInBetween(startDate, endDate);
     var eventsList = getRawEventList();
+
+
+
+
     for (var date in dateList) {
       int totalEvents = 0;
       int successEvents = 0;
       int errorEvents = 0;
       for (var event in eventsList) {
+
+        print(event.appName + " " + event.summary + " " + event.timestamp);
+
         var eventDate = DateTime.parse(event.timestamp);
         if (date.month == eventDate.month && date.day == eventDate.day) {
           totalEvents++;
@@ -99,8 +112,24 @@ class HerokuWakeUpAppController extends GetxController {
         }
       }
       bottomTitles.add(DateFormat('E').format(date));
-      chartData.add([totalEvents, successEvents, errorEvents]);
+
+      double se=0.0, ee=0.0, te=0.0;
+      if(totalEvents != 0 && successEvents != 0) {
+        se = (totalEvents/successEvents);
+      }
+      if(totalEvents != 0 && errorEvents != 0) {
+        ee = (totalEvents/errorEvents);
+      }
+      if(totalEvents != 0) {
+        te = 1 - (se + ee);
+      }
+      print("-----------");
+      print("$totalEvents $successEvents $errorEvents ${eventsList.length}");
+      print("$se $ee $te");
+
+      chartData.add([se, ee, te]);
     }
+    isLoadingEvent(false);
   }
 
   Future<void> loadControllerValueFromApp(HerokuApp app) async {

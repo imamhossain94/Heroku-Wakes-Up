@@ -6,7 +6,7 @@ import 'legend_widget.dart';
 
 class ActivityLogs extends StatelessWidget {
   final List<String> bottomTitles;
-  final List<List<int>> chartData;
+  final List<List<double>> chartData;
 
   const ActivityLogs(
       {super.key, required this.bottomTitles, required this.chartData});
