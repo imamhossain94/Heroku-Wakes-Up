@@ -63,7 +63,7 @@ class MenuView extends StatelessWidget {
                                   height: 22.sp,
                                   width: 22.sp,
                                   color:
-                                      const Color(0xFF613C96).withOpacity(0.9),
+                                      const Color(0xFFFFBD44).withOpacity(0.7),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),
@@ -100,7 +100,7 @@ class MenuView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.redAccent.withOpacity(0.8),
+                                  color: const Color(0xFFFE605C).withOpacity(0.7),
                                   semanticsLabel: 'multiply'),
                             ),
                           ),
@@ -130,7 +130,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'link'),
                     bgColor: const Color(0xFFFFA451),
-                    duration: 600,
+                    duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(websiteUrl))) {
                         throw 'Could not launch $websiteUrl';
@@ -144,7 +144,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'link'),
                     bgColor: const Color(0xFF53F1F1),
-                    duration: 700,
+                    duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(privacyPolicyUrl))) {
                         throw 'Could not launch $privacyPolicyUrl';
@@ -154,7 +154,7 @@ class MenuView extends StatelessWidget {
                     title: 'Feedback',
                     description: 'imamagun94@gmail.com',
                     bgColor: const Color(0xFFFF79D8),
-                    duration: 800,
+                    duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(feedbackMail))) {
                         throw 'Could not launch $feedbackMail';
@@ -168,7 +168,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'star'),
                     bgColor: const Color(0xFFFF7171),
-                    duration: 900,
+                    duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(appLink),
                           mode: LaunchMode.externalApplication)) {
@@ -183,37 +183,37 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'play_store'),
                     bgColor: const Color(0xFFAE7AFB),
-                    duration: 1000,
+                    duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(storeLink),
                           mode: LaunchMode.externalApplication)) {
                         throw 'Could not launch $storeLink';
                       }
                     }),
-                menuItem(
-                    title: 'Source code',
-                    icon: SvgPicture.asset("assets/icon/git.svg",
-                        height: 14.sp,
-                        width: 14.sp,
-                        color: Colors.black,
-                        semanticsLabel: 'git source'),
-                    bgColor: const Color(0xFF2DE786),
-                    duration: 1100,
-                    onTap: () async {
-                      if (!await launchUrl(Uri.parse(sourceCodeLink))) {
-                        throw 'Could not launch $storeLink';
-                      }
-                    }),
+                // menuItem(
+                //     title: 'Source code',
+                //     icon: SvgPicture.asset("assets/icon/git.svg",
+                //         height: 14.sp,
+                //         width: 14.sp,
+                //         color: Colors.black,
+                //         semanticsLabel: 'git source'),
+                //     bgColor: const Color(0xFF2DE786),
+                //     duration: 500,
+                //     onTap: () async {
+                //       if (!await launchUrl(Uri.parse(sourceCodeLink))) {
+                //         throw 'Could not launch $storeLink';
+                //       }
+                //     }),
                 menuItem(
                     title: 'Icons by',
                     description: 'svgrepo.com',
                     bgColor: const Color(0xFF575880),
-                    duration: 1200),
+                    duration: 500),
                 menuItem(
                   title: 'Version',
                   description: appVersion(),
                   bgColor: const Color(0xFFFFB711),
-                  duration: 1300,
+                  duration: 500,
                 ),
               ],
             ),

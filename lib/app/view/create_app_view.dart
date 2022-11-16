@@ -37,7 +37,7 @@ class CreateAppView extends StatelessWidget {
                 customTextEditingField(
                     hintText: 'Ex- Bubt Smart Notice',
                     controller: controller.appNameTextController,
-                    duration: 550,
+                    duration: 500,
                     bgColor: const Color(0xFFFFB711)),
                 sectionTitle(
                   title: 'Link',
@@ -45,7 +45,7 @@ class CreateAppView extends StatelessWidget {
                 customTextEditingField(
                     hintText: 'Ex- https://smart-notice-bubt.herokuapp.com/',
                     controller: controller.appLinkTextController,
-                    duration: 600,
+                    duration: 500,
                     bgColor: const Color(0xFFFF7171)),
                 sectionTitle(
                   title: 'From when to take this service?',

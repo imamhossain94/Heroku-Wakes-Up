@@ -25,6 +25,16 @@ import 'app/view/welcome_view.dart';
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
   var taskId = task.taskId;
   var timeout = task.timeout;
+
+  // Initializing Hive for Background fetch
+  final appDocDir = await getApplicationDocumentsDirectory();
+  Hive
+    ..init(appDocDir.path)
+    ..registerAdapter(HerokuAppAdapter())
+    ..registerAdapter(EventsAdapter());
+  await HiveHelper().init();
+
+  // Check if the task is timeout
   if (timeout) {
     print("[BackgroundFetch] Headless task timed-out: $taskId");
     saveEvent(Events(
@@ -36,7 +46,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
       summary: 'Headless task timed-out: $taskId',
     ));
 
-    if (taskId == "flutter_background_fetch") {
+    if (taskId == "wake_up_heroku") {
       var appList = getAppList();
       for (var app in appList) {
         bool flag = false;
@@ -45,8 +55,8 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
           DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
               .parse('${now.day}.${now.month}.${now.year} $wake');
 
-          DateTime startDate = now.subtract(const Duration(minutes: 3));
-          DateTime endDate = now.add(const Duration(minutes: 3));
+          DateTime startDate = now.subtract(const Duration(minutes: 5));
+          DateTime endDate = now.add(const Duration(minutes: 5));
           if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
             flag = true;
             break;
@@ -79,7 +89,6 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
         }
       }
     }
-
     BackgroundFetch.finish(taskId);
     return;
   }
@@ -106,8 +115,8 @@ void main() async {
     ..init(appDocDir.path)
     ..registerAdapter(HerokuAppAdapter())
     ..registerAdapter(EventsAdapter());
-
   await HiveHelper().init();
+
   await GetStorage.init();
   setAppVersion();
 

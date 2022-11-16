@@ -8,7 +8,7 @@ Widget sectionTitle(
         VoidCallback? onAddClick,
         VoidCallback? onListClick}) =>
     FadeInUp(
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 500),
       child: Padding(
         padding: EdgeInsets.only(
             left: 15.sp, right: 10.sp, top: 15.sp, bottom: 5.sp),

@@ -10,6 +10,7 @@ import '../utils/constants.dart';
 import '../utils/system_overlay.dart';
 import 'create_app_view.dart';
 import 'widgets/app_card.dart';
+import 'widgets/empty_message.dart';
 
 class AppListView extends StatelessWidget {
   final HerokuWakeUpAppController controller;
@@ -60,7 +61,7 @@ class AppListView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/trash.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.orange.withOpacity(0.8),
+                                  color: const Color(0xFFFFBD44).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -79,7 +80,7 @@ class AppListView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.redAccent.withOpacity(0.8),
+                                  color: const Color(0xFFFE605C).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -92,7 +93,9 @@ class AppListView extends StatelessWidget {
                   height: 10.sp,
                 ),
                 Obx(
-                  () => ListView.builder(
+                  () => controller.appList.isEmpty
+                      ? empty("Empty")
+                      : ListView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: controller.appList.length,

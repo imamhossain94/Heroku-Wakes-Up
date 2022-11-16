@@ -58,6 +58,8 @@ dependencies:
   fl_chart: ^0.55.2
   background_fetch: ^1.1.2
   path_provider: ^2.0.11
+  google_fonts: ^3.0.1
+  simple_animations: ^3.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -131,8 +133,8 @@ flutter_native_splash:
 #   flutter pub run flutter_native_splash:create
 #   flutter pub run flutter_native_splash:remove
   color: "#FFFFFF"
-  image: assets/icon/logo.png
+  image: assets/icon/ic_launcher.png
   color_dark: "#212230"
-  image_dark: assets/icon/logo.png
+  image_dark: assets/icon/ic_launcher.png
   android_gravity: center
   fullscreen: true

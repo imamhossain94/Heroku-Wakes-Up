@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../utils/system_overlay.dart';
+import 'widgets/empty_message.dart';
 import 'widgets/table_widgets.dart';
 
 class EventsLogsView extends StatelessWidget {
@@ -58,7 +60,8 @@ class EventsLogsView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/trash.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.redAccent.withOpacity(0.8),
+                                  color:
+                                      const Color(0xFFFFBD44).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -77,7 +80,8 @@ class EventsLogsView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: Colors.redAccent.withOpacity(0.8),
+                                  color:
+                                      const Color(0xFFFE605C).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -90,7 +94,7 @@ class EventsLogsView extends StatelessWidget {
                   height: 10.sp,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                   child: THeader(
                     animDuration: 500,
                     bgColor: Colors.white,
@@ -99,33 +103,42 @@ class EventsLogsView extends StatelessWidget {
                     fontSize: 10.sp,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                  child: Obx(
-                    () => ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        itemCount: controller.eventList.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          return TRow(
-                              animDuration: (500 * (index/10)).round(),
-                              textColor: Colors.black54,
-                              fontSize: 8.sp,
-                              borderRadius:
-                                  index == 0//controller.eventList.length - 1
+                Obx(
+                  () => controller.eventList.isEmpty
+                      ? empty("Empty")
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          itemCount: controller.eventList.length < 5
+                              ? controller.eventList.length
+                              : 5,
+                          reverse: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
+                              child: TRow(
+                                  animDuration:
+                                      500 + (500 * (index / 50)).round(),
+                                  textColor: Colors.blueGrey,
+                                  fontSize: 8.sp,
+                                  borderRadius: index ==
+                                          0 //controller.eventList.length - 1
                                       ? BorderRadius.only(
                                           bottomRight: Radius.circular(8.sp),
                                           bottomLeft: Radius.circular(8.sp))
                                       : null,
-                              data: [
-                                controller.eventList[index].timestamp,
-                                controller.eventList[index].status,
-                                controller.eventList[index].summary
-                              ]);
-                        }),
-                  ),
+                                  data: [
+                                    DateFormat("dd.MM.yyyy h:mm a")
+                                        .format(DateTime.parse(controller
+                                            .eventList[index].timestamp))
+                                        .toString(),
+                                    controller.eventList[index].status,
+                                    controller.eventList[index].summary
+                                  ]),
+                            );
+                          }),
                 ),
               ],
             ),

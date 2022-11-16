@@ -17,6 +17,10 @@ class HerokuWakeUpAppController extends GetxController {
   var eventList = <Events>[].obs;
   var id = '';
 
+  var isLoadingEvent = false.obs;
+  List<String> bottomTitles = [];
+  List<List<int>> chartData = [];
+
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
 
@@ -48,6 +52,7 @@ class HerokuWakeUpAppController extends GetxController {
     fetchApps();
     fetchEvents();
     possibleServingTime();
+    generateActivityLogData();
     initPlatformState();
     startBackgroundFetch();
     super.onInit();
@@ -70,6 +75,32 @@ class HerokuWakeUpAppController extends GetxController {
     isLoading(true);
     eventList.value = getEventList();
     isLoading(false);
+  }
+
+  void generateActivityLogData() {
+    var now = DateTime.now();
+    var startDate = now.subtract(const Duration(days: 6));
+    var endDate = now.add(const Duration(days: 6));
+    List<DateTime> dateList = getDaysInBetween(startDate, endDate);
+    var eventsList = getRawEventList();
+    for (var date in dateList) {
+      int totalEvents = 0;
+      int successEvents = 0;
+      int errorEvents = 0;
+      for (var event in eventsList) {
+        var eventDate = DateTime.parse(event.timestamp);
+        if (date.month == eventDate.month && date.day == eventDate.day) {
+          totalEvents++;
+          if (event.status == "success") {
+            successEvents++;
+          } else {
+            errorEvents++;
+          }
+        }
+      }
+      bottomTitles.add(DateFormat('E').format(date));
+      chartData.add([totalEvents, successEvents, errorEvents]);
+    }
   }
 
   Future<void> loadControllerValueFromApp(HerokuApp app) async {
@@ -113,8 +144,9 @@ class HerokuWakeUpAppController extends GetxController {
     try {
       await BackgroundFetch.configure(
           BackgroundFetchConfig(
-              minimumFetchInterval: 15,
-              forceAlarmManager: true, // default was false
+              minimumFetchInterval: 5, //15
+              forceAlarmManager: true,
+              // default was false
               stopOnTerminate: false,
               startOnBoot: true,
               enableHeadless: true,
@@ -122,7 +154,7 @@ class HerokuWakeUpAppController extends GetxController {
               requiresCharging: false,
               requiresStorageNotLow: false,
               requiresDeviceIdle: false,
-              requiredNetworkType: NetworkType.NONE),
+              requiredNetworkType: NetworkType.ANY),
           _onBackgroundFetch,
           _onBackgroundFetchTimeout);
     } on Exception catch (e) {
@@ -139,6 +171,7 @@ class HerokuWakeUpAppController extends GetxController {
   }
 
   void _onBackgroundFetch(String taskId) async {
+    print(">>BackgroundFetch: $taskId");
     saveEvent(Events(
       id: const Uuid().v1().toString(),
       appId: '',
@@ -148,7 +181,7 @@ class HerokuWakeUpAppController extends GetxController {
       summary: 'Event received $taskId',
     ));
 
-    if (taskId == "flutter_background_fetch") {
+    if (taskId == "wake_up_heroku") {
       var appList = getAppList();
       for (var app in appList) {
         bool flag = false;
@@ -157,14 +190,14 @@ class HerokuWakeUpAppController extends GetxController {
           DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
               .parse('${now.day}.${now.month}.${now.year} $wake');
 
-          DateTime startDate = now.subtract(const Duration(minutes: 3));
-          DateTime endDate = now.add(const Duration(minutes: 3));
+          DateTime startDate = now.subtract(const Duration(minutes: 5));
+          DateTime endDate = now.add(const Duration(minutes: 5));
           if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
             flag = true;
             break;
           }
         }
-        if (flag) {
+        if (flag || true) {
           // Give heroku a cup of coffee 🥀
           try {
             var response = await Dio().get(app.link);
@@ -238,7 +271,22 @@ class HerokuWakeUpAppController extends GetxController {
       //   summary: 'launched successfully',
       // ));
     } else {
-      BackgroundFetch.start().then((status) {
+      BackgroundFetch.scheduleTask(
+              TaskConfig(
+                  taskId: 'wake_up_heroku',
+                  delay: 10000,
+                  periodic: true,
+                  forceAlarmManager: true,
+                  stopOnTerminate: false,
+                  startOnBoot: true,
+                  enableHeadless: true,
+                  requiredNetworkType: NetworkType.ANY,
+                  requiresBatteryNotLow: false,
+                  requiresStorageNotLow: false,
+                  requiresCharging: false,
+                  requiresDeviceIdle: false
+              ))
+          .then((status) {
         print('[BackgroundFetch] start success: $status');
         saveEvent(Events(
           id: const Uuid().v1().toString(),
@@ -424,5 +472,4 @@ class HerokuWakeUpAppController extends GetxController {
     deleteAllEvent();
     resetControllerValue();
   }
-
 }

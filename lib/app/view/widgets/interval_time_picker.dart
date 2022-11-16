@@ -9,7 +9,7 @@ import '../../utils/constants.dart';
 
 Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
   return FadeInUp(
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 500),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
         child: Container(
