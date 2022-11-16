@@ -184,7 +184,7 @@ class HerokuWakeUpAppController extends GetxController {
               appId: app.id,
               appName: app.name,
               timestamp: DateTime.now().toString(),
-              status: 'failure',
+              status: 'error',
               summary: '$e',
             ));
           }
@@ -409,4 +409,10 @@ class HerokuWakeUpAppController extends GetxController {
     deleteAllApp();
     resetControllerValue();
   }
+
+  void deleteAllHerokuEvents() {
+    deleteAllEvent();
+    resetControllerValue();
+  }
+
 }

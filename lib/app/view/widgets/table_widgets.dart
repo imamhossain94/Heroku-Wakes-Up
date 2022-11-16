@@ -27,7 +27,7 @@ class THeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Text(
               'Timestamp',
               textAlign: TextAlign.start,
@@ -45,7 +45,7 @@ class THeader extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 6,
+            flex: 7,
             child: Text(
               'Summary',
               textAlign: TextAlign.start,
@@ -79,21 +79,36 @@ class TRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color statusTextColor = textColor;
+
+    if (data[1] == 'success') {
+      statusTextColor = Colors.green;
+    } else if (data[1] == 'error') {
+      statusTextColor = Colors.redAccent;
+    } else if (data[1] == 'timeout') {
+      statusTextColor = Colors.amber;
+    } else if (data[1] == 'failure') {
+      statusTextColor = Colors.orange;
+    }
+
     return Container(
       padding: padding ?? EdgeInsets.all(10.sp),
       decoration: BoxDecoration(
-          color: bgColor ?? Colors.grey.withOpacity(0.06),
+          // color: bgColor ?? Colors.grey.withOpacity(0.06),
           borderRadius: borderRadius ?? BorderRadius.zero,
           border: Border.all(color: const Color(0xFFF1F3F2), width: 0.5)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Text(
               data[0],
               textAlign: TextAlign.start,
-              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.normal),
             ),
           ),
           Expanded(
@@ -101,17 +116,23 @@ class TRow extends StatelessWidget {
             child: Text(
               data[1],
               textAlign: TextAlign.start,
-              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: statusTextColor.withOpacity(0.6),
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
-            flex: 6,
+            flex: 7,
             child: Text(
               data[2],
               textAlign: TextAlign.start,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w300),
             ),
           ),
         ],

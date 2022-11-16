@@ -37,6 +37,8 @@ void deleteAllApp() async {
 List<Events> getEventList() {
   List events = <Events>[];
   events = HiveHelper.eventBox.values.toList();
+  events = events.where((element) => element.appName != "HerokuWakeUp").toList();
+  events.sort((a,b) => DateTime.parse(a.timestamp).compareTo(DateTime.parse(b.timestamp)));
   return List<Events>.from(events).toList();
 }
 
