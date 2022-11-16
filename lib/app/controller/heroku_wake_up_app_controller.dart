@@ -249,6 +249,7 @@ class HerokuWakeUpAppController extends GetxController {
           summary: 'start success: $status',
         ));
         setBackgroundFetchRunningStatus(true);
+        fetchEvents();
       }).catchError((e) {
         print('[BackgroundFetch] start FAILURE: $e');
         saveEvent(Events(
@@ -260,9 +261,9 @@ class HerokuWakeUpAppController extends GetxController {
           summary: 'start failure: $e',
         ));
         setBackgroundFetchRunningStatus(false);
+        fetchEvents();
       });
     }
-    fetchEvents();
   }
 
   // Custom Time Picker
