@@ -215,19 +215,28 @@ class HerokuWakeUpAppController extends GetxController {
   void startBackgroundFetch() {
     if (isBackgroundFetchRunning()) {
       // Never stop is
-      setBackgroundFetchRunningStatus(true);
       // BackgroundFetch.stop().then((status) {
       //   print('[BackgroundFetch] stop success: $status');
+      //   setBackgroundFetchRunningStatus(false);
+      //   saveEvent(Events(
+      //     id: const Uuid().v1().toString(),
+      //     appId: '',
+      //     appName: 'BackgroundFetch',
+      //     timestamp: DateTime.now().toString(),
+      //     status: 'success',
+      //     summary: '[BackgroundFetch] terminated!',
+      //   ));
       // });
+      setBackgroundFetchRunningStatus(true);
       print('[BackgroundFetch] already running!');
-      saveEvent(Events(
-        id: const Uuid().v1().toString(),
-        appId: '',
-        appName: 'HerokuWakeUp',
-        timestamp: DateTime.now().toString(),
-        status: 'success',
-        summary: 'launched successfully',
-      ));
+      // saveEvent(Events(
+      //   id: const Uuid().v1().toString(),
+      //   appId: '',
+      //   appName: 'HerokuWakeUp',
+      //   timestamp: DateTime.now().toString(),
+      //   status: 'success',
+      //   summary: 'launched successfully',
+      // ));
     } else {
       BackgroundFetch.start().then((status) {
         print('[BackgroundFetch] start success: $status');
