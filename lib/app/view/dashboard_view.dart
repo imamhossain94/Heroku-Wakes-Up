@@ -8,10 +8,11 @@ import 'package:heroku_wake_up/app/view/create_app_view.dart';
 
 import '../utils/extensions.dart';
 import '../utils/system_overlay.dart';
+import 'events_logs_view.dart';
+import 'widgets/activity_logs.dart';
 import 'widgets/app_card.dart';
 import 'widgets/dashboard_appbar.dart';
 import 'widgets/dashboard_statistic_card.dart';
-import 'widgets/activity_logs.dart';
 import 'widgets/events_logs.dart';
 import 'widgets/section_title.dart';
 
@@ -93,8 +94,10 @@ class DashboardView extends StatelessWidget {
                         ),
                         const ActivityLogs(),
                         sectionTitle(
-                          title: 'Events Logs',
-                        ),
+                            title: 'Events Logs',
+                            onListClick: () => Get.to(EventsLogsView(
+                                  controller: controller,
+                                ))),
                         eventLogs(controller: controller)
                       ],
                     ),

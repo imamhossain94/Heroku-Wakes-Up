@@ -36,7 +36,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
                   return TRow(
                       textColor: Colors.blueGrey,
                       fontSize: 8.sp,
-                      borderRadius: index == controller.eventList.length - 1
+                      borderRadius: index == 0//controller.eventList.length - 1
                           ? BorderRadius.only(
                               bottomRight: Radius.circular(8.sp),
                               bottomLeft: Radius.circular(8.sp))

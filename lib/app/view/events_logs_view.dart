@@ -9,10 +9,10 @@ import 'package:sizer/sizer.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/table_widgets.dart';
 
-class AppListView extends StatelessWidget {
+class EventsLogsView extends StatelessWidget {
   final HerokuWakeUpAppController controller;
 
-  const AppListView({Key? key, required this.controller}) : super(key: key);
+  const EventsLogsView({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,35 +89,43 @@ class AppListView extends StatelessWidget {
                 SizedBox(
                   height: 10.sp,
                 ),
-                THeader(
-                  bgColor: Colors.white,
-                  padding: EdgeInsets.all(10.sp),
-                  textColor: Colors.black,
-                  fontSize: 10.sp,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: THeader(
+                    animDuration: 500,
+                    bgColor: Colors.white,
+                    padding: EdgeInsets.all(10.sp),
+                    textColor: Colors.black,
+                    fontSize: 10.sp,
+                  ),
                 ),
-                Obx(
-                  () => ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemCount: controller.eventList.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return TRow(
-                            textColor: Colors.black54,
-                            fontSize: 8.sp,
-                            borderRadius:
-                                index == controller.eventList.length - 1
-                                    ? BorderRadius.only(
-                                        bottomRight: Radius.circular(8.sp),
-                                        bottomLeft: Radius.circular(8.sp))
-                                    : null,
-                            data: [
-                              controller.eventList[index].timestamp,
-                              controller.eventList[index].status,
-                              controller.eventList[index].summary
-                            ]);
-                      }),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: Obx(
+                    () => ListView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        itemCount: controller.eventList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return TRow(
+                              animDuration: (500 * (index/10)).round(),
+                              textColor: Colors.black54,
+                              fontSize: 8.sp,
+                              borderRadius:
+                                  index == 0//controller.eventList.length - 1
+                                      ? BorderRadius.only(
+                                          bottomRight: Radius.circular(8.sp),
+                                          bottomLeft: Radius.circular(8.sp))
+                                      : null,
+                              data: [
+                                controller.eventList[index].timestamp,
+                                controller.eventList[index].status,
+                                controller.eventList[index].summary
+                              ]);
+                        }),
+                  ),
                 ),
               ],
             ),
