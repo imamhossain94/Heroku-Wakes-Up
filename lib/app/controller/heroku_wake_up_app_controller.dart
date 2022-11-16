@@ -114,7 +114,7 @@ class HerokuWakeUpAppController extends GetxController {
       await BackgroundFetch.configure(
           BackgroundFetchConfig(
               minimumFetchInterval: 15,
-              forceAlarmManager: false,
+              forceAlarmManager: true, // default was false
               stopOnTerminate: false,
               startOnBoot: true,
               enableHeadless: true,
@@ -145,7 +145,7 @@ class HerokuWakeUpAppController extends GetxController {
       appName: 'BackgroundFetch',
       timestamp: DateTime.now().toString(),
       status: 'success',
-      summary: 'Event received',
+      summary: 'Event received $taskId',
     ));
 
     if (taskId == "flutter_background_fetch") {
