@@ -1,17 +1,20 @@
-import 'package:background_fetch/background_fetch.dart';
-import 'package:dio/dio.dart';
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../model/events.dart';
 import '../model/heroku_app.dart';
+import '../services/foreground_service.dart';
 import '../services/get_storage_service.dart';
 import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
 class HerokuWakeUpAppController extends GetxController {
+  ReceivePort? _receivePort;
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
   var eventList = <Events>[].obs;
@@ -53,8 +56,8 @@ class HerokuWakeUpAppController extends GetxController {
     fetchEvents();
     possibleServingTime();
     generateActivityLogData();
-    initPlatformState();
-    startBackgroundFetch();
+    _initForegroundTask();
+    startForegroundService();
     super.onInit();
   }
 
@@ -62,6 +65,7 @@ class HerokuWakeUpAppController extends GetxController {
   void dispose() {
     appNameTextController.dispose();
     appLinkTextController.dispose();
+    _closeReceivePort();
     super.dispose();
   }
 
@@ -106,20 +110,6 @@ class HerokuWakeUpAppController extends GetxController {
         }
       }
       bottomTitles.add(DateFormat('E').format(date));
-      double se = 0.0, ee = 0.0, te = 0.0;
-
-      // if(successEvents != 0) {
-      //   se = ( (successEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
-      //   // se = 10 - (te / se);
-      // }
-      // if(errorEvents != 0) {
-      //   ee = ( (errorEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
-      //   //ee = te - ee;
-      // }
-      // if(totalEvents != 0) {
-      //   te = ( (totalEvents - 0) / ((10 + se + ee) - 0) ) * (10 - 0) + 0;
-      // }
-      // chartData.add([te, se, ee]);
       chartData.add([totalEvents, successEvents, errorEvents]);
     }
     isLoadingEvent(false);
@@ -159,179 +149,99 @@ class HerokuWakeUpAppController extends GetxController {
     update();
   }
 
-  // Background fetch
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    // Configure BackgroundFetch.
-    try {
-      await BackgroundFetch.configure(
-          BackgroundFetchConfig(
-              minimumFetchInterval: 5,
-              //15
-              forceAlarmManager: true,
-              // default was false
-              stopOnTerminate: false,
-              startOnBoot: true,
-              enableHeadless: true,
-              requiresBatteryNotLow: false,
-              requiresCharging: false,
-              requiresStorageNotLow: false,
-              requiresDeviceIdle: false,
-              requiredNetworkType: NetworkType.ANY),
-          _onBackgroundFetch,
-          _onBackgroundFetchTimeout);
-    } on Exception catch (e) {
-      print("[BackgroundFetch] ERROR: $e");
-      saveEvent(Events(
-        id: const Uuid().v1().toString(),
-        appId: '',
-        appName: 'BackgroundFetch',
-        timestamp: DateTime.now().toString(),
-        status: 'error',
-        summary: '$e',
-      ));
-    }
+  // init foreground service
+  void _initForegroundTask() {
+    FlutterForegroundTask.init(
+      androidNotificationOptions: AndroidNotificationOptions(
+        channelId: 'heroku_wake_up',
+        channelName: 'Heroku Wake Up',
+        channelDescription: 'This notification appears when the foreground service is running.',
+        channelImportance: NotificationChannelImportance.LOW,
+        priority: NotificationPriority.LOW,
+        iconData: const NotificationIconData(
+          resType: ResourceType.drawable,
+          resPrefix: ResourcePrefix.ic,
+          name: 'launcher',
+        ),
+        // buttons: null,
+      ),
+      iosNotificationOptions: const IOSNotificationOptions(
+        showNotification: true,
+        playSound: false,
+      ),
+      foregroundTaskOptions: const ForegroundTaskOptions(
+        interval: 5000,
+        isOnceEvent: false,
+        autoRunOnBoot: true,
+        allowWakeLock: true,
+        allowWifiLock: true,
+      ),
+    );
   }
 
-  void _onBackgroundFetch(String taskId) async {
-    print(">>BackgroundFetch: $taskId");
-    saveEvent(Events(
-      id: const Uuid().v1().toString(),
-      appId: '',
-      appName: 'BackgroundFetch',
-      timestamp: DateTime.now().toString(),
-      status: 'success',
-      summary: 'Event received $taskId',
-    ));
+  Future<bool> _startForegroundTask() async {
+    // You can save data using the saveData function.
+    await FlutterForegroundTask.saveData(key: 'customData', value: 'hello');
 
-    if (taskId == "wake_up_heroku") {
-      var appList = getAppList();
-      for (var app in appList) {
-        bool flag = false;
-        DateTime now = DateTime.now();
-        for (var wake in app.wakingUpTimes) {
-          DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
-              .parse('${now.day}.${now.month}.${now.year} $wake');
-
-          DateTime startDate = now.subtract(const Duration(minutes: 5));
-          DateTime endDate = now.add(const Duration(minutes: 5));
-          if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
-            flag = true;
-            break;
-          }
-        }
-        if (flag) {
-          // Give heroku a cup of coffee 🥀
-          try {
-            var response = await Dio().get(app.link);
-            print(response);
-            saveEvent(Events(
-              id: const Uuid().v1().toString(),
-              appId: app.id,
-              appName: app.name,
-              timestamp: DateTime.now().toString(),
-              status: 'success',
-              summary: '$response',
-            ));
-          } catch (e) {
-            print(e);
-            saveEvent(Events(
-              id: const Uuid().v1().toString(),
-              appId: app.id,
-              appName: app.name,
-              timestamp: DateTime.now().toString(),
-              status: 'error',
-              summary: '$e',
-            ));
-          }
-        }
-      }
-    }
-
-    fetchEvents();
-    BackgroundFetch.finish(taskId);
-  }
-
-  void _onBackgroundFetchTimeout(String taskId) {
-    print("[BackgroundFetch] TIMEOUT: $taskId");
-    // update events logs
-    saveEvent(Events(
-      id: const Uuid().v1().toString(),
-      appId: '',
-      appName: 'BackgroundFetch',
-      timestamp: DateTime.now().toString(),
-      status: 'timeout',
-      summary: taskId,
-    ));
-    fetchEvents();
-    BackgroundFetch.finish(taskId);
-  }
-
-  // Start the background fetch
-  void startBackgroundFetch() {
-    if (isBackgroundFetchRunning()) {
-      // Never stop is
-      // BackgroundFetch.stop().then((status) {
-      //   print('[BackgroundFetch] stop success: $status');
-      //   setBackgroundFetchRunningStatus(false);
-      //   saveEvent(Events(
-      //     id: const Uuid().v1().toString(),
-      //     appId: '',
-      //     appName: 'BackgroundFetch',
-      //     timestamp: DateTime.now().toString(),
-      //     status: 'success',
-      //     summary: '[BackgroundFetch] terminated!',
-      //   ));
-      // });
-      setBackgroundFetchRunningStatus(true);
-      print('[BackgroundFetch] already running!');
-      // saveEvent(Events(
-      //   id: const Uuid().v1().toString(),
-      //   appId: '',
-      //   appName: 'HerokuWakeUp',
-      //   timestamp: DateTime.now().toString(),
-      //   status: 'success',
-      //   summary: 'launched successfully',
-      // ));
+    bool reqResult;
+    if (await FlutterForegroundTask.isRunningService) {
+      reqResult = await FlutterForegroundTask.restartService();
     } else {
-      BackgroundFetch.scheduleTask(TaskConfig(
-              taskId: 'wake_up_heroku',
-              delay: 10000,
-              periodic: true,
-              forceAlarmManager: true,
-              stopOnTerminate: false,
-              startOnBoot: true,
-              enableHeadless: true,
-              requiredNetworkType: NetworkType.ANY,
-              requiresBatteryNotLow: false,
-              requiresStorageNotLow: false,
-              requiresCharging: false,
-              requiresDeviceIdle: false))
-          .then((status) {
-        print('[BackgroundFetch] start success: $status');
-        saveEvent(Events(
-          id: const Uuid().v1().toString(),
-          appId: '',
-          appName: 'BackgroundFetch',
-          timestamp: DateTime.now().toString(),
-          status: 'success',
-          summary: 'start success: $status',
-        ));
-        setBackgroundFetchRunningStatus(true);
-        fetchEvents();
-      }).catchError((e) {
-        print('[BackgroundFetch] start FAILURE: $e');
-        saveEvent(Events(
-          id: const Uuid().v1().toString(),
-          appId: '',
-          appName: 'BackgroundFetch',
-          timestamp: DateTime.now().toString(),
-          status: 'failure',
-          summary: 'start failure: $e',
-        ));
-        setBackgroundFetchRunningStatus(false);
+      reqResult = await FlutterForegroundTask.startService(
+        notificationTitle: 'Foreground Service is running',
+        notificationText: 'Tap to return to the app',
+        callback: startCallback,
+      );
+    }
+
+    ReceivePort? receivePort;
+    if (reqResult) {
+      receivePort = await FlutterForegroundTask.receivePort;
+    }
+    return _registerReceivePort(receivePort);
+  }
+
+  Future<bool> _stopForegroundTask() async {
+    return await FlutterForegroundTask.stopService();
+  }
+
+  bool _registerReceivePort(ReceivePort? receivePort) {
+    _closeReceivePort();
+
+    if (receivePort != null) {
+      _receivePort = receivePort;
+      _receivePort?.listen((message) {
+        if (message is int) {
+          print('eventCount: $message');
+        } else if (message is String) {
+          if (message == 'onNotificationPressed') {
+            //Navigator.of(context).pushNamed('/resume-route');
+          }
+        } else if (message is DateTime) {
+          print('timestamp: ${message.toString()}');
+        }
         fetchEvents();
       });
+      return true;
+    }
+    return false;
+  }
+
+  void _closeReceivePort() {
+    _receivePort?.close();
+    _receivePort = null;
+  }
+
+  T? _ambiguate<T>(T? value) => value;
+
+  // Start the background fetch
+  void startForegroundService() {
+    if (isBackgroundFetchRunning()) {
+      _stopForegroundTask();
+      _startForegroundTask();
+      setBackgroundFetchRunningStatus(true);
+    } else {
+      _startForegroundTask();
     }
   }
 
