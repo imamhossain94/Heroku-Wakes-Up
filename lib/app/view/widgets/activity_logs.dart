@@ -6,7 +6,7 @@ import 'legend_widget.dart';
 
 class ActivityLogs extends StatelessWidget {
   final List<String> bottomTitles;
-  final List<List<double>> chartData;
+  final List<List<int>> chartData;
 
   const ActivityLogs(
       {super.key, required this.bottomTitles, required this.chartData});
@@ -60,16 +60,13 @@ class ActivityLogs extends StatelessWidget {
     );
   }
 
-  double getMaxXAxis() {
-    double te=0.0, se=0.0, ee=0.0;
+  int getMaxXAxis() {
+    int te=0, se=0, ee=0;
     for (var data in chartData) {
       if(te <= data[0]) te = data[0];
       if(se <= data[1]) se = data[1];
       if(ee <= data[2]) ee = data[2];
     }
-
-    print("hgfajd--- ${te+se+ee}");
-
     return te+se+ee;
   }
 

@@ -19,7 +19,7 @@ class HerokuWakeUpAppController extends GetxController {
 
   var isLoadingEvent = false.obs;
   List<String> bottomTitles = [];
-  List<List<double>> chartData = [];
+  List<List<int>> chartData = [];
 
   late TextEditingController appNameTextController;
   late TextEditingController appLinkTextController;
@@ -108,22 +108,19 @@ class HerokuWakeUpAppController extends GetxController {
       bottomTitles.add(DateFormat('E').format(date));
       double se = 0.0, ee = 0.0, te = 0.0;
 
-      if(successEvents != 0) {
-        se = ( (successEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
-        // se = 10 - (te / se);
-      }
-      if(errorEvents != 0) {
-        ee = ( (errorEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
-        //ee = te - ee;
-      }
-      if(totalEvents != 0) {
-        te = ( (totalEvents - 0) / ((10 + se + ee) - 0) ) * (10 - 0) + 0;
-      }
-
-      print("$te $se $ee");
-      print("$totalEvents $successEvents $errorEvents");
-
-      chartData.add([te, se, ee]);
+      // if(successEvents != 0) {
+      //   se = ( (successEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
+      //   // se = 10 - (te / se);
+      // }
+      // if(errorEvents != 0) {
+      //   ee = ( (errorEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
+      //   //ee = te - ee;
+      // }
+      // if(totalEvents != 0) {
+      //   te = ( (totalEvents - 0) / ((10 + se + ee) - 0) ) * (10 - 0) + 0;
+      // }
+      // chartData.add([te, se, ee]);
+      chartData.add([totalEvents, successEvents, errorEvents]);
     }
     isLoadingEvent(false);
   }
