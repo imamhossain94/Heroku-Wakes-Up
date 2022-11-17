@@ -59,6 +59,7 @@ class HerokuWakeUpAppController extends GetxController {
     fetchEvents();
     possibleServingTime();
     generateActivityLogData();
+    initializeAlarmManager();
     startAlarmService();
     super.onInit();
   }
@@ -236,6 +237,7 @@ class HerokuWakeUpAppController extends GetxController {
             ? 'AndroidAlarmManager is running successfully'
             : 'Failed to start Android alarm manager',
       ));
+      fetchEvents();
     }
   }
 

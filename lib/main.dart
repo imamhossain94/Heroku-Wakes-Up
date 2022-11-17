@@ -8,11 +8,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:heroku_wake_up/app/model/heroku_app.dart';
 import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:uuid/uuid.dart';
 
 import 'app/controller/binding.dart';
 import 'app/model/events.dart';
@@ -23,8 +21,7 @@ import 'app/utils/themes.dart';
 import 'app/view/dashboard_view.dart';
 import 'app/view/welcome_view.dart';
 
-
-const  String isolateName = 'wake_up';
+const String isolateName = 'wake_up';
 ReceivePort port = ReceivePort();
 
 Future<void> initHive() async {
@@ -42,9 +39,7 @@ Future<void> initHive() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AndroidAlarmManager.initialize();
   await initHive();
-
   await GetStorage.init();
   setAppVersion();
 
