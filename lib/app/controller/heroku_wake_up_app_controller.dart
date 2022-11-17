@@ -107,16 +107,23 @@ class HerokuWakeUpAppController extends GetxController {
       }
       bottomTitles.add(DateFormat('E').format(date));
       double se = 0.0, ee = 0.0, te = 0.0;
-      if (successEvents != 0) {
-        se = 10 - (10 / successEvents);
+
+      if(successEvents != 0) {
+        se = ( (successEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
+        // se = 10 - (te / se);
       }
-      if (errorEvents != 0) {
-        ee = 10 - (10 / errorEvents);
+      if(errorEvents != 0) {
+        ee = ( (errorEvents - 0) / (10 - 0) ) * (10 - 0) + 0;
+        //ee = te - ee;
       }
-      if (totalEvents != 0) {
-        te = 10 - (se + ee);
+      if(totalEvents != 0) {
+        te = ( (totalEvents - 0) / ((10 + se + ee) - 0) ) * (10 - 0) + 0;
       }
-      chartData.add([se, ee, te]);
+
+      print("$te $se $ee");
+      print("$totalEvents $successEvents $errorEvents");
+
+      chartData.add([te, se, ee]);
     }
     isLoadingEvent(false);
   }
@@ -216,7 +223,7 @@ class HerokuWakeUpAppController extends GetxController {
             break;
           }
         }
-        if (flag || true) {
+        if (flag) {
           // Give heroku a cup of coffee 🥀
           try {
             var response = await Dio().get(app.link);

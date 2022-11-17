@@ -60,6 +60,20 @@ class ActivityLogs extends StatelessWidget {
     );
   }
 
+  double getMaxXAxis() {
+    double te=0.0, se=0.0, ee=0.0;
+    for (var data in chartData) {
+      if(te <= data[0]) te = data[0];
+      if(se <= data[1]) se = data[1];
+      if(ee <= data[2]) ee = data[2];
+    }
+
+    print("hgfajd--- ${te+se+ee}");
+
+    return te+se+ee;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -111,7 +125,7 @@ class ActivityLogs extends StatelessWidget {
                           chartData[i][1].toDouble(),
                           chartData[i][2].toDouble())
                   ],
-                  maxY: 10 + (betweenSpace * 3),
+                  maxY: getMaxXAxis() + (betweenSpace * 3),
                 ),
               ),
             ),
