@@ -1,20 +1,19 @@
 import 'dart:isolate';
 
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get/get.dart';
+import 'package:heroku_wake_up/main.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../model/events.dart';
 import '../model/heroku_app.dart';
-import '../services/foreground_service.dart';
 import '../services/get_storage_service.dart';
 import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
 class HerokuWakeUpAppController extends GetxController {
-  ReceivePort? _receivePort;
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
   var eventList = <Events>[].obs;
@@ -56,8 +55,7 @@ class HerokuWakeUpAppController extends GetxController {
     fetchEvents();
     possibleServingTime();
     generateActivityLogData();
-    _initForegroundTask();
-    startForegroundService();
+    startAlarmService();
     super.onInit();
   }
 
@@ -65,7 +63,6 @@ class HerokuWakeUpAppController extends GetxController {
   void dispose() {
     appNameTextController.dispose();
     appLinkTextController.dispose();
-    _closeReceivePort();
     super.dispose();
   }
 
@@ -149,107 +146,15 @@ class HerokuWakeUpAppController extends GetxController {
     update();
   }
 
-  // init foreground service
-  void _initForegroundTask() {
-    FlutterForegroundTask.init(
-      androidNotificationOptions: AndroidNotificationOptions(
-        channelId: 'heroku_wake_up',
-        channelName: 'Heroku Wake Up',
-        channelDescription: 'This notification appears when the foreground service is running.',
-        channelImportance: NotificationChannelImportance.NONE,
-        priority: NotificationPriority.MIN,
-        iconData: const NotificationIconData(
-          resType: ResourceType.drawable,
-          resPrefix: ResourcePrefix.ic,
-          name: 'launcher',
-        ),
-        // buttons: null,
-      ),
-      iosNotificationOptions: const IOSNotificationOptions(
-        showNotification: true,
-        playSound: false,
-      ),
-      foregroundTaskOptions: const ForegroundTaskOptions(
-        interval: 60000,
-        isOnceEvent: false,
-        autoRunOnBoot: true,
-        allowWakeLock: true,
-        allowWifiLock: true,
-      ),
-    );
-  }
-
-  Future<bool> _startForegroundTask() async {
-    // You can save data using the saveData function.
-    await FlutterForegroundTask.saveData(key: 'customData', value: 'hello');
-
-    bool reqResult;
-    if (await FlutterForegroundTask.isRunningService) {
-      reqResult = await FlutterForegroundTask.restartService();
-    } else {
-      reqResult = await FlutterForegroundTask.startService(
-        notificationTitle: 'Foreground Service is running',
-        notificationText: 'Tap to return to the app',
-        callback: startCallback,
-      );
-    }
-
-    ReceivePort? receivePort;
-    if (reqResult) {
-      receivePort = await FlutterForegroundTask.receivePort;
-    }
-    return _registerReceivePort(receivePort);
-  }
-
-  Future<bool> _stopForegroundTask() async {
-    return await FlutterForegroundTask.stopService();
-  }
-
-  bool _registerReceivePort(ReceivePort? receivePort) {
-    _closeReceivePort();
-
-    if (receivePort != null) {
-      _receivePort = receivePort;
-      _receivePort?.listen((message) {
-        if (message is int) {
-          print('eventCount: $message');
-          saveEvent(Events(
-            id: const Uuid().v1().toString(),
-            appId: "app.id",
-            appName: "app.name",
-            timestamp: DateTime.now().toString(),
-            status: 'success',
-            summary: 'response',
-          ));
-        } else if (message is String) {
-          if (message == 'onNotificationPressed') {
-            //Navigator.of(context).pushNamed('/resume-route');
-          }
-        } else if (message is DateTime) {
-          print('timestamp: ${message.toString()}');
-        }
-        fetchEvents();
-      });
-      return true;
-    }
-    return false;
-  }
-
-  void _closeReceivePort() {
-    _receivePort?.close();
-    _receivePort = null;
-  }
-
-  T? _ambiguate<T>(T? value) => value;
-
-  // Start the background fetch
-  void startForegroundService() {
+  // AlarmService
+  void startAlarmService() async {
     if (isBackgroundFetchRunning()) {
-      _stopForegroundTask();
-      _startForegroundTask();
       setBackgroundFetchRunningStatus(true);
     } else {
-      _startForegroundTask();
+      setBackgroundFetchRunningStatus(true);
+      await AndroidAlarmManager.periodic(
+          const Duration(minutes: 5), 83568801, repeatTask,
+          rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
     }
   }
 

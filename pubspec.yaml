@@ -55,7 +55,6 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   fl_chart: ^0.55.2
-  flutter_foreground_task: ^3.10.0
   android_alarm_manager_plus: ^2.1.0
   path_provider: ^2.0.11
   google_fonts: ^3.0.1
