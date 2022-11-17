@@ -96,12 +96,14 @@ class DashboardView extends StatelessWidget {
                         sectionTitle(
                           title: 'Activity logs',
                         ),
-                        Obx(() => controller.isLoadingEvent.value
-                            ? empty("Loading...")
-                            : ActivityLogs(
-                                bottomTitles: controller.bottomTitles,
-                                chartData: controller.chartData,
-                              )),
+                        Obx(() => controller.eventList.isEmpty
+                            ? empty("Empty")
+                            : controller.isLoadingEvent.value
+                                ? empty("Loading...")
+                                : ActivityLogs(
+                                    bottomTitles: controller.bottomTitles,
+                                    chartData: controller.chartData,
+                                  )),
                         sectionTitle(
                             title: 'Events Logs',
                             onListClick: () => Get.to(EventsLogsView(

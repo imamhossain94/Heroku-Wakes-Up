@@ -1,6 +1,8 @@
 import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroku_wake_up/main.dart';
@@ -14,6 +16,8 @@ import '../services/hive_helper.dart';
 import '../utils/extensions.dart';
 
 class HerokuWakeUpAppController extends GetxController {
+  static SendPort? uiSendPort;
+
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
   var eventList = <Events>[].obs;
@@ -147,14 +151,91 @@ class HerokuWakeUpAppController extends GetxController {
   }
 
   // AlarmService
+  void initializeAlarmManager() {
+    AndroidAlarmManager.initialize();
+    port.listen((_) async => await refreshUIData());
+  }
+
+  Future<void> refreshUIData() async {
+    fetchEvents();
+  }
+
+  @pragma('vm:entry-point')
+  static Future<void> repeatTask() async {
+    await initHive();
+
+    // Alarm fired
+    saveEvent(Events(
+      id: const Uuid().v1().toString(),
+      appId: "83568801",
+      appName: "AndroidAlarmManager",
+      timestamp: DateTime.now().toString(),
+      status: 'success',
+      summary: 'Alarm fired',
+    ));
+
+    // Checking for make api requests
+    var appList = getAppList();
+    for (var app in appList) {
+      bool flag = false;
+      DateTime now = DateTime.now();
+      for (var wake in app.wakingUpTimes) {
+        DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
+            .parse('${now.day}.${now.month}.${now.year} $wake');
+        DateTime startDate = now.subtract(const Duration(minutes: 5));
+        DateTime endDate = now.add(const Duration(minutes: 5));
+        if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
+          flag = true;
+          break;
+        }
+      }
+      if (flag) {
+        try {
+          var response = await Dio().get(app.link);
+          saveEvent(Events(
+            id: const Uuid().v1().toString(),
+            appId: app.id,
+            appName: app.name,
+            timestamp: DateTime.now().toString(),
+            status: 'success',
+            summary: '$response',
+          ));
+        } catch (e) {
+          saveEvent(Events(
+            id: const Uuid().v1().toString(),
+            appId: app.id,
+            appName: app.name,
+            timestamp: DateTime.now().toString(),
+            status: 'failure',
+            summary: '$e',
+          ));
+        }
+      }
+    }
+
+    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+    uiSendPort?.send(null);
+  }
+
   void startAlarmService() async {
     if (isBackgroundFetchRunning()) {
       setBackgroundFetchRunningStatus(true);
     } else {
       setBackgroundFetchRunningStatus(true);
-      await AndroidAlarmManager.periodic(
+      bool result = await AndroidAlarmManager.periodic(
           const Duration(minutes: 5), 83568801, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
+
+      saveEvent(Events(
+        id: const Uuid().v1().toString(),
+        appId: "83568801",
+        appName: "AndroidAlarmManager",
+        timestamp: DateTime.now().toString(),
+        status: result ? 'success' : 'failure',
+        summary: result
+            ? 'AndroidAlarmManager is running successfully'
+            : 'Failed to start Android alarm manager',
+      ));
     }
   }
 

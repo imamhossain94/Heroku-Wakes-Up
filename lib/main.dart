@@ -1,4 +1,5 @@
 import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -22,57 +23,9 @@ import 'app/utils/themes.dart';
 import 'app/view/dashboard_view.dart';
 import 'app/view/welcome_view.dart';
 
-@pragma('vm:entry-point')
-void repeatTask() async {
-  final DateTime now = DateTime.now();
-  final int isolateId = Isolate.current.hashCode;
 
-  await initHive();
-
-  var appList = getAppList();
-  for (var app in appList) {
-    bool flag = false;
-    DateTime now = DateTime.now();
-    for (var wake in app.wakingUpTimes) {
-      DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
-          .parse('${now.day}.${now.month}.${now.year} $wake');
-
-      DateTime startDate = now.subtract(const Duration(minutes: 5));
-      DateTime endDate = now.add(const Duration(minutes: 5));
-      if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
-        flag = true;
-        break;
-      }
-    }
-    if (flag) {
-      // Give heroku a cup of coffee 🥀
-      try {
-        var response = await Dio().get(app.link);
-        print(response);
-        saveEvent(Events(
-          id: const Uuid().v1().toString(),
-          appId: app.id,
-          appName: app.name,
-          timestamp: DateTime.now().toString(),
-          status: 'success',
-          summary: '$response',
-        ));
-      } catch (e) {
-        print(e);
-        saveEvent(Events(
-          id: const Uuid().v1().toString(),
-          appId: app.id,
-          appName: app.name,
-          timestamp: DateTime.now().toString(),
-          status: 'failure',
-          summary: '$e',
-        ));
-      }
-    }
-  }
-
-  print("[$now] Hello, world! isolate=${isolateId} function='$repeatTask'");
-}
+const  String isolateName = 'wake_up';
+ReceivePort port = ReceivePort();
 
 Future<void> initHive() async {
   final appDocDir = await getApplicationDocumentsDirectory();
@@ -95,8 +48,13 @@ void main() async {
   await GetStorage.init();
   setAppVersion();
 
-  runApp(const MyApp());
+  // Register the UI isolateName
+  IsolateNameServer.registerPortWithName(
+    port.sendPort,
+    isolateName,
+  );
 
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
