@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-import '../services/hive_helper.dart';
 
 Widget statusBarSize() =>
     SizedBox(height: MediaQuery.of(Get.context!).viewPadding.top);

@@ -2,10 +2,13 @@ import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../model/events.dart';
+import '../model/heroku_app.dart';
 import 'hive_helper.dart';
 
 
@@ -27,6 +30,12 @@ class MyTaskHandler extends TaskHandler {
     final customData =
         await FlutterForegroundTask.getData<String>(key: 'customData');
     print('customData: $customData');
+    final appDocDir = await getApplicationDocumentsDirectory();
+    Hive
+      ..init(appDocDir.path)
+      ..registerAdapter(HerokuAppAdapter())
+      ..registerAdapter(EventsAdapter());
+    await HiveHelper().init();
 
     saveEvent(Events(
       id: const Uuid().v1().toString(),
@@ -43,50 +52,59 @@ class MyTaskHandler extends TaskHandler {
   Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
     FlutterForegroundTask.updateService(
       notificationTitle: 'Heroku Wake up',
-      notificationText: 'Smartly give your free Heroku app a cup of coffee so it never sleeps and saves the dyno hour',
+      notificationText: 'Smartly $_eventCount',
     );
 
-    var appList = getAppList();
-    for (var app in appList) {
-      bool flag = false;
-      DateTime now = DateTime.now();
-      for (var wake in app.wakingUpTimes) {
-        DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
-            .parse('${now.day}.${now.month}.${now.year} $wake');
 
-        DateTime startDate = now.subtract(const Duration(minutes: 5));
-        DateTime endDate = now.add(const Duration(minutes: 5));
-        if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
-          flag = true;
-          break;
-        }
-      }
-      if (flag) {
-        // Give heroku a cup of coffee 🥀
-        try {
-          var response = await Dio().get(app.link);
-          print(response);
-          saveEvent(Events(
-            id: const Uuid().v1().toString(),
-            appId: app.id,
-            appName: app.name,
-            timestamp: DateTime.now().toString(),
-            status: 'success',
-            summary: '$response',
-          ));
-        } catch (e) {
-          print(e);
-          saveEvent(Events(
-            id: const Uuid().v1().toString(),
-            appId: app.id,
-            appName: app.name,
-            timestamp: DateTime.now().toString(),
-            status: 'failure',
-            summary: '$e',
-          ));
-        }
-      }
-    }
+
+    // final appDocDir = await getApplicationDocumentsDirectory();
+    // Hive
+    //   ..init(appDocDir.path)
+    //   ..registerAdapter(HerokuAppAdapter())
+    //   ..registerAdapter(EventsAdapter());
+    // await HiveHelper().init();
+    //
+    // var appList = getAppList();
+    // for (var app in appList) {
+    //   bool flag = false;
+    //   DateTime now = DateTime.now();
+    //   for (var wake in app.wakingUpTimes) {
+    //     DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
+    //         .parse('${now.day}.${now.month}.${now.year} $wake');
+    //
+    //     DateTime startDate = now.subtract(const Duration(minutes: 5));
+    //     DateTime endDate = now.add(const Duration(minutes: 5));
+    //     if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
+    //       flag = true;
+    //       break;
+    //     }
+    //   }
+    //   if (flag) {
+    //     // Give heroku a cup of coffee 🥀
+    //     try {
+    //       var response = await Dio().get(app.link);
+    //       print(response);
+    //       saveEvent(Events(
+    //         id: const Uuid().v1().toString(),
+    //         appId: app.id,
+    //         appName: app.name,
+    //         timestamp: DateTime.now().toString(),
+    //         status: 'success',
+    //         summary: '$response',
+    //       ));
+    //     } catch (e) {
+    //       print(e);
+    //       saveEvent(Events(
+    //         id: const Uuid().v1().toString(),
+    //         appId: app.id,
+    //         appName: app.name,
+    //         timestamp: DateTime.now().toString(),
+    //         status: 'failure',
+    //         summary: '$e',
+    //       ));
+    //     }
+    //   }
+    // }
     sendPort?.send(_eventCount);
     _eventCount++;
   }

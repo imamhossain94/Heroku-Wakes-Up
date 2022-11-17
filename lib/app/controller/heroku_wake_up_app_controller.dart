@@ -156,8 +156,8 @@ class HerokuWakeUpAppController extends GetxController {
         channelId: 'heroku_wake_up',
         channelName: 'Heroku Wake Up',
         channelDescription: 'This notification appears when the foreground service is running.',
-        channelImportance: NotificationChannelImportance.LOW,
-        priority: NotificationPriority.LOW,
+        channelImportance: NotificationChannelImportance.NONE,
+        priority: NotificationPriority.MIN,
         iconData: const NotificationIconData(
           resType: ResourceType.drawable,
           resPrefix: ResourcePrefix.ic,
@@ -170,7 +170,7 @@ class HerokuWakeUpAppController extends GetxController {
         playSound: false,
       ),
       foregroundTaskOptions: const ForegroundTaskOptions(
-        interval: 5000,
+        interval: 60000,
         isOnceEvent: false,
         autoRunOnBoot: true,
         allowWakeLock: true,
@@ -213,6 +213,14 @@ class HerokuWakeUpAppController extends GetxController {
       _receivePort?.listen((message) {
         if (message is int) {
           print('eventCount: $message');
+          saveEvent(Events(
+            id: const Uuid().v1().toString(),
+            appId: "app.id",
+            appName: "app.name",
+            timestamp: DateTime.now().toString(),
+            status: 'success',
+            summary: 'response',
+          ));
         } else if (message is String) {
           if (message == 'onNotificationPressed') {
             //Navigator.of(context).pushNamed('/resume-route');
