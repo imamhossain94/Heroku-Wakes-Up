@@ -91,9 +91,9 @@ class HerokuWakeUpAppController extends GetxController {
     bottomTitles = [];
     chartData = [];
     var now = DateTime.now();
-    var startDate = now.subtract(const Duration(days: 6));
-    var endDate = now.add(const Duration(days: 6));
-    List<DateTime> dateList = getDaysInBetween(startDate, endDate);
+    var startDate = now.subtract(const Duration(days: 11));
+    //var endDate = now.add(const Duration(days: 6));
+    List<DateTime> dateList = getDaysInBetween(startDate, now);
     var eventsList = getRawEventList();
 
     for (var date in dateList) {
@@ -111,6 +111,7 @@ class HerokuWakeUpAppController extends GetxController {
           }
         }
       }
+
       bottomTitles.add(DateFormat('E').format(date));
       chartData.add([totalEvents, successEvents, errorEvents]);
     }
@@ -166,14 +167,14 @@ class HerokuWakeUpAppController extends GetxController {
     await initHive();
 
     // Alarm fired
-    saveEvent(Events(
-      id: const Uuid().v1().toString(),
-      appId: "83568801",
-      appName: "AndroidAlarmManager",
-      timestamp: DateTime.now().toString(),
-      status: 'success',
-      summary: 'Alarm fired',
-    ));
+    // saveEvent(Events(
+    //   id: const Uuid().v1().toString(),
+    //   appId: "83568801",
+    //   appName: "AndroidAlarmManager",
+    //   timestamp: DateTime.now().toString(),
+    //   status: 'success',
+    //   summary: 'Alarm fired',
+    // ));
 
     // Checking for make api requests
     var appList = getAppList();
@@ -224,7 +225,7 @@ class HerokuWakeUpAppController extends GetxController {
     } else {
       setBackgroundFetchRunningStatus(true);
       bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 5), 83568801, repeatTask,
+          const Duration(minutes: 15), 83568801, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
 
       saveEvent(Events(

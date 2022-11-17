@@ -11,37 +11,38 @@ class ActivityLogs extends StatelessWidget {
   const ActivityLogs(
       {super.key, required this.bottomTitles, required this.chartData});
 
-  static const pilateColor = Color(0xff578eff);
-  static const cyclingColor = Color(0xffffb3ba);
-  static const quickWorkoutColor = Color(0xa600732d);
-  static const betweenSpace = 0.2;
+  static const eventColor = Color(0xFFFFBD44);
+  static const errorColor = Color(0xFFFE605C);
+  static const successColor = Color(0xFF00CA4E);
+  static const betweenSpace = 1;
 
   BarChartGroupData generateGroupData(
-    int x,
-    double events,
-    double success,
-    double error,
-  ) {
+      int x,
+      double events,
+      double success,
+      double error,
+      ) {
     return BarChartGroupData(
       x: x,
       groupVertically: true,
       barRods: [
         BarChartRodData(
           fromY: 0,
-          toY: events,
-          color: pilateColor,
+          toY:  events != 0 ? events: getMaxXAxis() + (betweenSpace * 3),
+          color: events != 0 ? eventColor : Colors.transparent,
           width: 5,
         ),
         BarChartRodData(
           fromY: events + betweenSpace,
           toY: events + betweenSpace + success,
-          color: quickWorkoutColor,
+          color: successColor,
           width: 5,
         ),
         BarChartRodData(
-          fromY: events + betweenSpace + success + betweenSpace,
-          toY: events + betweenSpace + success + betweenSpace + error,
-          color: cyclingColor,
+          fromY: events != 0? events + betweenSpace + success + betweenSpace:0,
+          toY: error != 0 ? events + betweenSpace + success + betweenSpace + error
+          :getMaxXAxis() + (betweenSpace * 3),
+          color: error != 0 ? errorColor : Colors.black.withOpacity(0.03),
           width: 5,
         ),
       ],
@@ -78,19 +79,19 @@ class ActivityLogs extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            color: Colors.blue.withOpacity(0.1),
-            //border: Border.all(color: const Color(0xFFF1F3F2)
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          color: const Color(0xFFFAFAFA).withOpacity(0.05),
+          border: Border.all(color: const Color(0xFFF1F3F2))
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LegendsListWidget(
               legends: [
-                Legend('Events', pilateColor),
-                Legend('Success', quickWorkoutColor),
-                Legend('Error', cyclingColor),
+                Legend('Events', eventColor),
+                Legend('Success', successColor),
+                Legend('Error', errorColor),
               ],
             ),
             const SizedBox(height: 14),

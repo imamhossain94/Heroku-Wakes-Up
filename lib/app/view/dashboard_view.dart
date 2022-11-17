@@ -52,46 +52,46 @@ class DashboardView extends StatelessWidget {
                               ));
                             },
                             onListClick: () => Get.to(AppListView(
-                                  controller: controller,
-                                ))),
+                              controller: controller,
+                            ))),
                         Obx(
-                          () => controller.appList.isEmpty
+                              () => controller.appList.isEmpty
                               ? empty("Empty")
                               : ListView.builder(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  itemCount: controller.appList.length < 3
-                                      ? controller.appList.length
-                                      : 3,
-                                  reverse: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    return appCard(
-                                        app: controller.appList[index],
-                                        cardColor: Color(colorList[index])
-                                            .withOpacity(0.2),
-                                        statusColor: Color(colorList[index])
-                                            .withOpacity(0.8),
-                                        confirmDismiss: (direction) async {
-                                          if (direction ==
-                                              DismissDirection.endToStart) {
-                                            // TODO: delete this item.
-                                            controller.deleteHerokuApp(
-                                                controller.appList[index]);
-                                            return true;
-                                          } else {
-                                            // TODO: edit this item.
-                                            controller
-                                                .loadControllerValueFromApp(
-                                                    controller.appList[index])
-                                                .then((value) =>
-                                                    Get.to(CreateAppView(
-                                                      controller: controller,
-                                                    )));
-                                          }
-                                          return null;
-                                        });
-                                  }),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              itemCount: controller.appList.length < 3
+                                  ? controller.appList.length
+                                  : 3,
+                              reverse: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return appCard(
+                                    app: controller.appList[index],
+                                    cardColor: Color(colorList[index])
+                                        .withOpacity(0.2),
+                                    statusColor: Color(colorList[index])
+                                        .withOpacity(0.8),
+                                    confirmDismiss: (direction) async {
+                                      if (direction ==
+                                          DismissDirection.endToStart) {
+                                        // TODO: delete this item.
+                                        controller.deleteHerokuApp(
+                                            controller.appList[index]);
+                                        return true;
+                                      } else {
+                                        // TODO: edit this item.
+                                        controller
+                                            .loadControllerValueFromApp(
+                                            controller.appList[index])
+                                            .then((value) =>
+                                            Get.to(CreateAppView(
+                                              controller: controller,
+                                            )));
+                                      }
+                                      return null;
+                                    });
+                              }),
                         ),
                         sectionTitle(
                           title: 'Activity logs',
@@ -99,16 +99,16 @@ class DashboardView extends StatelessWidget {
                         Obx(() => controller.eventList.isEmpty
                             ? empty("Empty")
                             : controller.isLoadingEvent.value
-                                ? empty("Loading...")
-                                : ActivityLogs(
-                                    bottomTitles: controller.bottomTitles,
-                                    chartData: controller.chartData,
-                                  )),
+                            ? empty("Loading...")
+                            : ActivityLogs(
+                          bottomTitles: controller.bottomTitles,
+                          chartData: controller.chartData,
+                        )),
                         sectionTitle(
                             title: 'Events Logs',
                             onListClick: () => Get.to(EventsLogsView(
-                                  controller: controller,
-                                ))),
+                              controller: controller,
+                            ))),
                         eventLogs(controller: controller)
                       ],
                     ),
