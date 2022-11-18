@@ -76,10 +76,10 @@ Widget appCard(
                   width: 8.sp,
                   height: 8.sp,
                   decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.5),
+                      color: statusColor,
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: statusColor.withOpacity(0.5), width: 1.sp)),
+                          color: statusColor, width: 1.sp)),
                 )
               ],
             ),

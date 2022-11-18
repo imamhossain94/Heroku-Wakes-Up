@@ -13,7 +13,7 @@ Widget dashboardStatisticCard(
         child: Row(
           children: [
             statisticCard(
-                cardColor: const Color(0xFF2CB77F).withOpacity(0.8),
+                cardColor: const Color(0xFF56C59A),
                 icon: SvgPicture.asset("assets/icon/total_app.svg",
                     height: 24.sp,
                     width: 24.sp,
@@ -25,7 +25,7 @@ Widget dashboardStatisticCard(
               width: 8.sp,
             ),
             statisticCard(
-                cardColor: const Color(0xFF613C96).withOpacity(0.8),
+                cardColor: const Color(0xFF8163AB),
                 icon: SvgPicture.asset("assets/icon/statistic.svg",
                     height: 24.sp,
                     width: 24.sp,

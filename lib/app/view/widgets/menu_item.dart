@@ -21,9 +21,9 @@ Widget menuItem(
           child: Container(
             padding: EdgeInsets.all(15.sp),
             decoration: BoxDecoration(
-                color: bgColor.withOpacity(0.03),
+                color: bgColor,
                 borderRadius: BorderRadius.circular(8.sp),
-                border: Border.all(color: bgColor.withOpacity(0.3))),
+                border: Border.all(color: bgColor)),
             // border: Border.all(color: const Color(0xFFF1F3F2))),
             child: Row(
               children: [

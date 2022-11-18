@@ -63,7 +63,7 @@ class MenuView extends StatelessWidget {
                                   height: 22.sp,
                                   width: 22.sp,
                                   color:
-                                      const Color(0xFFFFBD44).withOpacity(0.7),
+                                      const Color(0xFFFFD07D),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),
@@ -100,7 +100,7 @@ class MenuView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFFFE605C).withOpacity(0.7),
+                                  color: const Color(0xFFFF8F8D),
                                   semanticsLabel: 'multiply'),
                             ),
                           ),
@@ -115,7 +115,7 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Write us',
                     description: 'imamagun94@gmail.com',
-                    bgColor: const Color(0xFF4EBBFF),
+                    bgColor: const Color(0xFFF9FDFF),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(contactMail))) {
@@ -129,7 +129,7 @@ class MenuView extends StatelessWidget {
                         width: 14.sp,
                         color: Colors.black,
                         semanticsLabel: 'link'),
-                    bgColor: const Color(0xFFFFA451),
+                    bgColor: const Color(0xFFFFFCF9),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(websiteUrl))) {
@@ -143,7 +143,7 @@ class MenuView extends StatelessWidget {
                         width: 14.sp,
                         color: Colors.black,
                         semanticsLabel: 'link'),
-                    bgColor: const Color(0xFF53F1F1),
+                    bgColor: const Color(0xFFFAFFFF),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(privacyPolicyUrl))) {
@@ -153,7 +153,7 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Feedback',
                     description: 'imamagun94@gmail.com',
-                    bgColor: const Color(0xFFFF79D8),
+                    bgColor: const Color(0xFFFFFBFF),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(feedbackMail))) {
@@ -167,7 +167,7 @@ class MenuView extends StatelessWidget {
                         width: 12.sp,
                         color: Colors.black,
                         semanticsLabel: 'star'),
-                    bgColor: const Color(0xFFFF7171),
+                    bgColor: const Color(0xFFFFFBFA),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(appLink),
@@ -182,7 +182,7 @@ class MenuView extends StatelessWidget {
                         width: 12.sp,
                         color: Colors.black,
                         semanticsLabel: 'play_store'),
-                    bgColor: const Color(0xFFAE7AFB),
+                    bgColor: const Color(0xFFFCFBFF),
                     duration: 500,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(storeLink),
@@ -207,12 +207,12 @@ class MenuView extends StatelessWidget {
                 menuItem(
                     title: 'Icons by',
                     description: 'svgrepo.com',
-                    bgColor: const Color(0xFF575880),
+                    bgColor: const Color(0xFFFAFAFA),
                     duration: 500),
                 menuItem(
                   title: 'Version',
                   description: appVersion(),
-                  bgColor: const Color(0xFFFFB711),
+                  bgColor: const Color(0xFFFEFDF8),
                   duration: 500,
                 ),
               ],
