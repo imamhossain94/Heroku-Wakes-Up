@@ -42,7 +42,7 @@ class DashboardView extends StatelessWidget {
                         dashboardAppBar(),
                         Obx(() => dashboardStatisticCard(
                             totalApps: controller.appList.length,
-                            totalEvents: 150)),
+                            totalEvents: controller.eventList.length)),
                         sectionTitle(
                             title: 'App list',
                             onAddClick: () {

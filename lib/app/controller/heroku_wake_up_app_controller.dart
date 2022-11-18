@@ -58,7 +58,6 @@ class HerokuWakeUpAppController extends GetxController {
     fetchApps();
     fetchEvents();
     possibleServingTime();
-    generateActivityLogData();
     initializeAlarmManager();
     startAlarmService();
     super.onInit();
@@ -84,11 +83,10 @@ class HerokuWakeUpAppController extends GetxController {
     isLoading(false);
   }
 
-  void generateActivityLogData() {
+  void generateActivityLogData() async {
     if (chartData.isEmpty) {
       isLoadingEvent(true);
     }
-    bottomTitles = [];
     chartData = [];
     var now = DateTime.now();
     var startDate = now.subtract(const Duration(days: 11));
@@ -111,9 +109,11 @@ class HerokuWakeUpAppController extends GetxController {
           }
         }
       }
-
       bottomTitles.add(DateFormat('E').format(date));
       chartData.add([totalEvents, successEvents, errorEvents]);
+    }
+    if (isLoadingEvent.value) {
+      await Future.delayed(const Duration(seconds: 5));
     }
     isLoadingEvent(false);
   }
