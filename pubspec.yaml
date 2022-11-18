@@ -133,7 +133,7 @@ flutter_native_splash:
 #   flutter pub run flutter_native_splash:remove
   color: "#FFFFFF"
   image: assets/icon/ic_launcher.png
-  color_dark: "#212230"
+  color_dark: "#000000"
   image_dark: assets/icon/ic_launcher.png
   android_gravity: center
   fullscreen: true

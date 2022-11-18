@@ -185,8 +185,8 @@ class HerokuWakeUpAppController extends GetxController {
       for (var wake in app.wakingUpTimes) {
         DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
             .parse('${now.day}.${now.month}.${now.year} $wake');
-        DateTime startDate = now.subtract(const Duration(minutes: 5));
-        DateTime endDate = now.add(const Duration(minutes: 5));
+        DateTime startDate = now.subtract(const Duration(seconds: 15));
+        DateTime endDate = now.add(const Duration(seconds: 15));
         if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
           flag = true;
           break;
@@ -224,14 +224,18 @@ class HerokuWakeUpAppController extends GetxController {
     if (isBackgroundFetchRunning()) {
       setBackgroundFetchRunningStatus(true);
     } else {
-      setBackgroundFetchRunningStatus(true);
-      bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 15), 83568801, repeatTask,
-          rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
+      int id = 1082030;
+      try{
+        AndroidAlarmManager.cancel(id);
+      }on Exception catch (_){ }
 
+      bool result = await AndroidAlarmManager.periodic(
+          const Duration(minutes: 1), id, repeatTask,
+          rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
+      setBackgroundFetchRunningStatus(result);
       saveEvent(Events(
         id: const Uuid().v1().toString(),
-        appId: "83568801",
+        appId: id.toString(),
         appName: "AndroidAlarmManager",
         timestamp: DateTime.now().toString(),
         status: result ? 'success' : 'failure',
