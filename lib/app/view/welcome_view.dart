@@ -77,7 +77,7 @@ class WelcomeView extends StatelessWidget {
                             height: 100.sp,
                             width: 100.sp,
                             semanticsLabel: 'heroku_icon',
-                            color: Colors.white.withOpacity(0.5),
+                            color: const Color(0xFFBE98FF),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 20.sp, bottom: 5.sp),
@@ -87,7 +87,7 @@ class WelcomeView extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
                                   fontSize: 14.sp,
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: const Color(0xFFE5D5FF),
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -109,7 +109,7 @@ class WelcomeView extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                 fontSize: 10.sp,
-                                color: Colors.white.withOpacity(0.7),
+                                color: const Color(0xFFD4C0FF),
                                 letterSpacing: 1.2,
                                 fontWeight: FontWeight.w300,
                               )),
@@ -125,7 +125,7 @@ class WelcomeView extends StatelessWidget {
                     child: Material(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.circular(1000),
-                      color: Colors.white.withOpacity(0.08),
+                      color: const Color(0xFF4F49CA),
                       child: InkWell(
                         onTap: () {
                           setFirstLaunch();
@@ -141,7 +141,7 @@ class WelcomeView extends StatelessWidget {
                             height: 14.sp,
                             width: 14.sp,
                             semanticsLabel: 'play',
-                            color: Colors.white.withOpacity(0.5),
+                            color: const Color(0xFFA8A6EE),
                           ),
                         ),
                       ),
