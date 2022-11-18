@@ -15,7 +15,7 @@ Widget dashboardAppBar() => FadeInUp(
         SvgPicture.asset("assets/icon/heroku_icon.svg",
             height: 22.sp,
             width: 22.sp,
-            color: const Color(0xFF8064A7),
+            color: const Color(0xCC613C96),
             semanticsLabel: 'Heroku'),
         const Spacer(),
         SizedBox(
@@ -44,7 +44,7 @@ Widget dashboardAppBar() => FadeInUp(
               child: SvgPicture.asset("assets/icon/menu.svg",
                   height: 24.sp,
                   width: 24.sp,
-                  color: const Color(0xFF8064A7),
+                  color: const Color(0xCC613C96),
                   semanticsLabel: 'Menu'),
             ),
           ),

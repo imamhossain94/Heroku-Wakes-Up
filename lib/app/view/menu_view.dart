@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,10 +19,6 @@ class MenuView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    print("----------------");
-    print(const Color(0xFFFFA451).withOpacity(0.1));
-    print("----------------");
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemOverlay.transparent,
@@ -68,7 +66,7 @@ class MenuView extends StatelessWidget {
                                   height: 22.sp,
                                   width: 22.sp,
                                   color:
-                                      const Color(0xB3FFBD44),
+                                      const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: 'Menu'),
                             ),
                           ),
@@ -105,7 +103,7 @@ class MenuView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xB3FE605C),
+                                  color: const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: 'multiply'),
                             ),
                           ),

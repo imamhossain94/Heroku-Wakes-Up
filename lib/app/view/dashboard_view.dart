@@ -68,8 +68,8 @@ class DashboardView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return appCard(
                                     app: controller.appList[index],
-                                    cardColor: Color(colorList[index]),
-                                    statusColor: Color(colorList[index]),
+                                    cardColor: colorList[index],
+                                    statusColor: colorList[index],
                                     confirmDismiss: (direction) async {
                                       if (direction ==
                                           DismissDirection.endToStart) {

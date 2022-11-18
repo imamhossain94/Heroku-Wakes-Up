@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class THeader extends StatelessWidget {
@@ -7,13 +8,16 @@ class THeader extends StatelessWidget {
   final Color textColor, bgColor;
   final EdgeInsetsGeometry padding;
   int? animDuration;
+  List<BoxShadow>? boxShadow;
 
   THeader({
     Key? key,
     required this.fontSize,
     required this.textColor,
     required this.bgColor,
-    required this.padding, this.animDuration,
+    required this.padding,
+    this.animDuration,
+    this.boxShadow
   }) : super(key: key);
 
   @override
@@ -23,9 +27,11 @@ class THeader extends StatelessWidget {
       child: Container(
         padding: padding,
         decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(8.sp),
-            border: Border.all(color: const Color(0xFFD5D7D6))),
+          color: bgColor,
+          borderRadius: BorderRadius.circular(8.sp),
+          boxShadow: boxShadow,
+          border: Border.all(color: bgColor)
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -79,7 +85,8 @@ class TRow extends StatelessWidget {
       this.bgColor,
       this.padding,
       this.borderRadius,
-      required this.data, this.animDuration})
+      required this.data,
+      this.animDuration})
       : super(key: key);
 
   @override
@@ -101,10 +108,11 @@ class TRow extends StatelessWidget {
       child: Container(
         padding: padding ?? EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-            // color: bgColor ?? Colors.grey.withOpacity(0.06),
+            color: bgColor ?? Colors.grey.withOpacity(0.06),
             // borderRadius: borderRadius ?? BorderRadius.zero,
             borderRadius: BorderRadius.circular(8.sp),
-            border: Border.all(color: const Color(0xFFD5D7D6).withOpacity(0.5), width: 0.5)),
+            border: Border.all(
+                color: const Color(0xFFD5D7D6).withOpacity(0.5), width: 0.5)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -135,7 +143,7 @@ class TRow extends StatelessWidget {
               child: Text(
                 data[2],
                 textAlign: TextAlign.start,
-                maxLines: 2,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     color: textColor,

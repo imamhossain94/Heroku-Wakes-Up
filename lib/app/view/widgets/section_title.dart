@@ -19,7 +19,7 @@ Widget sectionTitle(
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12.sp,
-                color: const Color(0xFF8064A7),
+                color: const Color(0xCC613C96),
               ),
             ),
             const Spacer(),
@@ -35,7 +35,7 @@ Widget sectionTitle(
                     child: SvgPicture.asset("assets/icon/list.svg",
                         height: 14.sp,
                         width: 14.sp,
-                        color: const Color(0xFF8064A7),
+                        color: const Color(0xCC613C96),
                         semanticsLabel: 'list'),
                   ),
                 ),

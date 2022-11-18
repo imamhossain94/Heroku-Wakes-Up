@@ -7,6 +7,7 @@ import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../utils/constants.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/empty_message.dart';
 import 'widgets/table_widgets.dart';
@@ -61,7 +62,7 @@ class EventsLogsView extends StatelessWidget {
                                   height: 22.sp,
                                   width: 22.sp,
                                   color:
-                                      const Color(0xFFFFBD44).withOpacity(0.7),
+                                      const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -81,7 +82,7 @@ class EventsLogsView extends StatelessWidget {
                                   height: 22.sp,
                                   width: 22.sp,
                                   color:
-                                      const Color(0xFFFE605C).withOpacity(0.7),
+                                      const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -94,13 +95,21 @@ class EventsLogsView extends StatelessWidget {
                   height: 10.sp,
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
+                  padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 15.sp),
                   child: THeader(
                     animDuration: 500,
-                    bgColor: Colors.white,
-                    padding: EdgeInsets.all(10.sp),
-                    textColor: Colors.black,
+                    bgColor: const Color(0xFF3B484C),
+                    padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
+                    textColor: Colors.white,
                     fontSize: 10.sp,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF3B484C).withOpacity(0.5),
+                        spreadRadius: 0.5,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
                 ),
                 Obx(
@@ -120,6 +129,7 @@ class EventsLogsView extends StatelessWidget {
                                   animDuration:
                                       500 + (500 * (index / 50)).round(),
                                   textColor: Colors.blueGrey,
+                                  bgColor: colorList[index],
                                   fontSize: 8.sp,
                                   borderRadius: index ==
                                           0 //controller.eventList.length - 1

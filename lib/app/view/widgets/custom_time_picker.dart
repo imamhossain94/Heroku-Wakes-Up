@@ -32,7 +32,7 @@ Widget customTimePicker({required HerokuWakeUpAppController controller}) {
                         color: colorList[16],
                         onTap: controller.customTimeHourIncrement),
                     Obx(() => _selectedText(
-                        value: controller.hours[controller.hourIndex.value])),
+                        value: hours[controller.hourIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
                         color: colorList[26],
@@ -53,8 +53,7 @@ Widget customTimePicker({required HerokuWakeUpAppController controller}) {
                         color: colorList[26],
                         onTap: controller.customTimeMinuteIncrement),
                     Obx(() => _selectedText(
-                        value:
-                            controller.minutes[controller.minuteIndex.value])),
+                        value: minutes[controller.minuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
                         color: colorList[16],
@@ -75,8 +74,7 @@ Widget customTimePicker({required HerokuWakeUpAppController controller}) {
                         color: colorList[16],
                         onTap: controller.customTimeMeridiemIncrement),
                     Obx(() => _selectedText(
-                        value: controller
-                            .meridiem[controller.meridiemIndex.value])),
+                        value: meridiem[controller.meridiemIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
                         color: colorList[26],
@@ -90,13 +88,14 @@ Widget customTimePicker({required HerokuWakeUpAppController controller}) {
       ));
 }
 
-Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int color}) {
+Widget _arrowButton(
+    {required String iconPath, VoidCallback? onTap, required Color color}) {
   return Material(
-      color:  Color(color).withOpacity(0.05),
+      color: color,
       borderRadius: BorderRadius.circular(8.sp),
       child: Ink(
         decoration: BoxDecoration(
-            border: Border.all(color: Color(color).withOpacity(0.3)),
+            border: Border.all(color: color),
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8.sp)),
         child: InkWell(
@@ -107,13 +106,12 @@ Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int
             child: SvgPicture.asset(iconPath,
                 height: 12.sp,
                 width: 12.sp,
-                color: Color(color).withOpacity(0.5),
+                color: color,
                 semanticsLabel: 'arrow'),
           ),
         ),
       ));
 }
-
 
 Widget _selectedText({required String value}) {
   return Padding(

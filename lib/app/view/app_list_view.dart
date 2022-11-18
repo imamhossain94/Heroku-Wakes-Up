@@ -61,7 +61,7 @@ class AppListView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/trash.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFFFFBD44).withOpacity(0.7),
+                                  color: const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -80,7 +80,7 @@ class AppListView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFFFE605C).withOpacity(0.7),
+                                  color: const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -103,9 +103,8 @@ class AppListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return appCard(
                             app: controller.appList[index],
-                            cardColor: Color(colorList[index]).withOpacity(0.2),
-                            statusColor:
-                                Color(colorList[index]).withOpacity(0.8),
+                            cardColor: colorList[index],
+                            statusColor: colorList[index],
                             confirmDismiss: (direction) async {
                               if (direction == DismissDirection.endToStart) {
                                 // TODO: delete this item.

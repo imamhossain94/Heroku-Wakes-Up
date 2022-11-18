@@ -33,10 +33,10 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
                         onTap: controller.intervalTimeIncrement),
                     Obx(() => controller.intervalHourOrMinuteIndex.value == 0
                         ? _selectedText(
-                            value: controller.intervalHours[
+                            value: hours[
                                 controller.intervalHoursIndex.value])
                         : _selectedText(
-                            value: controller.intervalMinutes[
+                            value: minutes[
                                 controller.intervalMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
@@ -58,7 +58,7 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
                         color: colorList[9],
                         onTap: controller.intervalClockTypeIncrement),
                     Obx(() => _selectedText(
-                        value: controller.intervalHourOrMinute[
+                        value: intervalHourOrMinute[
                             controller.intervalHourOrMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
@@ -73,13 +73,13 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
       ));
 }
 
-Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int color}) {
+Widget _arrowButton({required String iconPath, VoidCallback? onTap, required Color color}) {
   return Material(
-      color:  Color(color).withOpacity(0.03),
+      color:  color,
       borderRadius: BorderRadius.circular(8.sp),
       child: Ink(
         decoration: BoxDecoration(
-            border: Border.all(color: Color(color).withOpacity(0.3)),
+            border: Border.all(color: color),
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(8.sp)),
         child: InkWell(
@@ -90,7 +90,7 @@ Widget _arrowButton({required String iconPath, VoidCallback? onTap, required int
             child: SvgPicture.asset(iconPath,
                 height: 12.sp,
                 width: 12.sp,
-                color: Color(color).withOpacity(0.5),
+                color: color,
                 semanticsLabel: 'arrow'),
           ),
         ),

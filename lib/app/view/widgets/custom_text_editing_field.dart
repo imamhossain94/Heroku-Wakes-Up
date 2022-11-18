@@ -33,12 +33,12 @@ Widget customTextEditingField(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.sp),
               borderSide: BorderSide(
-                color: bgColor.withOpacity(0.3),
+                color: bgColor,
                 style: BorderStyle.solid,
               ),
             ),
             enabled: true,
-            fillColor: bgColor.withOpacity(0.03),
+            fillColor: bgColor,
             filled: true),
       ),
     ),

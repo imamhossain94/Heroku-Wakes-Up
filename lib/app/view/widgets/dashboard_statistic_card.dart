@@ -13,7 +13,7 @@ Widget dashboardStatisticCard(
         child: Row(
           children: [
             statisticCard(
-                cardColor: const Color(0xFF56C59A),
+                cardColor: const Color(0xCC2CB77F),
                 icon: SvgPicture.asset("assets/icon/total_app.svg",
                     height: 24.sp,
                     width: 24.sp,
@@ -25,7 +25,7 @@ Widget dashboardStatisticCard(
               width: 8.sp,
             ),
             statisticCard(
-                cardColor: const Color(0xFF8163AB),
+                cardColor: const Color(0xCC613C96),
                 icon: SvgPicture.asset("assets/icon/statistic.svg",
                     height: 24.sp,
                     width: 24.sp,
@@ -47,7 +47,16 @@ Widget statisticCard(
       child: Container(
         padding: EdgeInsets.all(15.sp),
         decoration: BoxDecoration(
-            color: cardColor, borderRadius: BorderRadius.circular(15)),
+            color: cardColor, borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: cardColor.withOpacity(0.5),
+              spreadRadius: 0.5,
+              blurRadius: 15,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,13 +74,13 @@ Widget statisticCard(
               ),
             ),
             SizedBox(
-              height: 5.sp,
+              height: 2.sp,
             ),
             Text(
               description,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 10.sp,
+                fontSize: 12.sp,
                 color: Colors.white70,
               ),
             )

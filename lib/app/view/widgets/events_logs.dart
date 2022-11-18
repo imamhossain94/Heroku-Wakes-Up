@@ -5,6 +5,7 @@ import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../utils/constants.dart';
 import 'empty_message.dart';
 import 'table_widgets.dart';
 
@@ -12,11 +13,11 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
   return Column(
     children: [
       Padding(
-        padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
+        padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 15.sp),
         child: THeader(
-          bgColor: Colors.white,
-          padding: EdgeInsets.all(10.sp),
-          textColor: Colors.black,
+          bgColor: colorList[3],
+          padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
+          textColor: Colors.black54,
           fontSize: 10.sp,
         ),
       ),
@@ -38,6 +39,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
                 child: TRow(
                     textColor: Colors.blueGrey,
                     fontSize: 8.sp,
+                    bgColor: colorList[ind],
                     borderRadius: index == 0//controller.eventList.length - 1
                         ? BorderRadius.only(
                             bottomRight: Radius.circular(8.sp),

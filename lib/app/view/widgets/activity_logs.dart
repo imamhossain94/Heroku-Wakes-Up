@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 import 'legend_widget.dart';
@@ -17,32 +18,36 @@ class ActivityLogs extends StatelessWidget {
   static const betweenSpace = 1;
 
   BarChartGroupData generateGroupData(
-      int x,
-      double events,
-      double success,
-      double error,
-      ) {
+    int x,
+    double events,
+    double success,
+    double error,
+  ) {
     return BarChartGroupData(
       x: x,
       groupVertically: true,
       barRods: [
         BarChartRodData(
           fromY: 0,
-          toY:  events != 0 ? events: getMaxXAxis() + (betweenSpace * 3),
+          toY: events != 0 ? events : getMaxXAxis() + (betweenSpace * 3),
           color: events != 0 ? eventColor : Colors.transparent,
           width: 5,
         ),
         BarChartRodData(
           fromY: events + betweenSpace,
-          toY: events + betweenSpace + success,
+          toY: error != 0
+              ? events + (betweenSpace * 2) + success
+              : events + betweenSpace + success,
           color: successColor,
           width: 5,
         ),
         BarChartRodData(
-          fromY: events != 0? events + betweenSpace + success + betweenSpace:0,
-          toY: error != 0 ? events + betweenSpace + success + betweenSpace + error
-          :getMaxXAxis() + (betweenSpace * 3),
-          color: error != 0 ? errorColor : Colors.black.withOpacity(0.03),
+          fromY:
+              events != 0 ? events + betweenSpace + success + betweenSpace : 0,
+          toY: error != 0
+              ? events + betweenSpace + success + betweenSpace + error
+              : getMaxXAxis() + (betweenSpace * 3),
+          color: error != 0 ? errorColor : const Color(0x194B4B51),
           width: 5,
         ),
       ],
@@ -62,15 +67,14 @@ class ActivityLogs extends StatelessWidget {
   }
 
   int getMaxXAxis() {
-    int te=0, se=0, ee=0;
+    int te = 0, se = 0, ee = 0;
     for (var data in chartData) {
-      if(te <= data[0]) te = data[0];
-      if(se <= data[1]) se = data[1];
-      if(ee <= data[2]) ee = data[2];
+      if (te <= data[0]) te = data[0];
+      if (se <= data[1]) se = data[1];
+      if (ee <= data[2]) ee = data[2];
     }
-    return te+se+ee;
+    return te + se + ee;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +83,9 @@ class ActivityLogs extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: const Color(0xFFFAFAFA).withOpacity(0.05),
-          border: Border.all(color: const Color(0xFFF1F3F2))
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFFF1F3F2)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -96,7 +100,7 @@ class ActivityLogs extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             AspectRatio(
-              aspectRatio: 2,
+              aspectRatio: 2.2,
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceBetween,
@@ -116,7 +120,7 @@ class ActivityLogs extends StatelessWidget {
                   borderData: FlBorderData(show: false),
                   gridData: FlGridData(show: false),
                   barGroups: [
-                    for (var i = 0; i <= chartData.length-1; i++)
+                    for (var i = 0; i <= chartData.length - 1; i++)
                       generateGroupData(
                           i,
                           chartData[i][0].toDouble(),

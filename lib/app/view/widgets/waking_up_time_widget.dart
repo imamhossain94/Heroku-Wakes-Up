@@ -15,7 +15,9 @@ Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
       child: Obx(() => ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
-          itemCount: controller.coffeeServingTimes.length,
+          itemCount: controller.coffeeServingTimes.length > 96
+              ? 96
+              : controller.coffeeServingTimes.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Padding(
@@ -44,10 +46,9 @@ Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
                   width: double.infinity,
                   padding: EdgeInsets.all(8.sp),
                   decoration: BoxDecoration(
-                      color: Color(colorList[index]).withOpacity(0.1),
+                      color: colorList[index],
                       borderRadius: BorderRadius.circular(8.sp),
-                      border: Border.all(
-                          color: Color(colorList[index]).withOpacity(0.3))),
+                      border: Border.all(color: colorList[index])),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

@@ -39,9 +39,9 @@ Widget appCard(
             child: Row(
               children: [
                 SvgPicture.asset("assets/icon/heroku_icon.svg",
-                    height: 18.sp,
-                    width: 18.sp,
-                    color: Colors.black,
+                    height: 20.sp,
+                    width: 20.sp,
+                    color: const Color(0xCC613C96),
                     semanticsLabel: 'icon'),
                 SizedBox(
                   width: 10.sp,
