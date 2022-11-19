@@ -37,7 +37,7 @@ class HerokuWakeUpAppController extends GetxController {
 
   var intervalHourOrMinuteIndex = 0.obs;
   var intervalHoursIndex = 11.obs;
-  var intervalMinuteIndex = 15.obs;
+  var intervalMinuteIndex = 5.obs;
 
   var coffeeServingTimes = <String>[].obs;
 
@@ -103,7 +103,7 @@ class HerokuWakeUpAppController extends GetxController {
       chartData.add([totalEvents, successEvents, errorEvents]);
     }
     if (isLoadingEvent.value) {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
     }
     isLoadingEvent(false);
   }
@@ -135,7 +135,7 @@ class HerokuWakeUpAppController extends GetxController {
     meridiemIndex.value = 0;
     intervalHourOrMinuteIndex.value = 0;
     intervalHoursIndex.value = 11;
-    intervalMinuteIndex.value = 15;
+    intervalMinuteIndex.value = 5;
     coffeeServingTimes.clear();
     possibleServingTime();
     fetchApps();
@@ -185,8 +185,8 @@ class HerokuWakeUpAppController extends GetxController {
       for (var wake in app.wakingUpTimes) {
         DateTime wakeUpTime = DateFormat("dd.MM.yyyy h:mm a")
             .parse('${now.day}.${now.month}.${now.year} $wake');
-        DateTime startDate = now.subtract(const Duration(seconds: 15));
-        DateTime endDate = now.add(const Duration(seconds: 15));
+        DateTime startDate = now.subtract(const Duration(seconds: 150));
+        DateTime endDate = now.add(const Duration(seconds: 150));
         if (startDate.isBefore(wakeUpTime) && endDate.isAfter(wakeUpTime)) {
           flag = true;
           break;
@@ -230,7 +230,7 @@ class HerokuWakeUpAppController extends GetxController {
       }on Exception catch (_){ }
 
       bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 1), id, repeatTask,
+          const Duration(minutes: 5), id, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
       setBackgroundFetchRunningStatus(result);
       saveEvent(Events(
