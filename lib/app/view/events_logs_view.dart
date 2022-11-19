@@ -54,7 +54,7 @@ class EventsLogsView extends StatelessWidget {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                           child: InkWell(
-                            onTap: () => controller.deleteAllHerokuEvents,
+                            onTap: () => controller.deleteAllHerokuEvents(),
                             borderRadius: BorderRadius.circular(8),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -126,8 +126,8 @@ class EventsLogsView extends StatelessWidget {
                               padding:
                                   EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                               child: TRow(
-                                  animDuration:
-                                      500 + (500 * (index / 50)).round(),
+                                  animDuration: 100,
+                                      //500 + (500 * (index / 50)).round(),
                                   textColor: Colors.blueGrey,
                                   bgColor: colorList[index],
                                   fontSize: 8.sp,

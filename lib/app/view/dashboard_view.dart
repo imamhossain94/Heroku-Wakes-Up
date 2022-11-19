@@ -94,10 +94,10 @@ class DashboardView extends StatelessWidget {
                         sectionTitle(
                           title: 'Activity logs',
                         ),
-                        Obx(() => controller.eventList.isEmpty
+                        Obx(() => controller.chartData.isEmpty
                             ? empty("Empty")
                             : controller.isLoadingEvent.value
-                            ? empty("Loading...")
+                            ? empty("Loading")
                             : ActivityLogs(
                           bottomTitles: controller.bottomTitles,
                           chartData: controller.chartData,

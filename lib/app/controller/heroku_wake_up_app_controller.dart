@@ -80,27 +80,25 @@ class HerokuWakeUpAppController extends GetxController {
     chartData = [];
     var now = DateTime.now();
     var startDate = now.subtract(const Duration(days: 11));
-    //var endDate = now.add(const Duration(days: 6));
     List<DateTime> dateList = getDaysInBetween(startDate, now);
-    var eventsList = getRawEventList();
+
+    var activities = getActivities();
 
     for (var date in dateList) {
       int totalEvents = 0;
       int successEvents = 0;
-      int errorEvents = 0;
-      for (var event in eventsList) {
-        var eventDate = DateTime.parse(event.timestamp);
-        if (date.month == eventDate.month && date.day == eventDate.day) {
-          totalEvents++;
-          if (event.status == "success") {
-            successEvents++;
-          } else {
-            errorEvents++;
-          }
+      int failureEvents = 0;
+
+      for (var activity in activities) {
+        var activityDate = DateTime.parse(activity.id);
+        if (date.month == activityDate.month && date.day == activityDate.day) {
+          totalEvents = activity.events;
+          successEvents = activity.success;
+          failureEvents = activity.failure;
         }
       }
       bottomTitles.add(DateFormat('E').format(date));
-      chartData.add([totalEvents, successEvents, errorEvents]);
+      chartData.add([totalEvents, successEvents, failureEvents]);
     }
     if (isLoadingEvent.value) {
       await Future.delayed(const Duration(seconds: 1));
@@ -139,6 +137,7 @@ class HerokuWakeUpAppController extends GetxController {
     coffeeServingTimes.clear();
     possibleServingTime();
     fetchApps();
+    fetchEvents();
     update();
   }
 

@@ -1,15 +1,18 @@
 import 'package:heroku_wake_up/app/model/heroku_app.dart';
 import 'package:hive/hive.dart';
 
+import '../model/activity.dart';
 import '../model/events.dart';
 
 class HiveHelper {
   static late Box appBox;
   static late Box eventBox;
+  static late Box activityBox;
 
   Future init() async {
     appBox = await Hive.openBox('appBox');
     eventBox = await Hive.openBox('eventBox');
+    activityBox = await Hive.openBox('activityBox');
   }
 }
 
@@ -30,38 +33,60 @@ void deleteApp(HerokuApp app) async {
 }
 
 void deleteAllApp() async {
-  await HiveHelper.appBox.clear();
+  await HiveHelper.appBox.deleteAll(HiveHelper.appBox.keys);
 }
 
 // Methods for eventBox
 List<Events> getEventList() {
   List events = <Events>[];
   events = HiveHelper.eventBox.values.toList();
-  events.sort((a,b) => DateTime.parse(a.timestamp).compareTo(DateTime.parse(b.timestamp)));
+  events.sort((b, a) => DateTime.parse(a.timestamp).compareTo(DateTime.parse(b.timestamp)));
   return List<Events>.from(events).toList();
 }
 
-List<Events> getRawEventList() {
-  List events = <Events>[];
-  events = HiveHelper.eventBox.values.toList();
-  return List<Events>.from(events).toList();
-}
-
-
-void saveEvent(Events event) async {
+Future<void> saveEvent(Events event) async {
+  var len = HiveHelper.eventBox.values.length;
+  if(len > 50){
+    var firstEvent = HiveHelper.eventBox.values.first;
+    HiveHelper.eventBox.delete(firstEvent.id);
+  }
   await HiveHelper.eventBox.put(event.id, event);
+  await saveActivity(event);
 }
 
 void deleteEvent(Events event) async {
   await HiveHelper.eventBox.delete(event.id);
 }
 
-void deleteAllEvent() async {
-  await HiveHelper.eventBox.clear();
+Future<void> deleteAllEvent() async {
+  await HiveHelper.eventBox.deleteAll(HiveHelper.eventBox.keys);
+}
+
+// Activity
+List<Activity> getActivities() {
+  List activities = <Activity>[];
+  activities = HiveHelper.activityBox.values.toList();
+  activities.sort((b, a) => DateTime.parse(a.id).compareTo(DateTime.parse(b.id)));
+  return List<Activity>.from(activities).toList();
+}
+
+Future<void> saveActivity(Events event) async {
+  var key = DateTime.now().toString(); //var key = DateFormat('d/M/yyyy').format(now).toString();
+  Activity activity = await HiveHelper.activityBox.get(key) ??
+      Activity(id: key, events: 0, success: 0, failure: 0);
+  activity.events += 1;
+  activity.success += event.status == 'success' ? 1 : 0;
+  activity.failure += event.status == 'failure' ? 1 : 0;
+  await HiveHelper.activityBox.put(key, activity);
+}
+
+void deleteActivities() async {
+  await HiveHelper.activityBox.deleteAll(HiveHelper.activityBox.keys);
 }
 
 // Close all the openedBox
 void closeHive() {
   HiveHelper.appBox.close();
   HiveHelper.eventBox.close();
+  HiveHelper.activityBox.close();
 }

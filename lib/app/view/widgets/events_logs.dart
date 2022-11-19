@@ -37,7 +37,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                 child: TRow(
-                    textColor: Colors.blueGrey,
+                    textColor: Colors.black,
                     fontSize: 8.sp,
                     bgColor: colorList[ind],
                     borderRadius: index == 0//controller.eventList.length - 1

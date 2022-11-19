@@ -12,14 +12,12 @@ const String contactMail = 'mailto:imamagun94@gmail.com';
 
 const String sourceCodeLink =
     'https://github.com/imamhossain94/Heroku-Wakes-Up';
-// const String appLink = 'market://details?id=com.newagedevs.heroku_wake_up';
-// const String storeLink = 'market://developer?id=NewAgeDevs';
 const String appLink =
     'https://play.google.com/store/apps/details?id=com.newagedevs.heroku_wake_up';
 const String storeLink =
     'https://play.google.com/store/apps/developer?id=NewAgeDevs';
 const String websiteUrl = 'https://newagedevs.com/';
-const String privacyPolicyUrl = '';
+const String privacyPolicyUrl = 'https://heroku-wake-up.blogspot.com/2022/11/heroku-wake-up.html';
 
 // Test ads unit id Google
 // const String idBanner = "ca-app-pub-3940256099942544/6300978111";

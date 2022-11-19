@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:heroku_wake_up/app/model/activity.dart';
 import 'package:heroku_wake_up/app/model/heroku_app.dart';
 import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:hive/hive.dart';
@@ -23,12 +24,15 @@ const String isolateName = 'wake_up';
 ReceivePort port = ReceivePort();
 
 Future<void> initHive() async {
-  if (!Hive.isAdapterRegistered(0) && !Hive.isAdapterRegistered(1)) {
+  if (!Hive.isAdapterRegistered(0) &&
+      !Hive.isAdapterRegistered(1) &&
+      !Hive.isAdapterRegistered(2)) {
     final appDocDir = await getApplicationDocumentsDirectory();
     Hive
       ..init(appDocDir.path)
       ..registerAdapter(HerokuAppAdapter())
-      ..registerAdapter(EventsAdapter());
+      ..registerAdapter(EventsAdapter())
+      ..registerAdapter(ActivityAdapter());
   }
   await HiveHelper().init();
 }
