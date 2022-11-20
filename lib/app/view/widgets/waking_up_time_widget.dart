@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../controller/heroku_wake_up_app_controller.dart';
-import '../../utils/constants.dart';
 
 Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
   return FadeInUp(

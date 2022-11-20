@@ -34,23 +34,44 @@ class ActivityLogs extends StatelessWidget {
     double success,
     double error,
   ) {
+    // Events data
     double eventFromY = 0;
     double eventToY = events != 0 ? events : 0;
     Color eventBarColor = eventColor;
 
-    double successFromY = events != 0 ? eventToY + betweenSpace : 0;
-    double successToY = events != 0 ? eventToY + betweenSpace + success : 0;
+    // Success data
+    double successFromY =
+        events != 0 && success != 0 ? eventToY + betweenSpace : 0;
+    double successToY = events != 0 && success != 0 ? eventToY + success : 0;
     Color successBarColor = successColor;
 
-    double errorFromY = events != 0 ? successToY + betweenSpace : 0;
-    double errorToY = events != 0 ? successToY + betweenSpace + error : 0;
+    // Error data
+    double errorFromY = events != 0 && success != 0
+        ? successToY + betweenSpace
+        : events != 0 && error != 0
+            ? eventToY + betweenSpace
+            : 0;
+
+    double errorToY = events != 0 && success != 0
+        ? successToY + error + betweenSpace
+        : events != 0 && error != 0
+            ? eventToY + error + betweenSpace
+            : 0;
+
     Color errorBarColor = errorColor;
 
     double inactiveFromY = 0;
 
-    if (eventToY != 0) inactiveFromY = errorToY + betweenSpace;
-    if (successToY != 0) inactiveFromY = successToY + betweenSpace;
-    if (errorToY != 0) inactiveFromY = errorToY + betweenSpace;
+    if (events != 0) {
+      if (success != 0) {
+        inactiveFromY = events + success + betweenSpace;
+        if (error != 0) {
+          inactiveFromY = events + success + error + (2 * betweenSpace);
+        }
+      } else if (error != 0) {
+        inactiveFromY = events + error + betweenSpace;
+      }
+    }
 
     double inactiveToY = barMaxHeight;
     Color inactiveBarColor = emptyColor;

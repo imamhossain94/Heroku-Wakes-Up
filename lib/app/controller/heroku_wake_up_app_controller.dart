@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroku_wake_up/main.dart';
@@ -43,6 +44,7 @@ class HerokuWakeUpAppController extends GetxController {
 
   @override
   void onInit() {
+    checkForBatteryOptimization();
     appNameTextController = TextEditingController();
     appLinkTextController = TextEditingController();
     fetchApps();
@@ -72,6 +74,17 @@ class HerokuWakeUpAppController extends GetxController {
     generateActivityLogData();
     isLoading(false);
   }
+
+  void checkForBatteryOptimization() async {
+    bool? isBatteryOptimizationDisabled = await DisableBatteryOptimization
+        .isBatteryOptimizationDisabled ?? false;
+
+    if(!isBatteryOptimizationDisabled) {
+      DisableBatteryOptimization
+          .showDisableBatteryOptimizationSettings();
+    }
+  }
+
 
   void generateActivityLogData() async {
     if (chartData.isEmpty) {
