@@ -45,6 +45,7 @@ class DashboardView extends StatelessWidget {
                             totalEvents: controller.eventList.length)),
                         sectionTitle(
                             title: 'App list',
+                            animDuration: 500,
                             onAddClick: () {
                               controller.resetControllerValue();
                               Get.to(CreateAppView(
@@ -68,6 +69,7 @@ class DashboardView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return appCard(
                                     app: controller.appList[index],
+                                    animDuration: 800 + (10 * index).round(),
                                     cardColor: colorList[index],
                                     statusColor: colorList[index],
                                     confirmDismiss: (direction) async {
@@ -93,6 +95,7 @@ class DashboardView extends StatelessWidget {
                         ),
                         sectionTitle(
                           title: 'Activity logs',
+                          animDuration: 500,
                         ),
                         Obx(() => controller.chartData.isEmpty
                             ? empty("Empty")
@@ -104,6 +107,7 @@ class DashboardView extends StatelessWidget {
                         )),
                         sectionTitle(
                             title: 'Events Logs',
+                            animDuration: 500,
                             onListClick: () => Get.to(EventsLogsView(
                               controller: controller,
                             ))),

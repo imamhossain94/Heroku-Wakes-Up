@@ -1,11 +1,9 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../utils/constants.dart';
 import 'empty_message.dart';
 import 'table_widgets.dart';
 
@@ -46,7 +44,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
                     textColor: Colors.black,
                     fontSize: 8.sp,
                     bgColor: const Color(0xFFe2e8f0),
-                    borderRadius: null,
+                    animDuration: 800 + (10 * index).round(),
                     data: [
                       DateFormat("dd.MM.yyyy h:mm a")
                           .format(DateTime.parse(controller.eventList[index].timestamp)).toString(),

@@ -8,9 +8,9 @@ Widget customTextEditingField(
     {required String hintText,
       required Color bgColor,
       TextEditingController? controller,
-      required int duration}) {
+      required int animDuration}) {
   return FadeInUp(
-    duration: Duration(milliseconds: duration),
+    duration: Duration(milliseconds: animDuration),
     child: Padding(
       padding: EdgeInsets.fromLTRB(10.sp, 0.sp, 10.sp, 5.sp),
       child: TextFormField(

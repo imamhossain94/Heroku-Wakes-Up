@@ -119,7 +119,7 @@ class MenuView extends StatelessWidget {
                     title: 'Write us',
                     description: 'imamagun94@gmail.com',
                     bgColor: const Color(0x1A4EBBFF),
-                    duration: 500,
+                    duration: 800,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(contactMail))) {
                         throw 'Could not launch $contactMail';
@@ -133,7 +133,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'link'),
                     bgColor: const Color(0x1AFFA451),
-                    duration: 500,
+                    duration: 810,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(websiteUrl))) {
                         throw 'Could not launch $websiteUrl';
@@ -147,7 +147,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'link'),
                     bgColor: const Color(0x1A53F1F1),
-                    duration: 500,
+                    duration: 820,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(privacyPolicyUrl))) {
                         throw 'Could not launch $privacyPolicyUrl';
@@ -157,7 +157,7 @@ class MenuView extends StatelessWidget {
                     title: 'Feedback',
                     description: 'imamagun94@gmail.com',
                     bgColor: const Color(0x1AFF79D8),
-                    duration: 500,
+                    duration: 830,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(feedbackMail))) {
                         throw 'Could not launch $feedbackMail';
@@ -171,7 +171,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'star'),
                     bgColor: const Color(0x1AFF7171),
-                    duration: 500,
+                    duration: 840,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(appLink),
                           mode: LaunchMode.externalApplication)) {
@@ -186,7 +186,7 @@ class MenuView extends StatelessWidget {
                         color: Colors.black,
                         semanticsLabel: 'play_store'),
                     bgColor: const Color(0x1AAE7AFB),
-                    duration: 500,
+                    duration: 850,
                     onTap: () async {
                       if (!await launchUrl(Uri.parse(storeLink),
                           mode: LaunchMode.externalApplication)) {
@@ -211,12 +211,12 @@ class MenuView extends StatelessWidget {
                     title: 'Icons by',
                     description: 'svgrepo.com',
                     bgColor: const Color(0x1A575880),
-                    duration: 500),
+                    duration: 860),
                 menuItem(
                   title: 'Version',
                   description: appVersion(),
                   bgColor: const Color(0x1AFFB711),
-                  duration: 500,
+                  duration: 870,
                 ),
               ],
             ),

@@ -125,8 +125,7 @@ class EventsLogsView extends StatelessWidget {
                               padding:
                                   EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                               child: TRow(
-                                  animDuration: 100,
-                                      //500 + (500 * (index / 50)).round(),
+                                  animDuration: 800 + (10 * index).round(),
                                   textColor: Colors.blueGrey,
                                   bgColor: const Color(0xFFe2e8f0),
                                   fontSize: 8.sp,

@@ -38,30 +38,34 @@ class CreateAppView extends StatelessWidget {
                 ),
                 sectionTitle(
                   title: 'App name',
+                  animDuration: 800
                 ),
                 customTextEditingField(
                     hintText: 'Ex- Bubt Smart Notice',
                     controller: controller.appNameTextController,
-                    duration: 500,
+                    animDuration: 810,
                     bgColor: const Color(0x33cbd5e1)),
                 sectionTitle(
                   title: 'Link',
+                    animDuration: 820
                 ),
                 customTextEditingField(
                     hintText: 'Ex- https://smart-notice-bubt.herokuapp.com/',
                     controller: controller.appLinkTextController,
-                    duration: 500,
+                    animDuration: 830,
                     bgColor: const Color(0x33cbd5e1)),
                 sectionTitle(
                   title: 'From when to take this service?',
+                    animDuration: 840
                 ),
                 customTimePicker(controller: controller),
                 sectionTitle(
                   title: 'Give me a cup of coffee every?',
+                    animDuration: 860
                 ),
                 intervalTimePicker(controller: controller),
                 FadeInUp(
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 880),
                   child: Padding(
                     padding: EdgeInsets.only(
                         left: 15.sp, right: 10.sp, top: 15.sp, bottom: 5.sp),
@@ -78,7 +82,6 @@ class CreateAppView extends StatelessWidget {
                         )),
                   ),
                 ),
-
                 wakingUpTimesWidget(controller: controller)
               ],
             ),

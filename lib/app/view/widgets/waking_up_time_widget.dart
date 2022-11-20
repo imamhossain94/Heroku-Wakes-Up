@@ -8,7 +8,7 @@ import '../../controller/heroku_wake_up_app_controller.dart';
 
 Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
   return FadeInUp(
-    duration: const Duration(milliseconds: 800),
+    duration: const Duration(milliseconds: 890),
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
       child: Obx(() => ListView.builder(
@@ -19,54 +19,57 @@ Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
               : controller.coffeeServingTimes.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: 8.sp),
-              child: Dismissible(
-                key: Key(controller.coffeeServingTimes[index]),
-                background: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(8.sp)),
-                  child: Text(
-                    "Delete",
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+            return FadeInUp(
+              duration: Duration(milliseconds: 870 + (10 * index).round()),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 8.sp),
+                child: Dismissible(
+                  key: Key(controller.coffeeServingTimes[index]),
+                  background: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8.sp)),
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                confirmDismiss: (direction) async {
-                  controller.coffeeServingTimes.removeAt(index);
-                  return true;
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(8.sp),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFe2e8f0),
-                      borderRadius: BorderRadius.circular(8.sp),
-                      border: Border.all(color: const Color(0xFFe2e8f0),)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset("assets/icon/clock_square.svg",
-                          height: 12.sp,
-                          width: 12.sp,
-                          color: Colors.black,
-                          semanticsLabel: 'heroku-icon'),
-                      SizedBox(
-                        width: 8.sp,
-                      ),
-                      Text(
-                        controller.coffeeServingTimes[index],
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ],
+                  confirmDismiss: (direction) async {
+                    controller.coffeeServingTimes.removeAt(index);
+                    return true;
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(8.sp),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFe2e8f0),
+                        borderRadius: BorderRadius.circular(8.sp),
+                        border: Border.all(color: const Color(0xFFe2e8f0),)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset("assets/icon/clock_square.svg",
+                            height: 12.sp,
+                            width: 12.sp,
+                            color: Colors.black,
+                            semanticsLabel: 'heroku-icon'),
+                        SizedBox(
+                          width: 8.sp,
+                        ),
+                        Text(
+                          controller.coffeeServingTimes[index],
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

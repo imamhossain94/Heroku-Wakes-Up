@@ -103,6 +103,7 @@ class AppListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return appCard(
                             app: controller.appList[index],
+                            animDuration: 800 + (10 * index).round(),
                             cardColor: colorList[index],
                             statusColor: colorList[index],
                             confirmDismiss: (direction) async {

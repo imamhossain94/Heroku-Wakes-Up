@@ -8,9 +8,10 @@ Widget appCard(
         {required HerokuApp app,
         required Color cardColor,
         required Color statusColor,
+          required int animDuration,
         required Future<bool?> Function(DismissDirection)? confirmDismiss}) =>
     FadeInUp(
-      duration: const Duration(milliseconds: 800),
+      duration: Duration(milliseconds: animDuration),
       child: Padding(
         padding: EdgeInsets.only(left: 10.sp, right: 10.sp, bottom: 8.sp),
         child: Dismissible(

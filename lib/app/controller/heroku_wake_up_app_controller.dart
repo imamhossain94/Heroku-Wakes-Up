@@ -242,7 +242,7 @@ class HerokuWakeUpAppController extends GetxController {
       }on Exception catch (_){ }
 
       bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 1), id, repeatTask,
+          const Duration(minutes: 5), id, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
       setBackgroundFetchRunningStatus(result);
       await saveEvent(Events(

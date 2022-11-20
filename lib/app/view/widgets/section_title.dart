@@ -6,9 +6,10 @@ import 'package:sizer/sizer.dart';
 Widget sectionTitle(
         {required String title,
         VoidCallback? onAddClick,
+          required int animDuration,
         VoidCallback? onListClick}) =>
     FadeInUp(
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: animDuration),
       child: Padding(
         padding: EdgeInsets.only(
             left: 15.sp, right: 10.sp, top: 15.sp, bottom: 5.sp),
