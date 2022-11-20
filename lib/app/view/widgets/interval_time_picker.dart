@@ -15,7 +15,7 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
         child: Container(
           padding: EdgeInsets.all(10.sp),
           decoration: BoxDecoration(
-              color: const Color(0xFFD4D6C0).withOpacity(0.03),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8.sp),
               border:
                   Border.all(color: const Color(0xFFD4D6C0).withOpacity(0.3))),
@@ -29,7 +29,7 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        color: colorList[3],
+                        color:  const Color(0x33cbd5e1),
                         onTap: controller.intervalTimeIncrement),
                     Obx(() => controller.intervalHourOrMinuteIndex.value == 0
                         ? _selectedText(
@@ -40,7 +40,7 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
                                 controller.intervalMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        color: colorList[9],
+                        color:  const Color(0x33cbd5e1),
                         onTap: controller.intervalTimeDecrement),
                   ],
                 ),
@@ -55,14 +55,14 @@ Widget intervalTimePicker({required HerokuWakeUpAppController controller}) {
                   children: [
                     _arrowButton(
                         iconPath: 'assets/icon/up_arrow.svg',
-                        color: colorList[9],
+                        color: const Color(0x33cbd5e1),
                         onTap: controller.intervalClockTypeIncrement),
                     Obx(() => _selectedText(
                         value: intervalHourOrMinute[
                             controller.intervalHourOrMinuteIndex.value])),
                     _arrowButton(
                         iconPath: 'assets/icon/down_arrow.svg',
-                        color: colorList[3],
+                        color:  const Color(0x33cbd5e1),
                         onTap: controller.intervalClockTypeDecrement),
                   ],
                 ),
@@ -90,7 +90,7 @@ Widget _arrowButton({required String iconPath, VoidCallback? onTap, required Col
             child: SvgPicture.asset(iconPath,
                 height: 12.sp,
                 width: 12.sp,
-                color: color,
+                color: Colors.black26,
                 semanticsLabel: 'arrow'),
           ),
         ),

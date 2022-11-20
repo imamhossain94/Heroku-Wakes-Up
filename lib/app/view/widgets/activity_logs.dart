@@ -14,7 +14,7 @@ class ActivityLogs extends StatelessWidget {
   static const eventColor = Color(0xFFFFBD44);
   static const errorColor = Color(0xFFFE605C);
   static const successColor = Color(0xFF00CA4E);
-  static const emptyColor = Color(0x194B4B51);
+  static const emptyColor = Color(0x599ca3af);
   static const betweenSpace = 0.2;
   static double barMaxHeight = 0.0;
 
@@ -108,7 +108,7 @@ class ActivityLogs extends StatelessWidget {
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: Colors.white,
+          color: const Color(0xFFf8fafc),
           border: Border.all(color: const Color(0xFFF1F3F2)),
         ),
         child: Column(

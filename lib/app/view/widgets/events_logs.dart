@@ -15,10 +15,18 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
       Padding(
         padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 15.sp),
         child: THeader(
-          bgColor: colorList[3],
+          bgColor: const Color(0xFF94a3b8),
           padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
-          textColor: Colors.black54,
+          textColor: Colors.white,
           fontSize: 10.sp,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF94a3b8).withOpacity(0.5),
+              spreadRadius: 0.5,
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
       ),
       Obx(
@@ -37,7 +45,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
                 child: TRow(
                     textColor: Colors.black,
                     fontSize: 8.sp,
-                    bgColor: colorList[index],
+                    bgColor: const Color(0xFFe2e8f0),
                     borderRadius: null,
                     data: [
                       DateFormat("dd.MM.yyyy h:mm a")

@@ -46,9 +46,9 @@ Widget wakingUpTimesWidget({required HerokuWakeUpAppController controller}) {
                   width: double.infinity,
                   padding: EdgeInsets.all(8.sp),
                   decoration: BoxDecoration(
-                      color: colorList[index],
+                      color: const Color(0xFFe2e8f0),
                       borderRadius: BorderRadius.circular(8.sp),
-                      border: Border.all(color: colorList[index])),
+                      border: Border.all(color: const Color(0xFFe2e8f0),)),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

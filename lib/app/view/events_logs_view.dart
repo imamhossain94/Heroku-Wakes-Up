@@ -128,7 +128,7 @@ class EventsLogsView extends StatelessWidget {
                                   animDuration: 100,
                                       //500 + (500 * (index / 50)).round(),
                                   textColor: Colors.blueGrey,
-                                  bgColor: colorList[index],
+                                  bgColor: const Color(0xFFe2e8f0),
                                   fontSize: 8.sp,
                                   data: [
                                     DateFormat("dd.MM.yyyy h:mm a")

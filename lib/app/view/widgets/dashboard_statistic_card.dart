@@ -25,7 +25,7 @@ Widget dashboardStatisticCard(
               width: 8.sp,
             ),
             statisticCard(
-                cardColor: const Color(0xCC613C96),
+                cardColor: const Color(0xFF8b5cf6),
                 icon: SvgPicture.asset("assets/icon/statistic.svg",
                     height: 24.sp,
                     width: 24.sp,

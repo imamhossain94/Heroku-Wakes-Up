@@ -43,7 +43,7 @@ class CreateAppView extends StatelessWidget {
                     hintText: 'Ex- Bubt Smart Notice',
                     controller: controller.appNameTextController,
                     duration: 500,
-                    bgColor: const Color(0x33ffb711)),
+                    bgColor: const Color(0x33cbd5e1)),
                 sectionTitle(
                   title: 'Link',
                 ),
@@ -51,7 +51,7 @@ class CreateAppView extends StatelessWidget {
                     hintText: 'Ex- https://smart-notice-bubt.herokuapp.com/',
                     controller: controller.appLinkTextController,
                     duration: 500,
-                    bgColor: const Color(0x33ff7171)),
+                    bgColor: const Color(0x33cbd5e1)),
                 sectionTitle(
                   title: 'From when to take this service?',
                 ),
