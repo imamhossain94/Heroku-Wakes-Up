@@ -410,12 +410,32 @@ class HerokuWakeUpAppController extends GetxController {
   }
 
   void deleteAllHerokuApp() {
-    deleteAllApp();
-    resetControllerValue();
+    final snackBar = SnackBar(
+      content: const Text('Are you sure you want to delete'),
+      action: SnackBarAction(
+        label: 'Delete',
+        onPressed: () {
+          deleteAllApp();
+          resetControllerValue();
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
   }
 
   void deleteAllHerokuEvents() {
-    deleteAllEvent();
-    resetControllerValue();
+    final snackBar = SnackBar(
+      content: const Text('Are you sure you want to delete'),
+      action: SnackBarAction(
+        label: 'Delete',
+        onPressed: () {
+          deleteAllEvent();
+          resetControllerValue();
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
   }
 }
