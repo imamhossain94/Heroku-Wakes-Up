@@ -1,7 +1,6 @@
 # Heroku Wake up
 
-A foreground service worker app for your personal/ business phone that will wake up "Heroku" App
-based on conditions. It may save free dyno hours.
+Smartly give your Heroku app a cup of coffee so it never sleeps and saves the dyno hour.
 
 ## Problem
 
