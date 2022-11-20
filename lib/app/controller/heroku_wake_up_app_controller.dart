@@ -90,7 +90,7 @@ class HerokuWakeUpAppController extends GetxController {
       int failureEvents = 0;
 
       for (var activity in activities) {
-        var activityDate = DateTime.parse(activity.id);
+        var activityDate = DateFormat('d/M/yyyy').parse(activity.id);
         if (date.month == activityDate.month && date.day == activityDate.day) {
           totalEvents = activity.events;
           successEvents = activity.success;
@@ -194,7 +194,7 @@ class HerokuWakeUpAppController extends GetxController {
       if (flag) {
         try {
           var response = await Dio().get(app.link);
-          saveEvent(Events(
+          await saveEvent(Events(
             id: const Uuid().v1().toString(),
             appId: app.id,
             appName: app.name,
@@ -203,7 +203,7 @@ class HerokuWakeUpAppController extends GetxController {
             summary: '$response',
           ));
         } catch (e) {
-          saveEvent(Events(
+          await saveEvent(Events(
             id: const Uuid().v1().toString(),
             appId: app.id,
             appName: app.name,
@@ -229,10 +229,10 @@ class HerokuWakeUpAppController extends GetxController {
       }on Exception catch (_){ }
 
       bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 5), id, repeatTask,
+          const Duration(minutes: 1), id, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
       setBackgroundFetchRunningStatus(result);
-      saveEvent(Events(
+      await saveEvent(Events(
         id: const Uuid().v1().toString(),
         appId: id.toString(),
         appName: "AndroidAlarmManager",

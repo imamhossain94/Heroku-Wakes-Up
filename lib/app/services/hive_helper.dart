@@ -1,5 +1,6 @@
 import 'package:heroku_wake_up/app/model/heroku_app.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 import '../model/activity.dart';
 import '../model/events.dart';
@@ -40,13 +41,14 @@ void deleteAllApp() async {
 List<Events> getEventList() {
   List events = <Events>[];
   events = HiveHelper.eventBox.values.toList();
-  events.sort((b, a) => DateTime.parse(a.timestamp).compareTo(DateTime.parse(b.timestamp)));
+  events.sort((b, a) =>
+      DateTime.parse(a.timestamp).compareTo(DateTime.parse(b.timestamp)));
   return List<Events>.from(events).toList();
 }
 
 Future<void> saveEvent(Events event) async {
   var len = HiveHelper.eventBox.values.length;
-  if(len > 50){
+  if (len > 50) {
     var firstEvent = HiveHelper.eventBox.values.first;
     HiveHelper.eventBox.delete(firstEvent.id);
   }
@@ -66,12 +68,15 @@ Future<void> deleteAllEvent() async {
 List<Activity> getActivities() {
   List activities = <Activity>[];
   activities = HiveHelper.activityBox.values.toList();
-  activities.sort((b, a) => DateTime.parse(a.id).compareTo(DateTime.parse(b.id)));
+  activities.sort((b, a) => DateFormat('d/M/yyyy')
+      .parse(a.id)
+      .compareTo(DateFormat('d/M/yyyy').parse(b.id)));
   return List<Activity>.from(activities).toList();
 }
 
 Future<void> saveActivity(Events event) async {
-  var key = DateTime.now().toString(); //var key = DateFormat('d/M/yyyy').format(now).toString();
+  var now = DateTime.now();
+  var key = DateFormat('d/M/yyyy').format(now).toString();
   Activity activity = await HiveHelper.activityBox.get(key) ??
       Activity(id: key, events: 0, success: 0, failure: 0);
   activity.events += 1;

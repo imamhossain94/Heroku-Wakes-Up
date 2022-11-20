@@ -104,7 +104,7 @@ class WelcomeView extends StatelessWidget {
                             padding:
                                 EdgeInsets.fromLTRB(50.sp, 0, 50.sp, 50.sp),
                             child: Text(
-                              "Smartly give your free Heroku app a cup of coffee so it never sleeps and saves the dyno hour",
+                              "Smartly give your Heroku app a cup of coffee so it never sleeps and saves the dyno hour",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(

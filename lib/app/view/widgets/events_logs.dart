@@ -30,21 +30,15 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
             itemCount: controller.eventList.length < 5
                 ? controller.eventList.length
                 : 5,
-            reverse: false,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, ind) {
-              int index = (controller.eventList.length -1) - ind;
+            itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(10.sp, 0, 10.sp, 5.sp),
                 child: TRow(
                     textColor: Colors.black,
                     fontSize: 8.sp,
-                    bgColor: colorList[ind],
-                    borderRadius: index == 0//controller.eventList.length - 1
-                        ? BorderRadius.only(
-                            bottomRight: Radius.circular(8.sp),
-                            bottomLeft: Radius.circular(8.sp))
-                        : null,
+                    bgColor: colorList[index],
+                    borderRadius: null,
                     data: [
                       DateFormat("dd.MM.yyyy h:mm a")
                           .format(DateTime.parse(controller.eventList[index].timestamp)).toString(),

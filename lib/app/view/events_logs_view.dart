@@ -119,7 +119,6 @@ class EventsLogsView extends StatelessWidget {
                           shrinkWrap: true,
                           padding: EdgeInsets.zero,
                           itemCount: controller.eventList.length,
-                          reverse: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Padding(
@@ -131,12 +130,6 @@ class EventsLogsView extends StatelessWidget {
                                   textColor: Colors.blueGrey,
                                   bgColor: colorList[index],
                                   fontSize: 8.sp,
-                                  borderRadius: index ==
-                                          0 //controller.eventList.length - 1
-                                      ? BorderRadius.only(
-                                          bottomRight: Radius.circular(8.sp),
-                                          bottomLeft: Radius.circular(8.sp))
-                                      : null,
                                   data: [
                                     DateFormat("dd.MM.yyyy h:mm a")
                                         .format(DateTime.parse(controller

@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:heroku_wake_up/app/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 import 'legend_widget.dart';
@@ -15,7 +14,19 @@ class ActivityLogs extends StatelessWidget {
   static const eventColor = Color(0xFFFFBD44);
   static const errorColor = Color(0xFFFE605C);
   static const successColor = Color(0xFF00CA4E);
-  static const betweenSpace = 1;
+  static const emptyColor = Color(0x194B4B51);
+  static const betweenSpace = 0.2;
+  static double barMaxHeight = 0.0;
+
+  double getMaxXAxis() {
+    int te = 0, se = 0, ee = 0;
+    for (var data in chartData) {
+      if (te <= data[0]) te = data[0];
+      if (se <= data[1]) se = data[1];
+      if (ee <= data[2]) ee = data[2];
+    }
+    return te + se + ee + (betweenSpace * 2);
+  }
 
   BarChartGroupData generateGroupData(
     int x,
@@ -23,31 +34,53 @@ class ActivityLogs extends StatelessWidget {
     double success,
     double error,
   ) {
+    double eventFromY = 0;
+    double eventToY = events != 0 ? events : 0;
+    Color eventBarColor = eventColor;
+
+    double successFromY = events != 0 ? eventToY + betweenSpace : 0;
+    double successToY = events != 0 ? eventToY + betweenSpace + success : 0;
+    Color successBarColor = successColor;
+
+    double errorFromY = events != 0 ? successToY + betweenSpace : 0;
+    double errorToY = events != 0 ? successToY + betweenSpace + error : 0;
+    Color errorBarColor = errorColor;
+
+    double inactiveFromY = 0;
+
+    if (eventToY != 0) inactiveFromY = errorToY + betweenSpace;
+    if (successToY != 0) inactiveFromY = successToY + betweenSpace;
+    if (errorToY != 0) inactiveFromY = errorToY + betweenSpace;
+
+    double inactiveToY = barMaxHeight;
+    Color inactiveBarColor = emptyColor;
+
     return BarChartGroupData(
       x: x,
       groupVertically: true,
       barRods: [
         BarChartRodData(
-          fromY: 0,
-          toY: events != 0 ? events : getMaxXAxis() + (betweenSpace * 3),
-          color: events != 0 ? eventColor : Colors.transparent,
+          fromY: eventFromY,
+          toY: eventToY,
+          color: eventBarColor,
           width: 5,
         ),
         BarChartRodData(
-          fromY: events + betweenSpace,
-          toY: error != 0
-              ? events + (betweenSpace * 2) + success
-              : events + betweenSpace + success,
-          color: successColor,
+          fromY: successFromY,
+          toY: successToY,
+          color: successBarColor,
           width: 5,
         ),
         BarChartRodData(
-          fromY:
-              events != 0 ? events + betweenSpace + success + betweenSpace : 0,
-          toY: error != 0
-              ? events + betweenSpace + success + betweenSpace + error
-              : getMaxXAxis() + (betweenSpace * 3),
-          color: error != 0 ? errorColor : const Color(0x194B4B51),
+          fromY: errorFromY,
+          toY: errorToY,
+          color: errorBarColor,
+          width: 5,
+        ),
+        BarChartRodData(
+          fromY: inactiveFromY,
+          toY: inactiveToY,
+          color: inactiveBarColor,
           width: 5,
         ),
       ],
@@ -66,26 +99,17 @@ class ActivityLogs extends StatelessWidget {
     );
   }
 
-  int getMaxXAxis() {
-    int te = 0, se = 0, ee = 0;
-    for (var data in chartData) {
-      if (te <= data[0]) te = data[0];
-      if (se <= data[1]) se = data[1];
-      if (ee <= data[2]) ee = data[2];
-    }
-    return te + se + ee;
-  }
-
   @override
   Widget build(BuildContext context) {
+    barMaxHeight = getMaxXAxis();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
       child: Container(
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            color: Colors.white,
-            border: Border.all(color: const Color(0xFFF1F3F2)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          color: Colors.white,
+          border: Border.all(color: const Color(0xFFF1F3F2)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -127,7 +151,7 @@ class ActivityLogs extends StatelessWidget {
                           chartData[i][1].toDouble(),
                           chartData[i][2].toDouble())
                   ],
-                  maxY: getMaxXAxis() + (betweenSpace * 3),
+                  maxY: barMaxHeight,
                 ),
               ),
             ),
