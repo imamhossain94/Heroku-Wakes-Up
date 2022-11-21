@@ -44,10 +44,12 @@ void main() async {
   setAppVersion();
 
   // Register the UI isolateName
-  IsolateNameServer.registerPortWithName(
-    port.sendPort,
-    isolateName,
-  );
+  try {
+    IsolateNameServer.registerPortWithName(
+      port.sendPort,
+      isolateName,
+    );
+  } on Exception catch (_) {}
 
   runApp(const MyApp());
 }

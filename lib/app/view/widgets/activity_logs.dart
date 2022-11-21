@@ -15,7 +15,7 @@ class ActivityLogs extends StatelessWidget {
   static const errorColor = Color(0xFFFE605C);
   static const successColor = Color(0xFF00CA4E);
   static const emptyColor = Color(0x599ca3af);
-  static const betweenSpace = 0.2;
+  static double betweenSpace = 0.2;
   static double barMaxHeight = 0.0;
 
   double getMaxXAxis() {
@@ -25,6 +25,7 @@ class ActivityLogs extends StatelessWidget {
       if (se <= data[1]) se = data[1];
       if (ee <= data[2]) ee = data[2];
     }
+    if(te != 0 && se != 0 && ee != 0) betweenSpace = (te + se + ee) / 60;
     return te + se + ee + (betweenSpace * 2);
   }
 
@@ -62,18 +63,18 @@ class ActivityLogs extends StatelessWidget {
 
     double inactiveFromY = 0;
 
-    if (events != 0) {
-      if (success != 0) {
-        inactiveFromY = events + success + betweenSpace;
-        if (error != 0) {
-          inactiveFromY = events + success + error + (2 * betweenSpace);
-        }
-      } else if (error != 0) {
-        inactiveFromY = events + error + betweenSpace;
-      }
-    }
+    // if (events != 0) {
+    //   if (success != 0) {
+    //     inactiveFromY = events + success + betweenSpace;
+    //     if (error != 0) {
+    //       inactiveFromY = events + success + error + (2 * betweenSpace);
+    //     }
+    //   } else if (error != 0) {
+    //     inactiveFromY = events + error + betweenSpace;
+    //   }
+    // }
 
-    double inactiveToY = barMaxHeight;
+    double inactiveToY = events != 0? 0: barMaxHeight;
     Color inactiveBarColor = emptyColor;
 
     return BarChartGroupData(

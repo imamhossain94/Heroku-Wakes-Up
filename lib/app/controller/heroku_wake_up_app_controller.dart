@@ -23,6 +23,7 @@ class HerokuWakeUpAppController extends GetxController {
   var isLoading = false.obs;
   var appList = <HerokuApp>[].obs;
   var eventList = <Events>[].obs;
+  var totalEvents = 0.obs;
   var id = '';
 
   var isLoadingEvent = false.obs;
@@ -71,6 +72,7 @@ class HerokuWakeUpAppController extends GetxController {
   void fetchEvents() {
     isLoading(true);
     eventList.value = getEventList();
+    totalEvents.value = getEventCounter();
     generateActivityLogData();
     isLoading(false);
   }
@@ -228,8 +230,10 @@ class HerokuWakeUpAppController extends GetxController {
       }
     }
 
-    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
-    uiSendPort?.send(null);
+    try{
+      uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+      uiSendPort?.send(null);
+    }on Exception catch (_){ }
   }
 
   void startAlarmService() async {
@@ -242,7 +246,7 @@ class HerokuWakeUpAppController extends GetxController {
       }on Exception catch (_){ }
 
       bool result = await AndroidAlarmManager.periodic(
-          const Duration(minutes: 5), id, repeatTask,
+          const Duration(minutes: 1), id, repeatTask,
           rescheduleOnReboot: true, exact: true, allowWhileIdle: true);
       setBackgroundFetchRunningStatus(result);
       await saveEvent(Events(

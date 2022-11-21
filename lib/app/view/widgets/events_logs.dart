@@ -29,7 +29,7 @@ Widget eventLogs({required HerokuWakeUpAppController controller}) {
       ),
       Obx(
         () => controller.eventList.isEmpty
-            ? empty("Empty")
+            ? empty(message: "Empty")
             : ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,

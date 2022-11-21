@@ -94,7 +94,7 @@ class AppListView extends StatelessWidget {
                 ),
                 Obx(
                   () => controller.appList.isEmpty
-                      ? empty("Empty")
+                      ? empty(message: "Empty")
                       : ListView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../model/activity.dart';
 import '../model/events.dart';
+import 'get_storage_service.dart';
 
 class HiveHelper {
   static late Box appBox;
@@ -48,12 +49,13 @@ List<Events> getEventList() {
 
 Future<void> saveEvent(Events event) async {
   var len = HiveHelper.eventBox.values.length;
-  if (len > 50) {
+  if (len >= 50) {
     var firstEvent = HiveHelper.eventBox.values.first;
     HiveHelper.eventBox.delete(firstEvent.id);
   }
   await HiveHelper.eventBox.put(event.id, event);
   await saveActivity(event);
+  setEventCounter();
 }
 
 void deleteEvent(Events event) async {

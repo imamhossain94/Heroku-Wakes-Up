@@ -4,7 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-Widget empty(String message) {
+Widget empty({required String message, double? height, VoidCallback? onTap}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10.sp),
     child: Material(
@@ -12,7 +12,7 @@ Widget empty(String message) {
       clipBehavior: Clip.hardEdge,
       borderRadius: BorderRadius.all(Radius.circular(8.sp)),
       child: InkWell(
-        onTap: null,
+        onTap: onTap,
         child: DottedBorder(
           borderType: BorderType.RRect,
           radius: Radius.circular(8.sp),
@@ -21,7 +21,7 @@ Widget empty(String message) {
           strokeWidth: 1,
           child: Container(
               width: double.infinity,
-              height: 60.sp,
+              height: height ?? 60.sp,
               alignment: Alignment.center,
               child: Text(
                 message,

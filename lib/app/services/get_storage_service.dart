@@ -26,3 +26,11 @@ bool isBackgroundFetchRunning() {
 void setBackgroundFetchRunningStatus(bool value) async {
   box.write("bg_fetch_status", value);
 }
+
+int getEventCounter() {
+  return box.read("event_counter") ?? 100;
+}
+void setEventCounter() async {
+  int counter = getEventCounter();
+  box.write("event_counter", counter++);
+}

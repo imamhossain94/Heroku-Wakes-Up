@@ -35,6 +35,7 @@ Widget appCard(
           confirmDismiss: confirmDismiss,
           child: Container(
             padding: EdgeInsets.all(15.sp),
+            clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
                 color: cardColor, borderRadius: BorderRadius.circular(8)),
             child: Row(
