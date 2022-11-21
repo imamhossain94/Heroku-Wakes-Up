@@ -25,4 +25,3 @@ List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   }
   return days;
 }
-

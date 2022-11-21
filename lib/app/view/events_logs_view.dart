@@ -7,7 +7,6 @@ import 'package:heroku_wake_up/app/controller/heroku_wake_up_app_controller.dart
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-import '../utils/constants.dart';
 import '../utils/system_overlay.dart';
 import 'widgets/empty_message.dart';
 import 'widgets/table_widgets.dart';
@@ -99,7 +98,8 @@ class EventsLogsView extends StatelessWidget {
                   child: THeader(
                     animDuration: 500,
                     bgColor: const Color(0xFF3B484C),
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.sp, vertical: 15.sp),
                     textColor: Colors.white,
                     fontSize: 10.sp,
                     boxShadow: [
@@ -118,7 +118,9 @@ class EventsLogsView extends StatelessWidget {
                       : ListView.builder(
                           shrinkWrap: true,
                           padding: EdgeInsets.zero,
-                          itemCount: controller.eventList.length,
+                          itemCount: controller.eventList.length > 11
+                              ? 11
+                              : controller.eventList.length,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Padding(

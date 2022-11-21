@@ -61,7 +61,8 @@ class AppListView extends StatelessWidget {
                               child: SvgPicture.asset("assets/icon/trash.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFF000000).withOpacity(0.7),
+                                  color:
+                                      const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -80,7 +81,8 @@ class AppListView extends StatelessWidget {
                                   "assets/icon/multiply.svg",
                                   height: 22.sp,
                                   width: 22.sp,
-                                  color: const Color(0xFF000000).withOpacity(0.7),
+                                  color:
+                                      const Color(0xFF000000).withOpacity(0.7),
                                   semanticsLabel: ''),
                             ),
                           ),
@@ -96,34 +98,37 @@ class AppListView extends StatelessWidget {
                   () => controller.appList.isEmpty
                       ? empty(message: "Empty")
                       : ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemCount: controller.appList.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return appCard(
-                            app: controller.appList[index],
-                            animDuration: 800 + (10 * index).round(),
-                            cardColor: colorList[index],
-                            statusColor: colorList[index],
-                            confirmDismiss: (direction) async {
-                              if (direction == DismissDirection.endToStart) {
-                                // TODO: delete this item.
-                                controller
-                                    .deleteHerokuApp(controller.appList[index]);
-                                return true;
-                              } else {
-                                // TODO: edit this item.
-                                controller
-                                    .loadControllerValueFromApp(
-                                        controller.appList[index])
-                                    .then((value) => Get.to(CreateAppView(
-                                          controller: controller,
-                                        )));
-                              }
-                              return null;
-                            });
-                      }),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          itemCount: controller.appList.length > 11
+                              ? 11
+                              : controller.appList.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return appCard(
+                                app: controller.appList[index],
+                                animDuration: 800 + (10 * index).round(),
+                                cardColor: colorList[index],
+                                statusColor: colorList[index],
+                                confirmDismiss: (direction) async {
+                                  if (direction ==
+                                      DismissDirection.endToStart) {
+                                    // TODO: delete this item.
+                                    controller.deleteHerokuApp(
+                                        controller.appList[index]);
+                                    return true;
+                                  } else {
+                                    // TODO: edit this item.
+                                    controller
+                                        .loadControllerValueFromApp(
+                                            controller.appList[index])
+                                        .then((value) => Get.to(CreateAppView(
+                                              controller: controller,
+                                            )));
+                                  }
+                                  return null;
+                                });
+                          }),
                 ),
               ],
             ),

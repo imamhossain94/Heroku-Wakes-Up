@@ -78,15 +78,13 @@ class HerokuWakeUpAppController extends GetxController {
   }
 
   void checkForBatteryOptimization() async {
-    bool? isBatteryOptimizationDisabled = await DisableBatteryOptimization
-        .isBatteryOptimizationDisabled ?? false;
+    bool? isBatteryOptimizationDisabled =
+        await DisableBatteryOptimization.isBatteryOptimizationDisabled ?? false;
 
-    if(!isBatteryOptimizationDisabled) {
-      DisableBatteryOptimization
-          .showDisableBatteryOptimizationSettings();
+    if (!isBatteryOptimizationDisabled) {
+      DisableBatteryOptimization.showDisableBatteryOptimizationSettings();
     }
   }
-
 
   void generateActivityLogData() async {
     if (chartData.isEmpty) {
@@ -230,10 +228,10 @@ class HerokuWakeUpAppController extends GetxController {
       }
     }
 
-    try{
+    try {
       uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
       uiSendPort?.send(null);
-    }on Exception catch (_){ }
+    } on Exception catch (_) {}
   }
 
   void startAlarmService() async {
@@ -241,9 +239,9 @@ class HerokuWakeUpAppController extends GetxController {
       setBackgroundFetchRunningStatus(true);
     } else {
       int id = 1082030;
-      try{
+      try {
         AndroidAlarmManager.cancel(id);
-      }on Exception catch (_){ }
+      } on Exception catch (_) {}
 
       bool result = await AndroidAlarmManager.periodic(
           const Duration(minutes: 1), id, repeatTask,
