@@ -54,8 +54,8 @@ Future<void> saveEvent(Events event) async {
     HiveHelper.eventBox.delete(firstEvent.id);
   }
   await HiveHelper.eventBox.put(event.id, event);
-  await saveActivity(event);
   setEventCounter();
+  await saveActivity(event);
 }
 
 void deleteEvent(Events event) async {

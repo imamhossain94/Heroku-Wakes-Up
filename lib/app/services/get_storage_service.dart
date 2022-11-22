@@ -16,7 +16,7 @@ void setAppVersion() async {
 bool isFirstLaunch() {
   return box.read("first_launch") ?? true;
 }
-void setFirstLaunch() async {
+void setFirstLaunch() {
   box.write("first_launch", false);
 }
 
@@ -32,5 +32,5 @@ int getEventCounter() {
 }
 void setEventCounter() async {
   int counter = getEventCounter();
-  box.write("event_counter", counter++);
+  box.write("event_counter", counter += 1);
 }
