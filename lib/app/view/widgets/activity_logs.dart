@@ -25,7 +25,7 @@ class ActivityLogs extends StatelessWidget {
       if (se <= data[1]) se = data[1];
       if (ee <= data[2]) ee = data[2];
     }
-    if(te != 0 && se != 0 && ee != 0) betweenSpace = (te + se + ee) / 60;
+    if (te != 0) betweenSpace = (te + se + ee) / 60;
     return te + se + ee + (betweenSpace * 2);
   }
 
@@ -74,7 +74,7 @@ class ActivityLogs extends StatelessWidget {
     //   }
     // }
 
-    double inactiveToY = events != 0? 0: barMaxHeight;
+    double inactiveToY = events != 0 ? 0 : barMaxHeight;
     Color inactiveBarColor = emptyColor;
 
     return BarChartGroupData(

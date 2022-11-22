@@ -35,12 +35,12 @@ Future<void> initHive() async {
       ..registerAdapter(ActivityAdapter());
   }
   await HiveHelper().init();
+  await GetStorage.init();
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();
-  await GetStorage.init();
   setAppVersion();
 
   // Register the UI isolateName

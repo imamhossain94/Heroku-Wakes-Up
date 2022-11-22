@@ -28,7 +28,7 @@ void setBackgroundFetchRunningStatus(bool value) async {
 }
 
 int getEventCounter() {
-  return box.read("event_counter") ?? 100;
+  return box.read("event_counter") ?? 0;
 }
 void setEventCounter() async {
   int counter = getEventCounter();
