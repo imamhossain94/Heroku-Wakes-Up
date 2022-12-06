@@ -193,30 +193,30 @@ class MenuView extends StatelessWidget {
                         throw 'Could not launch $storeLink';
                       }
                     }),
-                // menuItem(
-                //     title: 'Source code',
-                //     icon: SvgPicture.asset("assets/icon/git.svg",
-                //         height: 14.sp,
-                //         width: 14.sp,
-                //         color: Colors.black,
-                //         semanticsLabel: 'git source'),
-                //     bgColor: const Color(0x1A2DE786),
-                //     duration: 500,
-                //     onTap: () async {
-                //       if (!await launchUrl(Uri.parse(sourceCodeLink))) {
-                //         throw 'Could not launch $storeLink';
-                //       }
-                //     }),
+                menuItem(
+                    title: 'Source code',
+                    icon: SvgPicture.asset("assets/icon/git.svg",
+                        height: 14.sp,
+                        width: 14.sp,
+                        color: Colors.black,
+                        semanticsLabel: 'git source'),
+                    bgColor: const Color(0x1A2DE786),
+                    duration: 860,
+                    onTap: () async {
+                      if (!await launchUrl(Uri.parse(sourceCodeLink))) {
+                        throw 'Could not launch $storeLink';
+                      }
+                    }),
                 menuItem(
                     title: 'Icons by',
                     description: 'svgrepo.com',
                     bgColor: const Color(0x1A575880),
-                    duration: 860),
+                    duration: 870),
                 menuItem(
                   title: 'Version',
                   description: appVersion(),
                   bgColor: const Color(0x1AFFB711),
-                  duration: 870,
+                  duration: 880,
                 ),
               ],
             ),
